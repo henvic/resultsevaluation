@@ -1,0 +1,2699 @@
+/home/taes/taes/projects/jodd/revisions/rev_fec02fa_d3a363b/rev_fec02fa-d3a363b/jodd-petite/src/main/java/jodd/petite/PetiteContainer.java;<<<<<<< MINE
+ * <ul>
+ * <li>PetiteContainer - top layer that provides business usage</li>
+ * <li>{@link PetiteRegistry}</li>
+ * <li>{@link PetiteBeans}</li>
+ * </ul>
+=======
+ * <ul>
+ * <li>PetiteContainer - top layer that provides business usage methods
+ * <li>{@link PetiteRegistry} - beans storage methods
+ * <li>{@link PetiteBeans} - base layer for storing beans in scopes
+>>>>>>> YOURS
+/home/taes/taes/projects/jodd/revisions/rev_fec02fa_d3a363b/rev_fec02fa-d3a363b/jodd-petite/src/main/java/jodd/petite/PetiteBeans.java;<<<<<<< MINE
+	 * <ul>
+	 * <li>if name is missing, it will be resolved from the class (name or annotation)</li>
+	 * <li>if wiring mode is missing, it will be resolved from the class (annotation or default one)</li>
+	 * <li>if scope type is missing, it will be resolved from the class (annotation or default one)</li>
+	 * </ul>
+=======
+	 * <ul>
+	 * <li>if name is missing, it will be resolved from the class (name or annotation)
+	 * <li>if wiring mode is missing, it will be resolved from the class (annotation or default one)
+	 * <li>if scope type is missing, it will be resolved from the class (annotation or default one)
+>>>>>>> YOURS
+/home/taes/taes/projects/liferay-plugins/revisions/rev_fc5104c_379a202/rev_fc5104c-379a202/portlets/opensocial-portlet/docroot/WEB-INF/src/com/liferay/opensocial/gadget/portlet/BaseGadgetPortlet.java;<<<<<<< MINE
+			ExpandoColumnLocalServiceUtil.addColumn(
+				expandoTable.getTableId(), columnName,
+				ExpandoColumnConstants.STRING);
+=======
+			ExpandoColumn expandoColumn =
+				ExpandoColumnLocalServiceUtil.addColumn(
+					expandoTable.getTableId(), columnName,
+					ExpandoColumnConstants.STRING);
+
+			Role role = RoleLocalServiceUtil.getRole(
+				expandoColumn.getCompanyId(), RoleConstants.USER);
+
+			ResourcePermissionLocalServiceUtil.setResourcePermissions(
+				expandoColumn.getCompanyId(), ExpandoColumn.class.getName(),
+				ResourceConstants.SCOPE_INDIVIDUAL,
+				String.valueOf(expandoColumn.getColumnId()), role.getRoleId(),
+				new String[] {ActionKeys.UPDATE, ActionKeys.VIEW});
+>>>>>>> YOURS
+/home/taes/taes/projects/liferay-plugins/revisions/rev_fc5104c_379a202/rev_fc5104c-379a202/portlets/opensocial-portlet/docroot/WEB-INF/src/com/liferay/opensocial/gadget/portlet/BaseGadgetPortlet.java;<<<<<<< MINE
+			ExpandoColumnLocalServiceUtil.addColumn(
+				expandoTable.getTableId(), columnName,
+				ExpandoColumnConstants.STRING);
+=======
+			ExpandoColumn expandoColumn =
+				ExpandoColumnLocalServiceUtil.addColumn(
+					expandoTable.getTableId(), columnName,
+					ExpandoColumnConstants.STRING);
+
+			Role role = RoleLocalServiceUtil.getRole(
+				expandoColumn.getCompanyId(), RoleConstants.USER);
+
+			ResourcePermissionLocalServiceUtil.setResourcePermissions(
+				expandoColumn.getCompanyId(), ExpandoColumn.class.getName(),
+				ResourceConstants.SCOPE_INDIVIDUAL,
+				String.valueOf(expandoColumn.getColumnId()), role.getRoleId(),
+				new String[] {ActionKeys.UPDATE, ActionKeys.VIEW});
+>>>>>>> YOURS
+/home/taes/taes/projects/elephant-bird/revisions/rev_2eb053b_b8dae6e/rev_2eb053b-b8dae6e/src/java/com/twitter/elephantbird/mapreduce/output/LzoProtobufBlockOutputFormat.java;<<<<<<< MINE
+  public RecordWriter getRecordWriter(TaskAttemptContext job)
+=======
+  public RecordWriter<NullWritable, W> getRecordWriter(TaskAttemptContext job)
+>>>>>>> YOURS
+/home/taes/taes/projects/elephant-bird/revisions/rev_2eb053b_b8dae6e/rev_2eb053b-b8dae6e/src/java/com/twitter/elephantbird/mapreduce/output/LzoProtobufB64LineOutputFormat.java;<<<<<<< MINE
+  public RecordWriter getRecordWriter(TaskAttemptContext job)
+=======
+  public RecordWriter<NullWritable, W> getRecordWriter(TaskAttemptContext job)
+>>>>>>> YOURS
+/home/taes/taes/projects/elephant-bird/revisions/rev_8eed34e_cebd3d0/rev_8eed34e-cebd3d0/src/java/com/twitter/elephantbird/mapreduce/output/LzoProtobufBlockOutputFormat.java;<<<<<<< MINE
+    extends FileOutputFormat<NullWritable, W> {
+  private static final Logger LOG = LoggerFactory.getLogger(LzoProtobufBlockOutputFormat.class);
+=======
+    extends LzoOutputFormat<M, W> {
+>>>>>>> YOURS
+/home/taes/taes/projects/elephant-bird/revisions/rev_8eed34e_cebd3d0/rev_8eed34e-cebd3d0/src/java/com/twitter/elephantbird/mapreduce/output/LzoProtobufBlockOutputFormat.java;<<<<<<< MINE
+    Configuration conf = job.getConfiguration();
+    LzopCodec codec = new LzopCodec();
+    codec.setConf(conf);
+
+    Path file = getDefaultWorkFile(job, codec.getDefaultExtension());
+    FileSystem fs = file.getFileSystem(conf);
+    FSDataOutputStream fileOut = fs.create(file, false);
+
+    return new LzoProtobufBlockRecordWriter<M, W>(typeRef_, new DataOutputStream(codec.createOutputStream(fileOut)));
+=======
+    return new LzoBinaryBlockRecordWriter<M, W>(
+        new ProtobufBlockWriter<M>(getOutputStream(job), typeRef_.getRawClass()));
+>>>>>>> YOURS
+/home/taes/taes/projects/elephant-bird/revisions/rev_8eed34e_cebd3d0/rev_8eed34e-cebd3d0/src/java/com/twitter/elephantbird/mapreduce/output/LzoProtobufB64LineOutputFormat.java;<<<<<<< MINE
+    extends FileOutputFormat<NullWritable, W> {
+  private static final Logger LOG = LoggerFactory.getLogger(LzoProtobufB64LineOutputFormat.class);
+
+=======
+    extends LzoOutputFormat<M, W> {
+>>>>>>> YOURS
+/home/taes/taes/projects/elephant-bird/revisions/rev_8eed34e_cebd3d0/rev_8eed34e-cebd3d0/src/java/com/twitter/elephantbird/mapreduce/output/LzoProtobufB64LineOutputFormat.java;<<<<<<< MINE
+    Configuration conf = job.getConfiguration();
+    LzopCodec codec = new LzopCodec();
+    codec.setConf(conf);
+
+    Path file = getDefaultWorkFile(job, codec.getDefaultExtension());
+    FileSystem fs = file.getFileSystem(conf);
+    FSDataOutputStream fileOut = fs.create(file, false);
+
+    return new LzoProtobufB64LineRecordWriter<M, W>(typeRef_,
+        new DataOutputStream(codec.createOutputStream(fileOut)));
+=======
+    return new LzoBinaryB64LineRecordWriter<M, W>(new ProtobufConverter<M>(typeRef_), getOutputStream(job));
+>>>>>>> YOURS
+/home/taes/taes/projects/elephant-bird/revisions/rev_8eed34e_cebd3d0/rev_8eed34e-cebd3d0/src/java/com/twitter/elephantbird/mapreduce/output/LzoThriftB64LineOutputFormat.java;<<<<<<< MINE
+
+  public RecordWriter getRecordWriter(TaskAttemptContext job)
+=======
+  
+  public RecordWriter<NullWritable, ThriftWritable<M>> getRecordWriter(TaskAttemptContext job)
+>>>>>>> YOURS
+/home/taes/taes/projects/elephant-bird/revisions/rev_8eed34e_cebd3d0/rev_8eed34e-cebd3d0/src/java/com/twitter/elephantbird/mapreduce/output/LzoThriftB64LineOutputFormat.java;<<<<<<< MINE
+    Configuration conf = job.getConfiguration();
+    LzopCodec codec = new LzopCodec();
+    codec.setConf(conf);
+
+    Path file = getDefaultWorkFile(job, codec.getDefaultExtension());
+    FileSystem fs = file.getFileSystem(conf);
+    FSDataOutputStream fileOut = fs.create(file, false);
+
+    return new LzoThriftB64LineRecordWriter<T>(typeRef_,
+            new DataOutputStream(codec.createOutputStream(fileOut)));
+=======
+    
+    TypeRef<M> typeRef = ThriftUtils.getTypeRef(job.getConfiguration(), LzoThriftB64LineOutputFormat.class);  
+    return new LzoBinaryB64LineRecordWriter<M, ThriftWritable<M>>(new ThriftConverter<M>(typeRef), getOutputStream(job));
+>>>>>>> YOURS
+/home/taes/taes/projects/elephant-bird/revisions/rev_8eed34e_cebd3d0/rev_8eed34e-cebd3d0/src/java/com/twitter/elephantbird/mapreduce/input/LzoProtobufBlockRecordReader.java;<<<<<<< MINE
+    typeRef_ = typeRef;
+    LOG.info("LzoProtobufBlockRecordReader, type args are " + typeRef_.getRawClass());
+    key_ = new LongWritable();
+    value_ = protobufWritable;
+  }
+
+  @Override
+  public synchronized void close() throws IOException {
+    if (reader_ != null) {
+      reader_.close();
+    }
+  }
+
+  @Override
+  public LongWritable getCurrentKey() throws IOException, InterruptedException {
+    return key_;
+  }
+
+  @Override
+  public W getCurrentValue() throws IOException, InterruptedException {
+    return value_;
+  }
+
+  @Override
+  protected void createInputReader(InputStream input, Configuration conf) throws IOException {
+    reader_ = new ProtobufBlockReader<M>(input, typeRef_);
+  }
+
+  @Override
+  protected void skipToNextSyncPoint(boolean atFirstRecord) throws IOException {
+    // No need to skip to the sync point here; the block reader will do it for us.
+    LOG.debug("LzoProtobufBlockRecordReader.skipToNextSyncPoint called with atFirstRecord = " + atFirstRecord);
+  }
+
+  @Override
+  public boolean nextKeyValue() throws IOException, InterruptedException {
+    // If we are past the end of the file split, tell the reader not to read any more new blocks.
+    // Then continue reading until the last of the reader's already-parsed values are used up.
+    // The next split will start at the next sync point and no records will be missed.
+    if (pos_ > end_) {
+      reader_.markNoMoreNewBlocks();
+    }
+    if (reader_.readProtobuf(value_)) {
+      key_.set(pos_);
+      pos_ = getLzoFilePos();
+      return true;
+    }
+
+    return false;
+=======
+    // input stream for the reader will be set by LzoBinaryBlockRecordReader
+    super(typeRef, new ProtobufBlockReader<M>(null, typeRef), protobufWritable);
+    LOG.info("LzoProtobufBlockRecordReader, type args are " + typeRef.getRawClass());
+>>>>>>> YOURS
+/home/taes/taes/projects/elephant-bird/revisions/rev_8eed34e_cebd3d0/rev_8eed34e-cebd3d0/src/java/com/twitter/elephantbird/mapreduce/input/LzoThriftB64LineInputFormat.java;<<<<<<< MINE
+  public RecordReader<LongWritable, W> createRecordReader(InputSplit split,
+=======
+  public RecordReader<LongWritable, ThriftWritable<M>> createRecordReader(InputSplit split,
+>>>>>>> YOURS
+/home/taes/taes/projects/elephant-bird/revisions/rev_8eed34e_cebd3d0/rev_8eed34e-cebd3d0/src/java/com/twitter/elephantbird/mapreduce/input/LzoThriftB64LineInputFormat.java;<<<<<<< MINE
+    return new LzoThriftB64LineRecordReader<T, W>(typeRef_, thriftWritable_);
+=======
+    
+    TypeRef<M> typeRef = ThriftUtils.getTypeRef(taskAttempt.getConfiguration(), LzoThriftB64LineInputFormat.class); 
+    return new LzoThriftB64LineRecordReader<M>(typeRef);
+>>>>>>> YOURS
+/home/taes/taes/projects/elephant-bird/revisions/rev_8eed34e_cebd3d0/rev_8eed34e-cebd3d0/src/java/com/twitter/elephantbird/mapreduce/input/LzoThriftB64LineRecordReader.java;<<<<<<< MINE
+  private LineReader lineReader_;
+
+  private final Text line_ = new Text();
+  private final LongWritable key_ = new LongWritable();
+  private final TypeRef<T> typeRef_;
+  private final W thriftWritable_;
+  private final Base64 base64_ = new Base64();
+  private final TDeserializer deserializer_ = new TDeserializer();
+
+  public LzoThriftB64LineRecordReader(TypeRef<T> typeRef, W thriftWritable) {
+    typeRef_ = typeRef;
+    thriftWritable_ = thriftWritable;
+    LOG.info("LzoProtobufBlockRecordReader, type args are " + typeRef_.getRawClass());
+  }
+
+  @Override
+  public synchronized void close() throws IOException {
+    if (lineReader_ != null) {
+      lineReader_.close();
+    }
+  }
+
+  @Override
+  public LongWritable getCurrentKey() throws IOException, InterruptedException {
+    return key_;
+  }
+
+  @Override
+  public W getCurrentValue() throws IOException, InterruptedException {
+    return thriftWritable_;
+  }
+
+  @Override
+  protected void createInputReader(InputStream input, Configuration conf) throws IOException {
+    lineReader_ = new LineReader(input, conf);
+  }
+
+  @Override
+  protected void skipToNextSyncPoint(boolean atFirstRecord) throws IOException {
+    if (!atFirstRecord) {
+      lineReader_.readLine(new Text());
+    }
+  }
+
+  @Override
+  public boolean nextKeyValue() throws IOException, InterruptedException {
+    // Since the lzop codec reads everything in lzo blocks, we can't stop if pos == end.
+    // Instead we wait for the next block to be read in, when pos will be > end.
+    while (pos_ <= end_) {
+      key_.set(pos_);
+
+      int newSize = lineReader_.readLine(line_);
+      if (newSize == 0) {
+        return false;
+      }
+      pos_ = getLzoFilePos();
+      byte[] lineBytes = line_.toString().getBytes("UTF-8");
+      T thriftValue = typeRef_.safeNewInstance();
+      try {
+        deserializer_.deserialize(thriftValue, base64_.decode(lineBytes));
+      }
+      catch (TException e) {
+        // TODO: increment counter.
+        continue;
+      }
+
+      thriftWritable_.set(thriftValue);
+      return true;
+    }
+
+    return false;
+=======
+  public LzoThriftB64LineRecordReader(TypeRef<M> typeRef) {
+    super(typeRef, new ThriftWritable<M>(typeRef), new ThriftConverter<M>(typeRef));
+    LOG.info("LzoTProtoB64LineRecordReader, type is " + typeRef.getRawClass());
+>>>>>>> YOURS
+/home/taes/taes/projects/elephant-bird/revisions/rev_8eed34e_cebd3d0/rev_8eed34e-cebd3d0/src/java/com/twitter/elephantbird/mapreduce/input/LzoProtobufB64LineRecordReader.java;<<<<<<< MINE
+ * deserializes that into the templatized protobuf object.  Returns <position, protobuf>
+ * pairs.
+=======
+ * deserializes that into the templatized protobuf object.
+ * Returns <position, protobuf> pairs.
+>>>>>>> YOURS
+/home/taes/taes/projects/elephant-bird/revisions/rev_8eed34e_cebd3d0/rev_8eed34e-cebd3d0/src/java/com/twitter/elephantbird/mapreduce/input/LzoProtobufB64LineRecordReader.java;<<<<<<< MINE
+    typeRef_ = typeRef;
+    protoConverter_ = Protobufs.getProtoConverter(typeRef_.getRawClass());
+    LOG.info("LzoProtobufBlockRecordReader, type args are " + typeRef_.getRawClass());
+    value_ = protobufWritable;
+  }
+
+  @Override
+  public synchronized void close() throws IOException {
+    if (lineReader_ != null) {
+      lineReader_.close();
+    }
+  }
+
+  @Override
+  public LongWritable getCurrentKey() throws IOException, InterruptedException {
+    return key_;
+  }
+
+  @Override
+  public W getCurrentValue() throws IOException, InterruptedException {
+    return value_;
+  }
+
+  @Override
+  protected void createInputReader(InputStream input, Configuration conf) throws IOException {
+    lineReader_ = new LineReader(input, conf);
+  }
+
+  @Override
+  protected void skipToNextSyncPoint(boolean atFirstRecord) throws IOException {
+    if (!atFirstRecord) {
+      lineReader_.readLine(new Text());
+    }
+  }
+
+  @Override
+  public boolean nextKeyValue() throws IOException, InterruptedException {
+    // Since the lzop codec reads everything in lzo blocks, we can't stop if pos == end.
+    // Instead we wait for the next block to be read in, when pos will be > end.
+    while (pos_ <= end_) {
+      key_.set(pos_);
+
+      int newSize = lineReader_.readLine(line_);
+      if (newSize == 0) {
+        return false;
+      }
+      pos_ = getLzoFilePos();
+      byte[] lineBytes = line_.toString().getBytes("UTF-8");
+      M protoValue = protoConverter_.apply(base64_.decode(lineBytes));
+      if (protoValue == null) {
+        continue;
+      }
+
+      value_.set(protoValue);
+      return true;
+    }
+
+    return false;
+=======
+    super(typeRef, protobufWritable, new ProtobufConverter<M>(typeRef));
+    LOG.info("LzoProtobufB64LineRecordReader, type args are " + typeRef.getRawClass());
+>>>>>>> YOURS
+/home/taes/taes/projects/elephant-bird/revisions/rev_8eed34e_cebd3d0/rev_8eed34e-cebd3d0/src/java/com/twitter/elephantbird/mapreduce/io/ProtobufWritable.java;<<<<<<< MINE
+    message_ = message;
+    protoConverter_ = Protobufs.getProtoConverter(typeRef.getRawClass());
+    LOG.debug("ProtobufWritable, typeClass is " + typeRef.getRawClass() + " and message is " + message_);
+  }
+
+  public M get() {
+    return message_;
+  }
+
+  public int getLength() {
+    return message_ != null ? message_.getSerializedSize() : 0;
+  }
+
+  public void clear() {
+    message_ = null;
+  }
+
+  public void set(M message) {
+    message_ = message;
+  }
+
+  public void write(DataOutput out) throws IOException {
+    out.writeInt(getLength());
+    if (message_ != null) {
+      byte[] byteArray = message_.toByteArray();
+      out.write(byteArray, 0, byteArray.length);
+    }
+  }
+
+  public void readFields(DataInput in) throws IOException {
+    int size = in.readInt();
+    if (size > 0) {
+      byte[] messageBytes = new byte[size];
+      in.readFully(messageBytes, 0, size);
+      message_ = protoConverter_.apply(messageBytes);
+    }
+  }
+
+	@Override
+  public int compareTo(ProtobufWritable<M> other) {
+	  byte[] bytes = message_.toByteArray();
+	  byte[] otherBytes = other.get().toByteArray();
+	  return BytesWritable.Comparator.compareBytes(bytes, 0, bytes.length, otherBytes, 0, otherBytes.length);
+=======
+    super(message, new ProtobufConverter<M>(typeRef));
+    LOG.debug("ProtobufWritable, typeClass is " + typeRef.getRawClass());
+>>>>>>> YOURS
+/home/taes/taes/projects/elephant-bird/revisions/rev_8eed34e_cebd3d0/rev_8eed34e-cebd3d0/src/java/com/twitter/elephantbird/mapreduce/io/ProtobufBlockWriter.java;<<<<<<< MINE
+/* A class to write blocks of protobuf data of type M.  To use, just instantiate
+=======
+/**
+ * A class to write blocks of protobuf data of type M.  To use, just instantiate
+>>>>>>> YOURS
+/home/taes/taes/projects/elephant-bird/revisions/rev_8eed34e_cebd3d0/rev_8eed34e-cebd3d0/src/java/com/twitter/elephantbird/mapreduce/io/ProtobufBlockReader.java;<<<<<<< MINE
+    message.clear();
+
+    if (!setupNewBlockIfNeeded()) {
+      return false;
+    }
+
+    int blobIndex = curBlock_.getProtoBlobsCount() - numLeftToReadThisBlock_;
+    byte[] blob = curBlock_.getProtoBlobs(blobIndex).toByteArray();
+    message.set(protoConverter_.apply(blob));
+    numLeftToReadThisBlock_--;
+    return true;
+=======
+    return readNext(message);
+>>>>>>> YOURS
+/home/taes/taes/projects/elephant-bird/revisions/rev_8eed34e_cebd3d0/rev_8eed34e-cebd3d0/src/java/com/twitter/elephantbird/mapreduce/io/ProtobufBlockReader.java;<<<<<<< MINE
+    if (!setupNewBlockIfNeeded()) {
+      return false;
+    }
+
+    int blobIndex = curBlock_.getProtoBlobsCount() - numLeftToReadThisBlock_;
+    byte[] blob = curBlock_.getProtoBlobs(blobIndex).toByteArray();
+    message.set(blob, 0, blob.length);
+    numLeftToReadThisBlock_--;
+    return true;
+  }
+
+  public void markNoMoreNewBlocks() {
+    readNewBlocks_ = false;
+  }
+
+  public boolean skipToNextSyncPoint() throws IOException {
+    return searcher_.search(in_);
+  }
+
+  public SerializedBlock parseNextBlock() throws IOException {
+    LOG.debug("ProtobufReader: none left to read, skipping to sync point");
+    if (!skipToNextSyncPoint()) {
+      LOG.debug("ProtobufReader: SYNC point eof");
+      // EOF if there are no more sync markers.
+      return null;
+    }
+
+    int blockSize = readInt();
+    LOG.debug("ProtobufReader: found sync point, next block has size " + blockSize);
+    if (blockSize < 0) {
+      LOG.debug("ProtobufReader: reading size after sync point eof");
+      // EOF if the size cannot be read.
+      return null;
+    }
+
+    byte[] byteArray = new byte[blockSize];
+    IOUtils.readFully(in_, byteArray, 0, blockSize);
+    SerializedBlock block = SerializedBlock.parseFrom(byteArray);
+
+    numLeftToReadThisBlock_ = block.getProtoBlobsCount();
+    LOG.debug("ProtobufReader: number in next block is " + numLeftToReadThisBlock_);
+    return block;
+  }
+
+  private boolean setupNewBlockIfNeeded() throws IOException {
+    if (numLeftToReadThisBlock_ == 0) {
+      if (!readNewBlocks_) {
+        // If the reader has been told not to read more blocks, stop.
+        // This happens when a map boundary has been crossed in a map job, for example.
+        // The goal then is to finsh reading what has been parsed, but let the next split
+        // handle everything starting at the next sync point.
+        return false;
+      }
+      curBlock_ = parseNextBlock();
+      if (curBlock_ == null) {
+        // If there is nothing, it likely means EOF. Signal that processing is done.
+        return false;
+      }
+    }
+
+    return true;
+  }
+
+  private int readInt() throws IOException {
+    int b = in_.read();
+    if (b == -1) {
+      return -1;
+    }
+
+    return b | (in_.read() << 8) | (in_.read() << 16) | (in_.read() << 24);
+=======
+    return readNextProtoBytes(message);
+>>>>>>> YOURS
+/home/taes/taes/projects/elephant-bird/revisions/rev_8eed34e_cebd3d0/rev_8eed34e-cebd3d0/src/java/com/twitter/elephantbird/pig/util/ProtobufToPig.java;<<<<<<< MINE
+  }
+=======
+  }  
+>>>>>>> YOURS
+/home/taes/taes/projects/elephant-bird/revisions/rev_8eed34e_cebd3d0/rev_8eed34e-cebd3d0/src/java/com/twitter/elephantbird/pig/util/PigCounterHelper.java;<<<<<<< MINE
+    Pair<String, String> key = new Pair<String, String>(group, counter);
+    Long currentValue = counterStringMap_.get(key);
+    counterStringMap_.put(key, (currentValue == null ? 0 : currentValue) + incr);
+
+    if (getReporter() != null) {
+      for (Map.Entry<Pair<String, String>, Long> entry : counterStringMap_.entrySet()) {
+        getReporter().incrCounter(entry.getKey().first, entry.getKey().second, entry.getValue());
+=======
+    if (getReporter() != null) { // common case
+      getReporter().incrCounter(group, counter, incr);
+      if (counterStringMap_.size() > 0) {
+        for (Map.Entry<Pair<String, String>, Long> entry : counterStringMap_.entrySet()) {
+          getReporter().incrCounter(entry.getKey().first, entry.getKey().second, entry.getValue());
+        }
+        counterStringMap_.clear();
+>>>>>>> YOURS
+/home/taes/taes/projects/elephant-bird/revisions/rev_8eed34e_cebd3d0/rev_8eed34e-cebd3d0/src/java/com/twitter/elephantbird/pig/util/PigCounterHelper.java;<<<<<<< MINE
+      counterStringMap_.clear();
+=======
+    } else { // buffer the increments.
+      Pair<String, String> key = new Pair<String, String>(group, counter);
+      Long currentValue = counterStringMap_.get(key);
+      counterStringMap_.put(key, (currentValue == null ? 0 : currentValue) + incr);
+>>>>>>> YOURS
+/home/taes/taes/projects/elephant-bird/revisions/rev_8eed34e_cebd3d0/rev_8eed34e-cebd3d0/src/java/com/twitter/elephantbird/pig/util/PigCounterHelper.java;<<<<<<< MINE
+      for (Map.Entry<Enum<?>, Long> entry : counterEnumMap_.entrySet()) {
+        getReporter().incrCounter(entry.getKey(), entry.getValue());
+=======
+      getReporter().incrCounter(key, incr);
+      if (counterEnumMap_.size() > 0) {
+        for (Map.Entry<Enum<?>, Long> entry : counterEnumMap_.entrySet()) {
+          getReporter().incrCounter(entry.getKey(), entry.getValue());
+        }
+        counterEnumMap_.clear();
+>>>>>>> YOURS
+/home/taes/taes/projects/elephant-bird/revisions/rev_8eed34e_cebd3d0/rev_8eed34e-cebd3d0/src/java/com/twitter/elephantbird/pig/util/PigCounterHelper.java;<<<<<<< MINE
+      counterEnumMap_.clear();
+=======
+    } else { // buffer the increments
+      Long currentValue = counterEnumMap_.get(key);
+      counterEnumMap_.put(key, (currentValue == null ? 0 : currentValue) + incr);
+>>>>>>> YOURS
+/home/taes/taes/projects/elephant-bird/revisions/rev_8eed34e_cebd3d0/rev_8eed34e-cebd3d0/src/java/com/twitter/elephantbird/pig/load/LzoProtobufBlockPigLoader.java;<<<<<<< MINE
+      incrCounter(LzoProtobufBlockPigLoaderCounters.ProtobufsRead, 1L);
+=======
+      incrCounter(protobufsRead, 1L);
+>>>>>>> YOURS
+/home/taes/taes/projects/elephant-bird/revisions/rev_8eed34e_cebd3d0/rev_8eed34e-cebd3d0/src/java/com/twitter/elephantbird/pig/load/LzoProtobufB64LinePigLoader.java;<<<<<<< MINE
+      incrCounter(LzoProtobufB64LinePigLoaderCounts.LinesRead, 1L);
+=======
+      incrCounter(linesRead, 1L);
+>>>>>>> YOURS
+/home/taes/taes/projects/elephant-bird/revisions/rev_8eed34e_cebd3d0/rev_8eed34e-cebd3d0/src/java/com/twitter/elephantbird/pig/load/LzoProtobufB64LinePigLoader.java;<<<<<<< MINE
+        incrCounter(LzoProtobufB64LinePigLoaderCounts.ProtobufsRead, 1L);
+=======
+        incrCounter(protobufsRead, 1L);
+>>>>>>> YOURS
+/home/taes/taes/projects/elephant-bird/revisions/rev_8eed34e_cebd3d0/rev_8eed34e-cebd3d0/src/java/com/twitter/elephantbird/pig/piggybank/BytesToThriftTuple.java;<<<<<<< MINE
+      deserializer_.deserialize(thriftObj_, dbarr.get());
+      return thriftToTuple_.convert(thriftObj_);
+=======
+      deserializer_.deserialize(tObj, dbarr.get());
+      return thriftToTuple_.getPigTuple(tObj);
+>>>>>>> YOURS
+/home/taes/taes/projects/elephant-bird/revisions/rev_8eed34e_cebd3d0/rev_8eed34e-cebd3d0/src/test/com/twitter/elephantbird/pig/piggybank/TestThriftToPig.java;<<<<<<< MINE
+    ooe.write(proto);
+=======
+    assertEquals("{(1,0,34,27000,16777216,6000000000L,3.141592653589793,JSON THIS! \"," + ooe.zomg_unicode +
+        ",0,base64,{(1),(2),(3)},{(1),(2),(3)},{(1L),(2L),(3L)}),(1,0,35,27000,16777216,6000000000L,3.141592653589793,JSON THIS! \"," +
+        ooe.zomg_unicode + ",0,base64,{(1),(2),(3)},{(1),(2),(3)},{(1L),(2L),(3L)})}-{({}),({(then a one, two),(three!),(FOUR!!)}),({(and a one),(and a two)})}-{zero={}, three={}, two={(1,Wait.),(2,What?)}}",
+        (toTuple(hm).toDelimitedString("-")));
+
+    // Test null fields :
+    OneOfEach mostly_ooe = new OneOfEach(ooe);
+    mostly_ooe.setBase64(null);
+    mostly_ooe.setI16_list(null);
+>>>>>>> YOURS
+/home/taes/taes/projects/elephant-bird/revisions/rev_8eed34e_cebd3d0/rev_8eed34e-cebd3d0/src/test/com/twitter/elephantbird/pig/piggybank/TestThriftToPig.java;<<<<<<< MINE
+       "1-0-35-27000-16777216-6000000000-3.141592653589793-JSON THIS! \"-"+ooe.zomg_unicode+"-0-base64-(1,2,3)-(1,2,3)-(1L,2L,3L)",
+        proto.getPigTuple().toDelimitedString("-"));
+=======
+        "1-0-35-27000-16777216-6000000000-3.141592653589793-JSON THIS! \"-"+ooe.zomg_unicode+"-0--{(1),(2),(3)}--{(1L),(2L),(3L)}",
+        toTuple(mostly_ooe).toDelimitedString("-"));
+>>>>>>> YOURS
+/home/taes/taes/projects/elephant-bird/revisions/rev_8eed34e_cebd3d0/rev_8eed34e-cebd3d0/src/test/com/twitter/elephantbird/pig/piggybank/TestThriftToPig.java;<<<<<<< MINE
+    n.write(proto);
+    assertEquals("(31337,I am a bonk... xor!)-(1,0,35,27000,16777216,6000000000L,3.141592653589793,JSON THIS! \","+n.my_ooe.zomg_unicode+",0,base64,(1,2,3),(1,2,3),(1L,2L,3L))",
+        proto.getPigTuple().toDelimitedString("-"));
+
+    hm.write(proto);
+    assertEquals("((1,0,34,27000,16777216,6000000000L,3.141592653589793,JSON THIS! \"," + ooe.zomg_unicode +
+        ",0,base64,(1,2,3),(1,2,3),(1L,2L,3L)),(1,0,35,27000,16777216,6000000000L,3.141592653589793,JSON THIS! \"," +
+        ooe.zomg_unicode + ",0,base64,(1,2,3),(1,2,3),(1L,2L,3L)))-{(),(then a one, two,three!,FOUR!!),(and a one,and a two)}-{zero=(), three=(), two=((1,Wait.),(2,What?))}",
+        (proto.getPigTuple().toDelimitedString("-")));
+=======
+    Nesting n2 = new Nesting(n);
+    n2.getMy_bonk().setMessage(null);
+    n2.setMy_ooe(mostly_ooe);
+    assertEquals("(31337,)-(1,0,35,27000,16777216,6000000000L,3.141592653589793,JSON THIS! \","+n.my_ooe.zomg_unicode+",0,,{(1),(2),(3)},,{(1L),(2L),(3L)})",
+        toTuple(n2).toDelimitedString("-"));
+
+    // test enum.
+    PhoneNumber ph = new PhoneNumber();
+    ph.setNumber("415-555-5555");
+    ph.setType(PhoneType.HOME);
+    assertEquals("415-555-5555,HOME", toTuple(ph).toDelimitedString(","));
+>>>>>>> YOURS
+/home/taes/taes/projects/elephant-bird/revisions/rev_8eed34e_cebd3d0/rev_8eed34e-cebd3d0/src/java/com/twitter/elephantbird/mapreduce/output/LzoThriftB64LineOutputFormat.java;<<<<<<< MINE
+ * This is the output format class for base64 encoded, line-oriented thrift based formats. Data is
+ * written as one base64 encoded serialized thrift object per line. It takes one template parameter, the 
+ * thrift type. This parameter is saved in a TypeRef for use in the getRecordWriter factory method.
+=======
+ * Data is written as one base64 encoded serialized thrift per line. <br><br>
+ * 
+ * Do not use LzoThriftB64LineOutputFormat.class directly for setting 
+ * OutputFormat class for a job. Use getOutputFormatClass() instead.
+>>>>>>> YOURS
+/home/taes/taes/projects/elephant-bird/revisions/rev_8eed34e_cebd3d0/rev_8eed34e-cebd3d0/src/java/com/twitter/elephantbird/mapreduce/io/ProtobufBlockReader.java;<<<<<<< MINE
+
+  public void close() throws IOException {
+    in_.close();
+  }
+
+=======
+  
+  // for backward compatibility :
+  
+>>>>>>> YOURS
+/home/taes/taes/projects/elephant-bird/revisions/rev_8eed34e_cebd3d0/rev_8eed34e-cebd3d0/src/java/com/twitter/elephantbird/pig/piggybank/BytesToThriftTuple.java;<<<<<<< MINE
+      if (thriftObj_ == null) {
+        thriftObj_ = typeRef_.safeNewInstance();
+      }
+=======
+      T tObj = typeRef_.safeNewInstance();
+>>>>>>> YOURS
+/home/taes/taes/projects/elephant-bird/revisions/rev_8eed34e_cebd3d0/rev_8eed34e-cebd3d0/src/test/com/twitter/elephantbird/pig/piggybank/TestThriftToPig.java;<<<<<<< MINE
+    TMemoryBuffer buffer = new TMemoryBuffer(1024);
+    ThriftToPigProtocol proto = new ThriftToPigProtocol(buffer);
+=======
+    assertEquals(
+        "1-0-35-27000-16777216-6000000000-3.141592653589793-JSON THIS! \"-"+ooe.zomg_unicode+"-0-base64-{(1),(2),(3)}-{(1),(2),(3)}-{(1L),(2L),(3L)}",
+        toTuple(ooe).toDelimitedString("-"));
+
+    assertEquals("(31337,I am a bonk... xor!)-(1,0,35,27000,16777216,6000000000L,3.141592653589793,JSON THIS! \","+n.my_ooe.zomg_unicode+",0,base64,{(1),(2),(3)},{(1),(2),(3)},{(1L),(2L),(3L)})",
+        toTuple(n).toDelimitedString("-"));
+>>>>>>> YOURS
+/home/taes/taes/projects/elephant-bird/revisions/rev_b0d7a3e_6abbab9/rev_b0d7a3e-6abbab9/src/java/com/twitter/elephantbird/mapreduce/output/LzoProtobufBlockOutputFormat.java;<<<<<<< MINE
+  public RecordWriter<NullWritable, W> getRecordWriter(TaskAttemptContext job)
+=======
+  public LzoProtobufBlockOutputFormat() {}
+
+  /**
+   * Returns {@link LzoProtobufB64LineOutputFormat} class.
+   * Sets an internal configuration in jobConf so that remote Tasks
+   * instantiate appropriate object for this generic class based on protoClass
+   */
+  @SuppressWarnings("unchecked")
+  public static <M extends Message> Class<LzoProtobufBlockOutputFormat>
+     getOutputFormatClass(Class<M> protoClass, Configuration jobConf) {
+
+    Protobufs.setClassConf(jobConf, LzoProtobufBlockOutputFormat.class, protoClass);
+    return LzoProtobufBlockOutputFormat.class;
+  }
+
+  public RecordWriter<NullWritable, ProtobufWritable<M>> getRecordWriter(TaskAttemptContext job)
+>>>>>>> YOURS
+/home/taes/taes/projects/elephant-bird/revisions/rev_b0d7a3e_6abbab9/rev_b0d7a3e-6abbab9/src/java/com/twitter/elephantbird/mapreduce/output/LzoProtobufBlockOutputFormat.java;<<<<<<< MINE
+    return new LzoBinaryBlockRecordWriter<M, W>(
+=======
+    if (typeRef_ == null) { // i.e. if not set by a subclass
+      typeRef_ = Protobufs.getTypeRef(job.getConfiguration(), LzoProtobufBlockOutputFormat.class);
+    }
+
+    return new LzoBinaryBlockRecordWriter<M, ProtobufWritable<M>>(
+>>>>>>> YOURS
+/home/taes/taes/projects/elephant-bird/revisions/rev_b0d7a3e_6abbab9/rev_b0d7a3e-6abbab9/src/java/com/twitter/elephantbird/mapreduce/output/LzoProtobufB64LineOutputFormat.java;<<<<<<< MINE
+  public RecordWriter<NullWritable, W> getRecordWriter(TaskAttemptContext job)
+=======
+  public LzoProtobufB64LineOutputFormat() {}
+
+  /**
+   * Returns {@link LzoProtobufBlockOutputFormat} class.
+   * Sets an internal configuration in jobConf so that remote Tasks
+   * instantiate appropriate object for this generic class based on protoClass
+   */
+  @SuppressWarnings("unchecked")
+  public static <M extends Message> Class<LzoProtobufB64LineOutputFormat>
+     getOutputFormatClass(Class<M> protoClass, Configuration jobConf) {
+
+    Protobufs.setClassConf(jobConf, LzoProtobufB64LineOutputFormat.class, protoClass);
+    return LzoProtobufB64LineOutputFormat.class;
+  }
+
+
+  public RecordWriter<NullWritable, ProtobufWritable<M>> getRecordWriter(TaskAttemptContext job)
+>>>>>>> YOURS
+/home/taes/taes/projects/elephant-bird/revisions/rev_b0d7a3e_6abbab9/rev_b0d7a3e-6abbab9/src/java/com/twitter/elephantbird/mapreduce/output/LzoProtobufB64LineOutputFormat.java;<<<<<<< MINE
+    return new LzoBinaryB64LineRecordWriter<M, W>(new ProtobufConverter<M>(typeRef_), getOutputStream(job));
+=======
+    if (typeRef_ == null) {
+      typeRef_ = Protobufs.getTypeRef(job.getConfiguration(), LzoProtobufB64LineOutputFormat.class);
+    }
+
+    return new LzoBinaryB64LineRecordWriter<M, ProtobufWritable<M>>(ProtobufConverter.newInstance(typeRef_), getOutputStream(job));
+>>>>>>> YOURS
+/home/taes/taes/projects/elephant-bird/revisions/rev_b0d7a3e_6abbab9/rev_b0d7a3e-6abbab9/src/java/com/twitter/elephantbird/mapreduce/input/LzoProtobufB64LineInputFormat.java;<<<<<<< MINE
+  protected void setProtobufWritable(W protobufWritable) {
+    protobufWritable_ = protobufWritable;
+=======
+  /**
+   * Returns {@link LzoProtobufB64LineInputFormat} class.
+   * Sets an internal configuration in jobConf so that remote Tasks
+   * instantiate appropriate object based on protoClass.
+   */
+  @SuppressWarnings("unchecked")
+  public static <M extends Message> Class<LzoProtobufB64LineInputFormat>
+     getInputFormatClass(Class<M> protoClass, Configuration jobConf) {
+    Protobufs.setClassConf(jobConf, LzoProtobufB64LineInputFormat.class, protoClass);
+    return LzoProtobufB64LineInputFormat.class;
+>>>>>>> YOURS
+/home/taes/taes/projects/elephant-bird/revisions/rev_b0d7a3e_6abbab9/rev_b0d7a3e-6abbab9/src/java/com/twitter/elephantbird/mapreduce/input/LzoProtobufB64LineInputFormat.java;<<<<<<< MINE
+  public RecordReader<LongWritable, W> createRecordReader(InputSplit split,
+=======
+  public RecordReader<LongWritable, ProtobufWritable<M>> createRecordReader(InputSplit split,
+>>>>>>> YOURS
+/home/taes/taes/projects/elephant-bird/revisions/rev_b0d7a3e_6abbab9/rev_b0d7a3e-6abbab9/src/java/com/twitter/elephantbird/mapreduce/input/LzoProtobufB64LineInputFormat.java;<<<<<<< MINE
+
+    return new LzoProtobufB64LineRecordReader<M, W>(typeRef_, protobufWritable_);
+=======
+    if (typeRef_ == null) {
+      typeRef_ = Protobufs.getTypeRef(taskAttempt.getConfiguration(), LzoProtobufB64LineInputFormat.class);
+    }
+    return new LzoProtobufB64LineRecordReader<M>(typeRef_);
+>>>>>>> YOURS
+/home/taes/taes/projects/elephant-bird/revisions/rev_b0d7a3e_6abbab9/rev_b0d7a3e-6abbab9/src/java/com/twitter/elephantbird/mapreduce/input/LzoProtobufBlockInputFormat.java;<<<<<<< MINE
+  protected void setProtobufWritable(W protobufWritable) {
+    protobufWritable_ = protobufWritable;
+=======
+  /**
+   * Returns {@link LzoProtobufBlockInputFormat} class.
+   * Sets an internal configuration in jobConf so that remote Tasks
+   * instantiate appropriate object based on protoClass.
+   */
+  @SuppressWarnings("unchecked")
+  public static <M extends Message> Class<LzoProtobufBlockInputFormat>
+     getInputFormatClass(Class<M> protoClass, Configuration jobConf) {
+    Protobufs.setClassConf(jobConf, LzoProtobufBlockInputFormat.class, protoClass);
+    return LzoProtobufBlockInputFormat.class;
+>>>>>>> YOURS
+/home/taes/taes/projects/elephant-bird/revisions/rev_b0d7a3e_6abbab9/rev_b0d7a3e-6abbab9/src/java/com/twitter/elephantbird/mapreduce/input/LzoProtobufBlockInputFormat.java;<<<<<<< MINE
+  public RecordReader<LongWritable, W> createRecordReader(InputSplit split,
+=======
+  public RecordReader<LongWritable, ProtobufWritable<M>> createRecordReader(InputSplit split,
+>>>>>>> YOURS
+/home/taes/taes/projects/elephant-bird/revisions/rev_b0d7a3e_6abbab9/rev_b0d7a3e-6abbab9/src/java/com/twitter/elephantbird/mapreduce/input/LzoProtobufBlockInputFormat.java;<<<<<<< MINE
+
+    return new LzoProtobufBlockRecordReader<M, W>(typeRef_, protobufWritable_);
+=======
+    if (typeRef_ == null) {
+      typeRef_ = Protobufs.getTypeRef(taskAttempt.getConfiguration(), LzoProtobufBlockInputFormat.class);
+    }
+    return new LzoProtobufBlockRecordReader<M>(typeRef_);
+>>>>>>> YOURS
+/home/taes/taes/projects/elephant-bird/revisions/rev_b0d7a3e_6abbab9/rev_b0d7a3e-6abbab9/src/java/com/twitter/elephantbird/mapreduce/input/LzoProtobufBlockRecordReader.java;<<<<<<< MINE
+  public LzoProtobufBlockRecordReader(TypeRef<M> typeRef, W protobufWritable) {
+=======
+  public LzoProtobufBlockRecordReader(TypeRef<M> typeRef) {
+>>>>>>> YOURS
+/home/taes/taes/projects/elephant-bird/revisions/rev_b0d7a3e_6abbab9/rev_b0d7a3e-6abbab9/src/java/com/twitter/elephantbird/mapreduce/input/LzoProtobufBlockRecordReader.java;<<<<<<< MINE
+    super(typeRef, new ProtobufBlockReader<M>(null, typeRef), protobufWritable);
+=======
+    super(typeRef, new ProtobufBlockReader<M>(null, typeRef), new ProtobufWritable<M>(typeRef));
+>>>>>>> YOURS
+/home/taes/taes/projects/elephant-bird/revisions/rev_b0d7a3e_6abbab9/rev_b0d7a3e-6abbab9/src/java/com/twitter/elephantbird/mapreduce/input/LzoProtobufB64LineRecordReader.java;<<<<<<< MINE
+  public LzoProtobufB64LineRecordReader(TypeRef<M> typeRef, W protobufWritable) {
+    super(typeRef, protobufWritable, new ProtobufConverter<M>(typeRef));
+=======
+  public LzoProtobufB64LineRecordReader(TypeRef<M> typeRef) {
+    super(typeRef, new ProtobufWritable<M>(typeRef), ProtobufConverter.newInstance(typeRef));
+>>>>>>> YOURS
+/home/taes/taes/projects/elephant-bird/revisions/rev_b0d7a3e_6abbab9/rev_b0d7a3e-6abbab9/src/java/com/twitter/elephantbird/mapreduce/io/ProtobufBlockWriter.java;<<<<<<< MINE
+    super(out, protoClass, new ProtobufConverter<M>(new TypeRef<M>(protoClass){}), DEFAULT_NUM_RECORDS_PER_BLOCK);
+=======
+    super(out, protoClass, ProtobufConverter.newInstance(protoClass), DEFAULT_NUM_RECORDS_PER_BLOCK);
+>>>>>>> YOURS
+/home/taes/taes/projects/elephant-bird/revisions/rev_b0d7a3e_6abbab9/rev_b0d7a3e-6abbab9/src/java/com/twitter/elephantbird/mapreduce/io/ProtobufBlockWriter.java;<<<<<<< MINE
+    super(out, protoClass, new ProtobufConverter<M>(new TypeRef<M>(protoClass){}), numRecordsPerBlock);
+=======
+    super(out, protoClass, ProtobufConverter.newInstance(protoClass), numRecordsPerBlock);
+>>>>>>> YOURS
+/home/taes/taes/projects/elephant-bird/revisions/rev_b0d7a3e_6abbab9/rev_b0d7a3e-6abbab9/src/java/com/twitter/elephantbird/mapreduce/io/ProtobufConverter.java;<<<<<<< MINE
+      LOG.error("Invalid Protocol Buffer exception building " + typeRef.getRawClass().getName(), e);
+=======
+      LOG.error("Invalid Protobuf exception while building " + typeRef.getRawClass().getName(), e);
+>>>>>>> YOURS
+/home/taes/taes/projects/elephant-bird/revisions/rev_b0d7a3e_6abbab9/rev_b0d7a3e-6abbab9/src/java/com/twitter/elephantbird/mapreduce/io/ProtobufConverter.java;<<<<<<< MINE
+      LOG.error("Uninitialized Message Exception in building " + typeRef.getRawClass().getName(), ume);
+=======
+      LOG.error("Uninitialized Message Exception while building " + typeRef.getRawClass().getName(), ume);
+>>>>>>> YOURS
+/home/taes/taes/projects/elephant-bird/revisions/rev_b0d7a3e_6abbab9/rev_b0d7a3e-6abbab9/src/java/com/twitter/elephantbird/mapreduce/io/ProtobufBlockReader.java;<<<<<<< MINE
+    super(in, new ProtobufConverter<M>(typeRef));
+=======
+    super(in, ProtobufConverter.newInstance(typeRef));
+>>>>>>> YOURS
+/home/taes/taes/projects/elephant-bird/revisions/rev_b0d7a3e_6abbab9/rev_b0d7a3e-6abbab9/src/java/com/twitter/elephantbird/proto/codegen/LzoProtobufBlockOutputFormatGenerator.java;<<<<<<< MINE
+    sb.append("public class Lzo%sProtobufBlockOutputFormat extends LzoProtobufBlockOutputFormat<%s, Protobuf%sWritable> {", descriptorProto_.getName(), descriptorProto_.getName(), descriptorProto_.getName()).endl();
+=======
+    sb.append("public class Lzo%sProtobufBlockOutputFormat extends LzoProtobufBlockOutputFormat<%s> {", descriptorProto_.getName(), descriptorProto_.getName()).endl();
+>>>>>>> YOURS
+/home/taes/taes/projects/elephant-bird/revisions/rev_b0d7a3e_6abbab9/rev_b0d7a3e-6abbab9/src/java/com/twitter/elephantbird/proto/codegen/LzoProtobufBlockInputFormatGenerator.java;<<<<<<< MINE
+    sb.append("public class Lzo%sProtobufBlockInputFormat extends LzoProtobufBlockInputFormat<%s, Protobuf%sWritable> {", descriptorProto_.getName(), descriptorProto_.getName(), descriptorProto_.getName()).endl();
+=======
+    sb.append("public class Lzo%sProtobufBlockInputFormat extends LzoProtobufBlockInputFormat<%s> {", descriptorProto_.getName(), descriptorProto_.getName()).endl();
+>>>>>>> YOURS
+/home/taes/taes/projects/elephant-bird/revisions/rev_b0d7a3e_6abbab9/rev_b0d7a3e-6abbab9/src/java/com/twitter/elephantbird/proto/codegen/LzoProtobufB64LineOutputFormatGenerator.java;<<<<<<< MINE
+    sb.append("public class Lzo%sProtobufB64LineOutputFormat extends LzoProtobufB64LineOutputFormat<%s, Protobuf%sWritable> {", descriptorProto_.getName(), descriptorProto_.getName(), descriptorProto_.getName()).endl();
+=======
+    sb.append("public class Lzo%sProtobufB64LineOutputFormat extends LzoProtobufB64LineOutputFormat<%s> {", descriptorProto_.getName(), descriptorProto_.getName()).endl();
+>>>>>>> YOURS
+/home/taes/taes/projects/elephant-bird/revisions/rev_b0d7a3e_6abbab9/rev_b0d7a3e-6abbab9/src/java/com/twitter/elephantbird/proto/codegen/LzoProtobufB64LineInputFormatGenerator.java;<<<<<<< MINE
+    sb.append("public class Lzo%sProtobufB64LineInputFormat extends LzoProtobufB64LineInputFormat<%s, Protobuf%sWritable> {", descriptorProto_.getName(), descriptorProto_.getName(), descriptorProto_.getName()).endl();
+=======
+    sb.append("public class Lzo%sProtobufB64LineInputFormat extends LzoProtobufB64LineInputFormat<%s> {", descriptorProto_.getName(), descriptorProto_.getName()).endl();
+>>>>>>> YOURS
+/home/taes/taes/projects/elephant-bird/revisions/rev_b0d7a3e_6abbab9/rev_b0d7a3e-6abbab9/src/java/com/twitter/elephantbird/pig/load/LzoProtobufB64LinePigLoader.java;<<<<<<< MINE
+    protoConverter_ = Protobufs.getProtoConverter(typeRef.getRawClass());
+=======
+    protoConverter_ = ProtobufConverter.newInstance(typeRef);
+>>>>>>> YOURS
+/home/taes/taes/projects/elephant-bird/revisions/rev_b0d7a3e_6abbab9/rev_b0d7a3e-6abbab9/src/java/com/twitter/elephantbird/pig/piggybank/ProtobufBytesToTuple.java;<<<<<<< MINE
+    protoConverter_ = Protobufs.getProtoConverter(typeRef.getRawClass());
+=======
+    protoConverter_ = ProtobufConverter.newInstance(typeRef);
+>>>>>>> YOURS
+/home/taes/taes/projects/elephant-bird/revisions/rev_b0d7a3e_6abbab9/rev_b0d7a3e-6abbab9/src/test/com/twitter/elephantbird/util/TestProtobufs.java;<<<<<<< MINE
+  
+  @Test 
+=======
+
+  @Test
+>>>>>>> YOURS
+/home/taes/taes/projects/elephant-bird/revisions/rev_b0d7a3e_6abbab9/rev_b0d7a3e-6abbab9/src/test/com/twitter/elephantbird/util/TestProtobufs.java;<<<<<<< MINE
+    Function<byte[], AddressBook> protoConverter = Protobufs.getProtoConverter(AddressBook.class);
+    assertEquals(ab_, protoConverter.apply(abBytes_));
+=======
+    ProtobufConverter<AddressBook> protoConverter = ProtobufConverter.newInstance(AddressBook.class);
+    assertEquals(ab_, protoConverter.fromBytes(abBytes_));
+>>>>>>> YOURS
+/home/taes/taes/projects/elephant-bird/revisions/rev_d5876bb_b813096/rev_d5876bb-b813096/src/java/com/twitter/elephantbird/mapreduce/output/LzoProtobufBlockOutputFormat.java;<<<<<<< MINE
+  @Override
+  public RecordWriter<NullWritable, W> getRecordWriter(TaskAttemptContext job)
+=======
+  public LzoProtobufBlockOutputFormat() {}
+
+  /**
+   * Returns {@link LzoProtobufB64LineOutputFormat} class.
+   * Sets an internal configuration in jobConf so that remote Tasks
+   * instantiate appropriate object for this generic class based on protoClass
+   */
+  @SuppressWarnings("unchecked")
+  public static <M extends Message> Class<LzoProtobufBlockOutputFormat>
+     getOutputFormatClass(Class<M> protoClass, Configuration jobConf) {
+
+    Protobufs.setClassConf(jobConf, LzoProtobufBlockOutputFormat.class, protoClass);
+    return LzoProtobufBlockOutputFormat.class;
+  }
+
+  public RecordWriter<NullWritable, ProtobufWritable<M>> getRecordWriter(TaskAttemptContext job)
+>>>>>>> YOURS
+/home/taes/taes/projects/elephant-bird/revisions/rev_d5876bb_b813096/rev_d5876bb-b813096/src/java/com/twitter/elephantbird/mapreduce/output/LzoProtobufB64LineOutputFormat.java;<<<<<<< MINE
+  @Override
+  public RecordWriter<NullWritable, W> getRecordWriter(TaskAttemptContext job)
+=======
+  public LzoProtobufB64LineOutputFormat() {}
+
+  /**
+   * Returns {@link LzoProtobufBlockOutputFormat} class.
+   * Sets an internal configuration in jobConf so that remote Tasks
+   * instantiate appropriate object for this generic class based on protoClass
+   */
+  @SuppressWarnings("unchecked")
+  public static <M extends Message> Class<LzoProtobufB64LineOutputFormat>
+     getOutputFormatClass(Class<M> protoClass, Configuration jobConf) {
+
+    Protobufs.setClassConf(jobConf, LzoProtobufB64LineOutputFormat.class, protoClass);
+    return LzoProtobufB64LineOutputFormat.class;
+  }
+
+
+  public RecordWriter<NullWritable, ProtobufWritable<M>> getRecordWriter(TaskAttemptContext job)
+>>>>>>> YOURS
+/home/taes/taes/projects/jodd/revisions/rev_fa133ef_2e3ee1e/rev_fa133ef-2e3ee1e/jodd-core/src/main/java/jodd/util/Wildcard.java;<<<<<<< MINE
+	public static boolean match(String string, String pattern) {
+=======
+	public static boolean match(CharSequence string, CharSequence pattern) {
+>>>>>>> YOURS
+/home/taes/taes/projects/jodd/revisions/rev_fa133ef_2e3ee1e/rev_fa133ef-2e3ee1e/jodd-core/src/main/java/jodd/util/Wildcard.java;<<<<<<< MINE
+	 * Checks if two strings are equals or if they {@link #match(String, String)}.
+=======
+	 * Checks if two strings are equals or if they {@link #match(CharSequence, CharSequence)}.
+>>>>>>> YOURS
+/home/taes/taes/projects/jodd/revisions/rev_fa133ef_2e3ee1e/rev_fa133ef-2e3ee1e/jodd-core/src/main/java/jodd/util/Wildcard.java;<<<<<<< MINE
+	public static boolean equalsOrMatch(String string, String pattern) {
+=======
+	public static boolean equalsOrMatch(CharSequence string, CharSequence pattern) {
+>>>>>>> YOURS
+/home/taes/taes/projects/jodd/revisions/rev_fa133ef_2e3ee1e/rev_fa133ef-2e3ee1e/jodd-core/src/main/java/jodd/util/Wildcard.java;<<<<<<< MINE
+	private static boolean match(String string, String pattern, int sNdx, int pNdx) {
+=======
+	private static boolean match(CharSequence string, CharSequence pattern, int sNdx, int pNdx) {
+>>>>>>> YOURS
+/home/taes/taes/projects/jodd/revisions/rev_fa133ef_2e3ee1e/rev_fa133ef-2e3ee1e/jodd-core/src/main/java/jodd/util/Wildcard.java;<<<<<<< MINE
+	 * @see #match(String, String)
+=======
+	 * @see #match(CharSequence, CharSequence)
+>>>>>>> YOURS
+/home/taes/taes/projects/elephant-bird/revisions/rev_1416fa5_839a574/rev_1416fa5-839a574/src/java/com/twitter/elephantbird/mapreduce/output/LzoProtobufBlockOutputFormat.java;<<<<<<< MINE
+  public RecordWriter<NullWritable, W> getRecordWriter(TaskAttemptContext job)
+=======
+  public LzoProtobufBlockOutputFormat() {}
+
+  /**
+   * Returns {@link LzoProtobufB64LineOutputFormat} class.
+   * Sets an internal configuration in jobConf so that remote Tasks
+   * instantiate appropriate object for this generic class based on protoClass
+   */
+  @SuppressWarnings("unchecked")
+  public static <M extends Message> Class<LzoProtobufBlockOutputFormat>
+     getOutputFormatClass(Class<M> protoClass, Configuration jobConf) {
+
+    Protobufs.setClassConf(jobConf, LzoProtobufBlockOutputFormat.class, protoClass);
+    return LzoProtobufBlockOutputFormat.class;
+  }
+
+  public RecordWriter<NullWritable, ProtobufWritable<M>> getRecordWriter(TaskAttemptContext job)
+>>>>>>> YOURS
+/home/taes/taes/projects/elephant-bird/revisions/rev_1416fa5_839a574/rev_1416fa5-839a574/src/java/com/twitter/elephantbird/mapreduce/output/LzoProtobufBlockOutputFormat.java;<<<<<<< MINE
+    return new LzoBinaryBlockRecordWriter<M, W>(
+=======
+    if (typeRef_ == null) { // i.e. if not set by a subclass
+      typeRef_ = Protobufs.getTypeRef(job.getConfiguration(), LzoProtobufBlockOutputFormat.class);
+    }
+
+    return new LzoBinaryBlockRecordWriter<M, ProtobufWritable<M>>(
+>>>>>>> YOURS
+/home/taes/taes/projects/elephant-bird/revisions/rev_1416fa5_839a574/rev_1416fa5-839a574/src/java/com/twitter/elephantbird/mapreduce/output/LzoProtobufB64LineOutputFormat.java;<<<<<<< MINE
+  public RecordWriter<NullWritable, W> getRecordWriter(TaskAttemptContext job)
+=======
+  public LzoProtobufB64LineOutputFormat() {}
+
+  /**
+   * Returns {@link LzoProtobufBlockOutputFormat} class.
+   * Sets an internal configuration in jobConf so that remote Tasks
+   * instantiate appropriate object for this generic class based on protoClass
+   */
+  @SuppressWarnings("unchecked")
+  public static <M extends Message> Class<LzoProtobufB64LineOutputFormat>
+     getOutputFormatClass(Class<M> protoClass, Configuration jobConf) {
+
+    Protobufs.setClassConf(jobConf, LzoProtobufB64LineOutputFormat.class, protoClass);
+    return LzoProtobufB64LineOutputFormat.class;
+  }
+
+
+  public RecordWriter<NullWritable, ProtobufWritable<M>> getRecordWriter(TaskAttemptContext job)
+>>>>>>> YOURS
+/home/taes/taes/projects/elephant-bird/revisions/rev_1416fa5_839a574/rev_1416fa5-839a574/src/java/com/twitter/elephantbird/mapreduce/output/LzoProtobufB64LineOutputFormat.java;<<<<<<< MINE
+    return new LzoBinaryB64LineRecordWriter<M, W>(new ProtobufConverter<M>(typeRef_), getOutputStream(job));
+=======
+    if (typeRef_ == null) {
+      typeRef_ = Protobufs.getTypeRef(job.getConfiguration(), LzoProtobufB64LineOutputFormat.class);
+    }
+
+    return new LzoBinaryB64LineRecordWriter<M, ProtobufWritable<M>>(ProtobufConverter.newInstance(typeRef_), getOutputStream(job));
+>>>>>>> YOURS
+/home/taes/taes/projects/elephant-bird/revisions/rev_1416fa5_839a574/rev_1416fa5-839a574/src/java/com/twitter/elephantbird/mapreduce/input/LzoProtobufB64LineInputFormat.java;<<<<<<< MINE
+  protected void setProtobufWritable(W protobufWritable) {
+    protobufWritable_ = protobufWritable;
+=======
+  /**
+   * Returns {@link LzoProtobufB64LineInputFormat} class.
+   * Sets an internal configuration in jobConf so that remote Tasks
+   * instantiate appropriate object based on protoClass.
+   */
+  @SuppressWarnings("unchecked")
+  public static <M extends Message> Class<LzoProtobufB64LineInputFormat>
+     getInputFormatClass(Class<M> protoClass, Configuration jobConf) {
+    Protobufs.setClassConf(jobConf, LzoProtobufB64LineInputFormat.class, protoClass);
+    return LzoProtobufB64LineInputFormat.class;
+>>>>>>> YOURS
+/home/taes/taes/projects/elephant-bird/revisions/rev_1416fa5_839a574/rev_1416fa5-839a574/src/java/com/twitter/elephantbird/mapreduce/input/LzoProtobufB64LineInputFormat.java;<<<<<<< MINE
+  public RecordReader<LongWritable, W> createRecordReader(InputSplit split,
+=======
+  public RecordReader<LongWritable, ProtobufWritable<M>> createRecordReader(InputSplit split,
+>>>>>>> YOURS
+/home/taes/taes/projects/elephant-bird/revisions/rev_1416fa5_839a574/rev_1416fa5-839a574/src/java/com/twitter/elephantbird/mapreduce/input/LzoProtobufB64LineInputFormat.java;<<<<<<< MINE
+
+    return new LzoProtobufB64LineRecordReader<M, W>(typeRef_, protobufWritable_);
+=======
+    if (typeRef_ == null) {
+      typeRef_ = Protobufs.getTypeRef(taskAttempt.getConfiguration(), LzoProtobufB64LineInputFormat.class);
+    }
+    return new LzoProtobufB64LineRecordReader<M>(typeRef_);
+>>>>>>> YOURS
+/home/taes/taes/projects/elephant-bird/revisions/rev_1416fa5_839a574/rev_1416fa5-839a574/src/java/com/twitter/elephantbird/mapreduce/input/LzoProtobufBlockInputFormat.java;<<<<<<< MINE
+  protected void setProtobufWritable(W protobufWritable) {
+    protobufWritable_ = protobufWritable;
+=======
+  /**
+   * Returns {@link LzoProtobufBlockInputFormat} class.
+   * Sets an internal configuration in jobConf so that remote Tasks
+   * instantiate appropriate object based on protoClass.
+   */
+  @SuppressWarnings("unchecked")
+  public static <M extends Message> Class<LzoProtobufBlockInputFormat>
+     getInputFormatClass(Class<M> protoClass, Configuration jobConf) {
+    Protobufs.setClassConf(jobConf, LzoProtobufBlockInputFormat.class, protoClass);
+    return LzoProtobufBlockInputFormat.class;
+>>>>>>> YOURS
+/home/taes/taes/projects/elephant-bird/revisions/rev_1416fa5_839a574/rev_1416fa5-839a574/src/java/com/twitter/elephantbird/mapreduce/input/LzoProtobufBlockInputFormat.java;<<<<<<< MINE
+  public RecordReader<LongWritable, W> createRecordReader(InputSplit split,
+=======
+  public RecordReader<LongWritable, ProtobufWritable<M>> createRecordReader(InputSplit split,
+>>>>>>> YOURS
+/home/taes/taes/projects/elephant-bird/revisions/rev_1416fa5_839a574/rev_1416fa5-839a574/src/java/com/twitter/elephantbird/mapreduce/input/LzoProtobufBlockInputFormat.java;<<<<<<< MINE
+
+    return new LzoProtobufBlockRecordReader<M, W>(typeRef_, protobufWritable_);
+=======
+    if (typeRef_ == null) {
+      typeRef_ = Protobufs.getTypeRef(taskAttempt.getConfiguration(), LzoProtobufBlockInputFormat.class);
+    }
+    return new LzoProtobufBlockRecordReader<M>(typeRef_);
+>>>>>>> YOURS
+/home/taes/taes/projects/elephant-bird/revisions/rev_1416fa5_839a574/rev_1416fa5-839a574/src/java/com/twitter/elephantbird/mapreduce/input/LzoProtobufBlockRecordReader.java;<<<<<<< MINE
+  public LzoProtobufBlockRecordReader(TypeRef<M> typeRef, W protobufWritable) {
+=======
+  public LzoProtobufBlockRecordReader(TypeRef<M> typeRef) {
+>>>>>>> YOURS
+/home/taes/taes/projects/elephant-bird/revisions/rev_1416fa5_839a574/rev_1416fa5-839a574/src/java/com/twitter/elephantbird/mapreduce/input/LzoProtobufBlockRecordReader.java;<<<<<<< MINE
+    super(typeRef, new ProtobufBlockReader<M>(null, typeRef), protobufWritable);
+=======
+    super(typeRef, new ProtobufBlockReader<M>(null, typeRef), new ProtobufWritable<M>(typeRef));
+>>>>>>> YOURS
+/home/taes/taes/projects/elephant-bird/revisions/rev_1416fa5_839a574/rev_1416fa5-839a574/src/java/com/twitter/elephantbird/mapreduce/input/LzoProtobufB64LineRecordReader.java;<<<<<<< MINE
+  public LzoProtobufB64LineRecordReader(TypeRef<M> typeRef, W protobufWritable) {
+    super(typeRef, protobufWritable, new ProtobufConverter<M>(typeRef));
+=======
+  public LzoProtobufB64LineRecordReader(TypeRef<M> typeRef) {
+    super(typeRef, new ProtobufWritable<M>(typeRef), ProtobufConverter.newInstance(typeRef));
+>>>>>>> YOURS
+/home/taes/taes/projects/elephant-bird/revisions/rev_1416fa5_839a574/rev_1416fa5-839a574/src/java/com/twitter/elephantbird/mapreduce/io/ProtobufBlockWriter.java;<<<<<<< MINE
+    super(out, protoClass, new ProtobufConverter<M>(new TypeRef<M>(protoClass){}), DEFAULT_NUM_RECORDS_PER_BLOCK);
+=======
+    super(out, protoClass, ProtobufConverter.newInstance(protoClass), DEFAULT_NUM_RECORDS_PER_BLOCK);
+>>>>>>> YOURS
+/home/taes/taes/projects/elephant-bird/revisions/rev_1416fa5_839a574/rev_1416fa5-839a574/src/java/com/twitter/elephantbird/mapreduce/io/ProtobufBlockWriter.java;<<<<<<< MINE
+    super(out, protoClass, new ProtobufConverter<M>(new TypeRef<M>(protoClass){}), numRecordsPerBlock);
+=======
+    super(out, protoClass, ProtobufConverter.newInstance(protoClass), numRecordsPerBlock);
+>>>>>>> YOURS
+/home/taes/taes/projects/elephant-bird/revisions/rev_1416fa5_839a574/rev_1416fa5-839a574/src/java/com/twitter/elephantbird/mapreduce/io/ProtobufConverter.java;<<<<<<< MINE
+      LOG.error("Invalid Protocol Buffer exception building " + typeRef.getRawClass().getName(), e);
+=======
+      LOG.error("Invalid Protobuf exception while building " + typeRef.getRawClass().getName(), e);
+>>>>>>> YOURS
+/home/taes/taes/projects/elephant-bird/revisions/rev_1416fa5_839a574/rev_1416fa5-839a574/src/java/com/twitter/elephantbird/mapreduce/io/ProtobufConverter.java;<<<<<<< MINE
+      LOG.error("Uninitialized Message Exception in building " + typeRef.getRawClass().getName(), ume);
+=======
+      LOG.error("Uninitialized Message Exception while building " + typeRef.getRawClass().getName(), ume);
+>>>>>>> YOURS
+/home/taes/taes/projects/elephant-bird/revisions/rev_1416fa5_839a574/rev_1416fa5-839a574/src/java/com/twitter/elephantbird/mapreduce/io/ProtobufBlockReader.java;<<<<<<< MINE
+    super(in, new ProtobufConverter<M>(typeRef));
+=======
+    super(in, ProtobufConverter.newInstance(typeRef));
+>>>>>>> YOURS
+/home/taes/taes/projects/elephant-bird/revisions/rev_1416fa5_839a574/rev_1416fa5-839a574/src/java/com/twitter/elephantbird/proto/codegen/LzoProtobufBlockOutputFormatGenerator.java;<<<<<<< MINE
+    sb.append("public class Lzo%sProtobufBlockOutputFormat extends LzoProtobufBlockOutputFormat<%s, Protobuf%sWritable> {", descriptorProto_.getName(), descriptorProto_.getName(), descriptorProto_.getName()).endl();
+=======
+    sb.append("public class Lzo%sProtobufBlockOutputFormat extends LzoProtobufBlockOutputFormat<%s> {", descriptorProto_.getName(), descriptorProto_.getName()).endl();
+>>>>>>> YOURS
+/home/taes/taes/projects/elephant-bird/revisions/rev_1416fa5_839a574/rev_1416fa5-839a574/src/java/com/twitter/elephantbird/proto/codegen/LzoProtobufBlockInputFormatGenerator.java;<<<<<<< MINE
+    sb.append("public class Lzo%sProtobufBlockInputFormat extends LzoProtobufBlockInputFormat<%s, Protobuf%sWritable> {", descriptorProto_.getName(), descriptorProto_.getName(), descriptorProto_.getName()).endl();
+=======
+    sb.append("public class Lzo%sProtobufBlockInputFormat extends LzoProtobufBlockInputFormat<%s> {", descriptorProto_.getName(), descriptorProto_.getName()).endl();
+>>>>>>> YOURS
+/home/taes/taes/projects/elephant-bird/revisions/rev_1416fa5_839a574/rev_1416fa5-839a574/src/java/com/twitter/elephantbird/proto/codegen/LzoProtobufB64LineOutputFormatGenerator.java;<<<<<<< MINE
+    sb.append("public class Lzo%sProtobufB64LineOutputFormat extends LzoProtobufB64LineOutputFormat<%s, Protobuf%sWritable> {", descriptorProto_.getName(), descriptorProto_.getName(), descriptorProto_.getName()).endl();
+=======
+    sb.append("public class Lzo%sProtobufB64LineOutputFormat extends LzoProtobufB64LineOutputFormat<%s> {", descriptorProto_.getName(), descriptorProto_.getName()).endl();
+>>>>>>> YOURS
+/home/taes/taes/projects/elephant-bird/revisions/rev_1416fa5_839a574/rev_1416fa5-839a574/src/java/com/twitter/elephantbird/proto/codegen/LzoProtobufB64LineInputFormatGenerator.java;<<<<<<< MINE
+    sb.append("public class Lzo%sProtobufB64LineInputFormat extends LzoProtobufB64LineInputFormat<%s, Protobuf%sWritable> {", descriptorProto_.getName(), descriptorProto_.getName(), descriptorProto_.getName()).endl();
+=======
+    sb.append("public class Lzo%sProtobufB64LineInputFormat extends LzoProtobufB64LineInputFormat<%s> {", descriptorProto_.getName(), descriptorProto_.getName()).endl();
+>>>>>>> YOURS
+/home/taes/taes/projects/elephant-bird/revisions/rev_1416fa5_839a574/rev_1416fa5-839a574/src/java/com/twitter/elephantbird/pig/load/LzoProtobufB64LinePigLoader.java;<<<<<<< MINE
+    protoConverter_ = Protobufs.getProtoConverter(typeRef.getRawClass());
+=======
+    protoConverter_ = ProtobufConverter.newInstance(typeRef);
+>>>>>>> YOURS
+/home/taes/taes/projects/elephant-bird/revisions/rev_1416fa5_839a574/rev_1416fa5-839a574/src/java/com/twitter/elephantbird/pig/piggybank/ProtobufBytesToTuple.java;<<<<<<< MINE
+    protoConverter_ = Protobufs.getProtoConverter(typeRef.getRawClass());
+=======
+    protoConverter_ = ProtobufConverter.newInstance(typeRef);
+>>>>>>> YOURS
+/home/taes/taes/projects/elephant-bird/revisions/rev_1416fa5_839a574/rev_1416fa5-839a574/src/test/com/twitter/elephantbird/util/TestProtobufs.java;<<<<<<< MINE
+  
+  @Test 
+=======
+
+  @Test
+>>>>>>> YOURS
+/home/taes/taes/projects/elephant-bird/revisions/rev_1416fa5_839a574/rev_1416fa5-839a574/src/test/com/twitter/elephantbird/util/TestProtobufs.java;<<<<<<< MINE
+    Function<byte[], AddressBook> protoConverter = Protobufs.getProtoConverter(AddressBook.class);
+    assertEquals(ab_, protoConverter.apply(abBytes_));
+=======
+    ProtobufConverter<AddressBook> protoConverter = ProtobufConverter.newInstance(AddressBook.class);
+    assertEquals(ab_, protoConverter.fromBytes(abBytes_));
+>>>>>>> YOURS
+/home/taes/taes/projects/elephant-bird/revisions/rev_8d0b4a1_811f95b/rev_8d0b4a1-811f95b/src/java/com/twitter/elephantbird/mapreduce/input/LzoProtobufB64LineInputFormat.java;<<<<<<< MINE
+ * InputFormat class for a job. Use getInputFormatClass() instead.
+=======
+ * InputFormat class for a job. Use getInputFormatClass() or newInstance(typeRef) instead.
+>>>>>>> YOURS
+/home/taes/taes/projects/elephant-bird/revisions/rev_8d0b4a1_811f95b/rev_8d0b4a1-811f95b/src/java/com/twitter/elephantbird/mapreduce/input/LzoProtobufB64LineInputFormat.java;<<<<<<< MINE
+  @SuppressWarnings("unchecked")
+=======
+  @SuppressWarnings("rawtypes")
+>>>>>>> YOURS
+/home/taes/taes/projects/elephant-bird/revisions/rev_6c5529a_64bb16e/rev_6c5529a-64bb16e/src/java/com/twitter/elephantbird/pig/piggybank/ThriftToPig.java;<<<<<<< MINE
+    /* we are commenting out explicit schema specification. The schema is 
+     * included mainly to help the readers of the pig script. Pig learns the 
+     * schema directly from the loader. 
+=======
+    /* we are commenting out explicit schema specification. The schema is
+     * included mainly to help the readers of the pig script. Pig learns the
+     * schema directly from the loader.
+>>>>>>> YOURS
+/home/taes/taes/projects/elephant-bird/revisions/rev_6c5529a_64bb16e/rev_6c5529a-64bb16e/src/java/com/twitter/elephantbird/pig/piggybank/ThriftToPig.java;<<<<<<< MINE
+     * when a Thrift class (possibly in control of another team) changes, 
+     * but the Pig script is not updated. Commenting it out work around this. 
+=======
+     * when a Thrift class (possibly in control of another team) changes,
+     * but the Pig script is not updated. Commenting it out work around this.
+>>>>>>> YOURS
+/home/taes/taes/projects/elephant-bird/revisions/rev_b87762a_3125301/rev_b87762a-3125301/src/java/com/twitter/elephantbird/mapreduce/input/LzoThriftB64LineInputFormat.java;<<<<<<< MINE
+ * deserializes that into the Thrift object.  
+=======
+ * deserializes that into the Thrift object.
+>>>>>>> YOURS
+/home/taes/taes/projects/elephant-bird/revisions/rev_b87762a_3125301/rev_b87762a-3125301/src/java/com/twitter/elephantbird/mapreduce/input/LzoThriftB64LineInputFormat.java;<<<<<<< MINE
+   * Sets an internal configuration in jobConf so that Task instantiates 
+=======
+   * Sets an internal configuration in jobConf so that Task instantiates
+>>>>>>> YOURS
+/home/taes/taes/projects/curator/revisions/rev_1ee1673_859a623/rev_1ee1673-859a623/curator-recipes/src/main/java/com/netflix/curator/framework/recipes/queue/DistributedQueue.java;<<<<<<< MINE
+        boolean     isUsingLockSafety = (lockPath != null);
+        int         min = minItemsBeforeRefresh;
+        for ( String itemNode : children )
+=======
+        final boolean   isUsingLockSafety = (lockPath != null);
+        int             min = minItemsBeforeRefresh;
+        for ( final String itemNode : children )
+>>>>>>> YOURS
+/home/taes/taes/projects/curator/revisions/rev_1ee1673_859a623/rev_1ee1673-859a623/curator-recipes/src/main/java/com/netflix/curator/framework/recipes/queue/DistributedQueue.java;<<<<<<< MINE
+            if ( isUsingLockSafety )
+            {
+                processWithLockSafety(itemNode, ProcessType.NORMAL);
+            }
+            else
+            {
+                processNormally(itemNode, ProcessType.NORMAL);
+            }
+=======
+            executor.execute
+            (
+                new Runnable()
+                {
+                    @Override
+                    public void run()
+                    {
+                        try
+                        {
+                            if ( isUsingLockSafety )
+                            {
+                                processWithLockSafety(itemNode, ProcessType.NORMAL);
+                            }
+                            else
+                            {
+                                processNormally(itemNode, ProcessType.NORMAL);
+                            }
+                        }
+                        catch ( Exception e )
+                        {
+                            log.error("Error processing message at " + itemNode, e);
+                        }
+                    }
+                }
+            );
+>>>>>>> YOURS
+/home/taes/taes/projects/curator/revisions/rev_1ee1673_859a623/rev_1ee1673-859a623/curator-recipes/src/test/java/com/netflix/curator/framework/recipes/queue/TestQueueSharder.java;<<<<<<< MINE
+            timing.sleepABit();
+=======
+            timing.forWaiting().sleepABit();
+>>>>>>> YOURS
+/home/taes/taes/projects/curator/revisions/rev_1ee1673_859a623/rev_1ee1673-859a623/curator-recipes/src/test/java/com/netflix/curator/framework/recipes/queue/TestQueueSharder.java;<<<<<<< MINE
+            timing.sleepABit();
+=======
+            timing.forWaiting().sleepABit();
+>>>>>>> YOURS
+/home/taes/taes/projects/curator/revisions/rev_1ee1673_859a623/rev_1ee1673-859a623/curator-recipes/src/test/java/com/netflix/curator/framework/recipes/queue/TestQueueSharder.java;<<<<<<< MINE
+            timing.sleepABit();
+=======
+            timing.forWaiting().sleepABit();
+>>>>>>> YOURS
+/home/taes/taes/projects/jodd/revisions/rev_b29bb89_8ab7c2d/rev_b29bb89-8ab7c2d/jodd-core/src/main/java/jodd/util/BCrypt.java;<<<<<<< MINE
+		rs.append(Integer.toString(rounds));
+		rs.append("$");
+		rs.append(encode_base64(saltb, saltb.length));
+		rs.append(encode_base64(hashed,
+			bf_crypt_ciphertext.length * 4 - 1));
+=======
+		rs.append(rounds)
+				.append("$")
+				.append(encode_base64(saltb, saltb.length))
+				.append(encode_base64(hashed,
+						bf_crypt_ciphertext.length * 4 - 1));
+>>>>>>> YOURS
+/home/taes/taes/projects/jodd/revisions/rev_b29bb89_8ab7c2d/rev_b29bb89-8ab7c2d/jodd-core/src/main/java/jodd/util/BCrypt.java;<<<<<<< MINE
+		rs.append(Integer.toString(log_rounds));
+		rs.append("$");
+		rs.append(encode_base64(rnd, rnd.length));
+=======
+		rs.append(log_rounds).append("$")
+				.append(encode_base64(rnd, rnd.length));
+>>>>>>> YOURS
+/home/taes/taes/projects/elephant-bird/revisions/rev_110e154_738e6ce/rev_110e154-738e6ce/src/test/com/twitter/elephantbird/pig/piggybank/TestThriftToPig.java;<<<<<<< MINE
+        "1-0-35-27000-16777216-6000000000-3.141592653589793-JSON THIS! \"-"+ooe.zomg_unicode+"-0-base64-{(1),(2),(3)}-{(1),(2),(3)}-{(1),(2),(3)}",
+        toTuple(ooe).toDelimitedString("-"));
+=======
+        "1-0-35-27000-16777216-6000000000-3.141592653589793-JSON THIS! \"-"+ooe.zomg_unicode+"-0-base64-{(1),(2),(3)}-{(1),(2),(3)}-{(1L),(2L),(3L)}",
+        toTuple(type, ooe).toDelimitedString("-"));
+>>>>>>> YOURS
+/home/taes/taes/projects/elephant-bird/revisions/rev_110e154_738e6ce/rev_110e154-738e6ce/src/test/com/twitter/elephantbird/pig/piggybank/TestThriftToPig.java;<<<<<<< MINE
+    assertEquals("(31337,I am a bonk... xor!)-(1,0,35,27000,16777216,6000000000,3.141592653589793,JSON THIS! \","+n.my_ooe.zomg_unicode+",0,base64,{(1),(2),(3)},{(1),(2),(3)},{(1),(2),(3)})",
+        toTuple(n).toDelimitedString("-"));
+=======
+    assertEquals("(31337,I am a bonk... xor!)-(1,0,35,27000,16777216,6000000000L,3.141592653589793,JSON THIS! \","+n.my_ooe.zomg_unicode+",0,base64,{(1),(2),(3)},{(1),(2),(3)},{(1L),(2L),(3L)})",
+        toTuple(type, n).toDelimitedString("-"));
+>>>>>>> YOURS
+/home/taes/taes/projects/elephant-bird/revisions/rev_110e154_738e6ce/rev_110e154-738e6ce/src/test/com/twitter/elephantbird/pig/piggybank/TestThriftToPig.java;<<<<<<< MINE
+    assertEquals("{(1,0,34,27000,16777216,6000000000,3.141592653589793,JSON THIS! \"," + ooe.zomg_unicode +
+        ",0,base64,{(1),(2),(3)},{(1),(2),(3)},{(1),(2),(3)}),(1,0,35,27000,16777216,6000000000,3.141592653589793,JSON THIS! \"," +
+        ooe.zomg_unicode + ",0,base64,{(1),(2),(3)},{(1),(2),(3)},{(1),(2),(3)})}-{({}),({(then a one, two),(three!),(FOUR!!)}),({(and a one),(and a two)})}-{zero={}, three={}, two={(1,Wait.),(2,What?)}}",
+        (toTuple(hm).toDelimitedString("-")));
+=======
+    assertEquals("{(1,0,34,27000,16777216,6000000000L,3.141592653589793,JSON THIS! \"," + ooe.zomg_unicode +
+        ",0,base64,{(1),(2),(3)},{(1),(2),(3)},{(1L),(2L),(3L)}),(1,0,35,27000,16777216,6000000000L,3.141592653589793,JSON THIS! \"," +
+        ooe.zomg_unicode + ",0,base64,{(1),(2),(3)},{(1),(2),(3)},{(1L),(2L),(3L)})}-{({}),({(and a one),(and a two)}),({(then a one, two),(three!),(FOUR!!)})}-{zero={}, three={}, two={(1,Wait.),(2,What?)}}",
+        (toTuple(type, hm).toDelimitedString("-")));
+>>>>>>> YOURS
+/home/taes/taes/projects/elephant-bird/revisions/rev_110e154_738e6ce/rev_110e154-738e6ce/src/test/com/twitter/elephantbird/pig/piggybank/TestThriftToPig.java;<<<<<<< MINE
+        "1-0-35-27000-16777216-6000000000-3.141592653589793-JSON THIS! \"-"+ooe.zomg_unicode+"-0--{(1),(2),(3)}--{(1),(2),(3)}",
+        toTuple(mostly_ooe).toDelimitedString("-"));
+=======
+        "1-0-35-27000-16777216-6000000000-3.141592653589793-JSON THIS! \"--0--{(1),(2),(3)}-{(1),(2),(3)}-{(1L),(2L),(3L)}",
+        toTuple(type, mostly_ooe).toDelimitedString("-"));
+>>>>>>> YOURS
+/home/taes/taes/projects/elephant-bird/revisions/rev_110e154_738e6ce/rev_110e154-738e6ce/src/test/com/twitter/elephantbird/pig/piggybank/TestThriftToPig.java;<<<<<<< MINE
+    assertEquals("(31337,)-(1,0,35,27000,16777216,6000000000,3.141592653589793,JSON THIS! \","+n.my_ooe.zomg_unicode+",0,,{(1),(2),(3)},,{(1),(2),(3)})",
+        toTuple(n2).toDelimitedString("-"));
+=======
+    assertEquals("(31337,)-(1,0,35,27000,16777216,6000000000L,3.141592653589793,JSON THIS! \",,0,,{(1),(2),(3)},{(1),(2),(3)},{(1L),(2L),(3L)})",
+        toTuple(type, n2).toDelimitedString("-"));
+>>>>>>> YOURS
+/home/taes/taes/projects/elephant-bird/revisions/rev_4ece7ba_811018f/rev_4ece7ba-811018f/src/java/com/twitter/elephantbird/pig/util/ThriftToPig.java;<<<<<<< MINE
+            // This a partition work around. still need to fix the case
+=======
+            // This a partial work around. still need to fix the case
+>>>>>>> YOURS
+/home/taes/taes/projects/elephant-bird/revisions/rev_27ceb0c_4353485/rev_27ceb0c-4353485/src/java/com/twitter/elephantbird/mapreduce/io/BinaryBlockWriter.java;<<<<<<< MINE
+/** 
+=======
+/**
+>>>>>>> YOURS
+/home/taes/taes/projects/ribbon/revisions/rev_a64b868_6e11c79/rev_a64b868-6e11c79/ribbon-core/src/main/java/com/netflix/client/AbstractLoadBalancerAwareClient.java;<<<<<<< MINE
+     * Get the default port which is protocol specific if port is missing in the request URI.
+=======
+     * Get the default port from the vip address.
+>>>>>>> YOURS
+/home/taes/taes/projects/ribbon/revisions/rev_a64b868_6e11c79/rev_a64b868-6e11c79/ribbon-core/src/main/java/com/netflix/client/AbstractLoadBalancerAwareClient.java;<<<<<<< MINE
+        	port = getDefaultPort();
+=======
+        	port = getDefaultPortFromScheme(scheme);
+>>>>>>> YOURS
+/home/taes/taes/projects/retrofit/revisions/rev_35b7257_838711b/rev_35b7257-838711b/http/src/main/java/retrofit/http/RestAdapter.java;<<<<<<< MINE
+  public static <T> Provider<T> createProvider(final Class<T> type) {
+    return new Provider<T>() {
+=======
+  public static <T> com.google.inject.Provider<T> createProvider(final Class<T> type) {
+    return new com.google.inject.Provider<T>() {
+>>>>>>> YOURS
+/home/taes/taes/projects/retrofit/revisions/rev_35b7257_838711b/rev_35b7257-838711b/http/src/main/java/retrofit/http/RestAdapter.java;<<<<<<< MINE
+        RestAdapter.RestHandler handler = restAdapter.new RestHandler();
+        return (T) Proxy.newProxyInstance(type.getClassLoader(), new Class<?>[]{type}, handler);
+=======
+        return create(restAdapter, type);
+>>>>>>> YOURS
+/home/taes/taes/projects/retrofit/revisions/rev_35b7257_838711b/rev_35b7257-838711b/http/src/main/java/retrofit/http/RestAdapter.java;<<<<<<< MINE
+        final ResponseHandler<Void> rh = (profiler == null) ? gsonResponseHandler
+=======
+        final ResponseHandler<Void> rh = (profiler == HttpProfiler.NONE)
+            ? gsonResponseHandler
+>>>>>>> YOURS
+/home/taes/taes/projects/elephant-bird/revisions/rev_ed6d50d_1f0c02e/rev_ed6d50d-1f0c02e/src/java/com/twitter/elephantbird/util/Codecs.java;<<<<<<< MINE
+     * Get a instance of standard base64 implementation from apache 
+     * commons-codec library 
+=======
+     * Get a instance of standard base64 implementation from apache
+     * commons-codec library
+>>>>>>> YOURS
+/home/taes/taes/projects/atlas/revisions/rev_a504c52_dd98861/rev_a504c52-dd98861/atlas-core/src/main/java/android/taobao/atlas/framework/bundlestorage/BundleArchive.java;<<<<<<< MINE
+        if (RuntimeVariables.sCurrentProcessName.equals(RuntimeVariables.androidApplication.getPackageName())) {
+=======
+        if (RuntimeVariables.sCurrentProcessName.equals(RuntimeVariables.androidApplication.getPackageName()) && !Framework.updateHappend) {
+>>>>>>> YOURS
+/home/taes/taes/projects/atlas/revisions/rev_a504c52_dd98861/rev_a504c52-dd98861/atlas-core/src/main/java/android/taobao/atlas/framework/bundlestorage/BundleArchive.java;<<<<<<< MINE
+    public synchronized void purge(String uniqueTag, final long dexPatchVersion) {
+=======
+    public synchronized void purge(final String uniqueTag, final long dexPatchVersion) {
+>>>>>>> YOURS
+/home/taes/taes/projects/atlas/revisions/rev_a504c52_dd98861/rev_a504c52-dd98861/atlas-core/src/main/java/android/taobao/atlas/framework/BundleClassLoader.java;<<<<<<< MINE
+                    impl.startBundle();
+                    clazz = ((BundleClassLoader) impl.getClassLoader()).loadOwnClass(classname);
+                    if(clazz!=null){
+                        return clazz;
+=======
+                    if(impl!=null) {
+                        impl.startBundle();
+                        clazz = ((BundleClassLoader) impl.getClassLoader()).loadOwnClass(classname);
+                        if (clazz != null) {
+                            return clazz;
+                        }
+                    }else{
+                        Log.e("BundleClassLoader",String.format("%s is not success installed by %s",""+dependencyBundle,location));
+>>>>>>> YOURS
+/home/taes/taes/projects/atlas/revisions/rev_a504c52_dd98861/rev_a504c52-dd98861/atlas-core/src/main/java/android/taobao/atlas/bundleInfo/BundleListing.java;<<<<<<< MINE
+//            if(bundlesListForInstall.contains(location)){
+//                return;
+//            }
+=======
+            findBundleTransitivelyInternal(location,bundlesListForInstall,location);
+        }
+
+        private void findBundleTransitivelyInternal(String location,List<String> bundlesListForInstall,final String root){
+//            //ææ­å¾ªç¯ä¾èµ
+>>>>>>> YOURS
+/home/taes/taes/projects/atlas/revisions/rev_a504c52_dd98861/rev_a504c52-dd98861/atlas-core/src/main/java/android/taobao/atlas/bundleInfo/BundleListing.java;<<<<<<< MINE
+                bundlesListForInstall.remove(location);
+                bundlesListForInstall.add(0,location);
+=======
+                if(!location.equals(root)) {
+                    bundlesListForInstall.remove(location);
+                    bundlesListForInstall.add(0, location);
+                }
+>>>>>>> YOURS
+/home/taes/taes/projects/atlas/revisions/rev_a504c52_dd98861/rev_a504c52-dd98861/atlas-core/src/main/java/android/taobao/atlas/bundleInfo/BundleListing.java;<<<<<<< MINE
+                        findBundleTransitively(dependepcy,bundlesListForInstall);
+=======
+                        findBundleTransitivelyInternal(dependepcy,bundlesListForInstall,root);
+>>>>>>> YOURS
+/home/taes/taes/projects/atlas/revisions/rev_8d5a4e8_cc2b800/rev_8d5a4e8-cc2b800/atlas-gradle-plugin/atlas-plugin/src/main/java/com/taobao/android/builder/tasks/app/merge/MergeManifestAwbsConfigAction.java;<<<<<<< MINE
+                                                "/manifests-awb/full/" +
+=======
+                                                "/awb-manifests/full/" +
+>>>>>>> YOURS
+/home/taes/taes/projects/atlas/revisions/rev_8d5a4e8_cc2b800/rev_8d5a4e8-cc2b800/atlas-gradle-plugin/atlas-plugin/src/main/java/com/taobao/android/builder/tasks/tpatch/TPatchDiffApkBuildTask.java;<<<<<<< MINE
+            return scope.getTaskName("Create", "TPatchDiffApk");
+=======
+            return scope.getTaskName("createTPatchDiffApk");
+>>>>>>> YOURS
+/home/taes/taes/projects/ribbon/revisions/rev_1c246b4_f841ad0/rev_1c246b4-f841ad0/ribbon-httpclient/src/main/java/com/netflix/http4/NFHttpClient.java;<<<<<<< MINE
+		init(DefaultClientConfigImpl.getClientConfigWithDefaultValues());
+=======
+		init(DefaultClientConfigImpl.getClientConfigWithDefaultValues(), false);
+>>>>>>> YOURS
+/home/taes/taes/projects/ribbon/revisions/rev_1c246b4_f841ad0/rev_1c246b4-f841ad0/ribbon-httpclient/src/main/java/com/netflix/http4/NFHttpClient.java;<<<<<<< MINE
+		init(DefaultClientConfigImpl.getClientConfigWithDefaultValues());
+=======
+		init(DefaultClientConfigImpl.getClientConfigWithDefaultValues(), false);
+>>>>>>> YOURS
+/home/taes/taes/projects/ribbon/revisions/rev_1c246b4_f841ad0/rev_1c246b4-f841ad0/ribbon-httpclient/src/main/java/com/netflix/http4/NFHttpClient.java;<<<<<<< MINE
+		super(new MonitoredConnectionManager(name));
+		this.name = name;
+		init(DefaultClientConfigImpl.getClientConfigWithDefaultValues());
+=======
+	    this(name, DefaultClientConfigImpl.getClientConfigWithDefaultValues(), true);
+>>>>>>> YOURS
+/home/taes/taes/projects/ribbon/revisions/rev_1c246b4_f841ad0/rev_1c246b4-f841ad0/ribbon-httpclient/src/main/java/com/netflix/http4/NFHttpClient.java;<<<<<<< MINE
+        init(config);
+=======
+        init(config, registerMonitor);
+>>>>>>> YOURS
+/home/taes/taes/projects/ribbon/revisions/rev_1c246b4_f841ad0/rev_1c246b4-f841ad0/ribbon-httpclient/src/main/java/com/netflix/http4/NFHttpClient.java;<<<<<<< MINE
+	void init(IClientConfig config) {
+=======
+	void init(IClientConfig config, boolean registerMonitor) {
+>>>>>>> YOURS
+/home/taes/taes/projects/ribbon/revisions/rev_1c246b4_f841ad0/rev_1c246b4-f841ad0/ribbon-httpclient/src/main/java/com/netflix/http4/NFHttpClient.java;<<<<<<< MINE
+	    tracer = Monitors.newTimer(EXECUTE_TRACER, TimeUnit.MILLISECONDS);
+        Monitors.registerObject(name, this);
+=======
+	    tracer = Monitors.newTimer(EXECUTE_TRACER + "-" + name, TimeUnit.MILLISECONDS);
+	    if (registerMonitor) {
+            Monitors.registerObject(name, this);
+	    }
+>>>>>>> YOURS
+/home/taes/taes/projects/ribbon/revisions/rev_1c246b4_f841ad0/rev_1c246b4-f841ad0/ribbon-httpclient/src/main/java/com/netflix/http4/NFHttpClient.java;<<<<<<< MINE
+	@Monitor(name = "connPoolCleaner", type = DataSourceType.INFORMATIONAL)
+=======
+	@Monitor(name = "HttpClient-ConnPoolCleaner", type = DataSourceType.INFORMATIONAL)
+>>>>>>> YOURS
+/home/taes/taes/projects/ribbon/revisions/rev_1c246b4_f841ad0/rev_1c246b4-f841ad0/ribbon-httpclient/src/main/java/com/netflix/http4/NFHttpClient.java;<<<<<<< MINE
+	@Monitor(name = "connIdleEvictTimeMilliSeconds", type = DataSourceType.INFORMATIONAL)
+=======
+	@Monitor(name = "HttpClient-ConnIdleEvictTimeMilliSeconds", type = DataSourceType.INFORMATIONAL)
+>>>>>>> YOURS
+/home/taes/taes/projects/ribbon/revisions/rev_1c246b4_f841ad0/rev_1c246b4-f841ad0/ribbon-httpclient/src/main/java/com/netflix/http4/NFHttpClient.java;<<<<<<< MINE
+	@Monitor(name="connectionsInPool", type = DataSourceType.GAUGE)    
+=======
+	@Monitor(name="HttpClient-ConnectionsInPool", type = DataSourceType.GAUGE)    
+>>>>>>> YOURS
+/home/taes/taes/projects/ribbon/revisions/rev_1c246b4_f841ad0/rev_1c246b4-f841ad0/ribbon-httpclient/src/main/java/com/netflix/http4/NFHttpClient.java;<<<<<<< MINE
+	@Monitor(name = "maxTotalConnections", type = DataSourceType.INFORMATIONAL)
+=======
+	@Monitor(name = "HttpClient-MaxTotalConnections", type = DataSourceType.INFORMATIONAL)
+>>>>>>> YOURS
+/home/taes/taes/projects/ribbon/revisions/rev_1c246b4_f841ad0/rev_1c246b4-f841ad0/ribbon-httpclient/src/main/java/com/netflix/http4/NFHttpClient.java;<<<<<<< MINE
+	@Monitor(name = "maxConnectionsPerHost", type = DataSourceType.INFORMATIONAL)
+=======
+	@Monitor(name = "HttpClient-MaxConnectionsPerHost", type = DataSourceType.INFORMATIONAL)
+>>>>>>> YOURS
+/home/taes/taes/projects/ribbon/revisions/rev_1c246b4_f841ad0/rev_1c246b4-f841ad0/ribbon-httpclient/src/main/java/com/netflix/http4/NFHttpClient.java;<<<<<<< MINE
+	@Monitor(name = "numRetries", type = DataSourceType.INFORMATIONAL)
+=======
+	@Monitor(name = "HttpClient-NumRetries", type = DataSourceType.INFORMATIONAL)
+>>>>>>> YOURS
+/home/taes/taes/projects/ribbon/revisions/rev_1c246b4_f841ad0/rev_1c246b4-f841ad0/ribbon-httpclient/src/main/java/com/netflix/http4/NFHttpClient.java;<<<<<<< MINE
+	@Monitor(name = "sleepTimeFactorMs", type = DataSourceType.INFORMATIONAL)
+=======
+	@Monitor(name = "HttpClient-SleepTimeFactorMs", type = DataSourceType.INFORMATIONAL)
+>>>>>>> YOURS
+/home/taes/taes/projects/ribbon/revisions/rev_1c246b4_f841ad0/rev_1c246b4-f841ad0/ribbon-httpclient/src/main/java/com/netflix/http4/NFHttpClientFactory.java;<<<<<<< MINE
+*
+* Copyright 2013 Netflix, Inc.
+*
+* Licensed under the Apache License, Version 2.0 (the "License");
+* you may not use this file except in compliance with the License.
+* You may obtain a copy of the License at
+*
+* http://www.apache.org/licenses/LICENSE-2.0
+*
+* Unless required by applicable law or agreed to in writing, software
+* distributed under the License is distributed on an "AS IS" BASIS,
+* WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+* See the License for the specific language governing permissions and
+* limitations under the License.
+*
+*/
+=======
+ *
+ * Copyright 2013 Netflix, Inc.
+ *
+ * Licensed under the Apache License, Version 2.0 (the "License");
+ * you may not use this file except in compliance with the License.
+ * You may obtain a copy of the License at
+ *
+ * http://www.apache.org/licenses/LICENSE-2.0
+ *
+ * Unless required by applicable law or agreed to in writing, software
+ * distributed under the License is distributed on an "AS IS" BASIS,
+ * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+ * See the License for the specific language governing permissions and
+ * limitations under the License.
+ *
+ */
+>>>>>>> YOURS
+/home/taes/taes/projects/ribbon/revisions/rev_1c246b4_f841ad0/rev_1c246b4-f841ad0/ribbon-httpclient/src/main/java/com/netflix/http4/NFHttpClientFactory.java;<<<<<<< MINE
+        			client = new NFHttpClient(name, config);
+=======
+        			client = new NFHttpClient(name, config, registerMonitor);
+>>>>>>> YOURS
+/home/taes/taes/projects/ribbon/revisions/rev_1c246b4_f841ad0/rev_1c246b4-f841ad0/ribbon-httpclient/src/main/java/com/netflix/http4/NFHttpClientFactory.java;<<<<<<< MINE
+	        Monitors.unregisterObject("HttpClient_" + name, c);
+=======
+	        Monitors.unregisterObject(name, c);
+>>>>>>> YOURS
+/home/taes/taes/projects/ribbon/revisions/rev_1c246b4_f841ad0/rev_1c246b4-f841ad0/ribbon-core/src/main/java/com/netflix/client/config/CommonClientConfigKey.java;<<<<<<< MINE
+import javax.annotation.Nullable;
+=======
+    AppName("AppName"),
+    Version("Version"),
+    Port("Port"),
+    SecurePort("SecurePort"),
+    ForceClientPortConfiguration("ForceClientPortConfiguration"), // use client defined port regardless of server advert
+    VipAddress("VipAddress"),
+    DeploymentContextBasedVipAddresses("DeploymentContextBasedVipAddresses"),
+    MaxAutoRetries("MaxAutoRetries"),
+    MaxAutoRetriesNextServer("MaxAutoRetriesNextServer"),
+    OkToRetryOnAllOperations("OkToRetryOnAllOperations"),
+    RequestSpecificRetryOn("RequestSpecificRetryOn"),
+    ReceiveBuffferSize("ReceiveBuffferSize"),
+    EnablePrimeConnections("EnablePrimeConnections"),
+    PrimeConnectionsClassName("PrimeConnectionsClassName"),
+    MaxRetriesPerServerPrimeConnection("MaxRetriesPerServerPrimeConnection"),
+    MaxTotalTimeToPrimeConnections("MaxTotalTimeToPrimeConnections"),
+    MinPrimeConnectionsRatio("MinPrimeConnectionsRatio"),
+    PrimeConnectionsURI("PrimeConnectionsURI"),
+    PoolMaxThreads("PoolMaxThreads"),
+    PoolMinThreads("PoolMinThreads"),
+    PoolKeepAliveTime("PoolKeepAliveTime"),
+    PoolKeepAliveTimeUnits("PoolKeepAliveTimeUnits"),
+>>>>>>> YOURS
+/home/taes/taes/projects/elephant-bird/revisions/rev_ad562ae_130cfc6/rev_ad562ae-130cfc6/src/java/com/twitter/elephantbird/mapreduce/input/LzoRecordReader.java;<<<<<<< MINE
+      throw new IOException("No codec for file " + file + " not found, cannot run");
+=======
+      throw new IOException("No codec for file " + file + " found, cannot run");
+>>>>>>> YOURS
+/home/taes/taes/projects/elephant-bird/revisions/rev_ad562ae_130cfc6/rev_ad562ae-130cfc6/src/java/com/twitter/elephantbird/pig/store/LzoTokenizedStorage.java;<<<<<<< MINE
+    LOG.info("LzoTokenizedStorage with given delimiter [" + delimiter + "]");
+    fieldDel_ = PigTokenHelper.evaluateDelimiter(delimiter);
+  }
+
+  /**
+   * Write the tuple out by writing its fields one at a time, separated by the delimiter.
+   * @param tuple the tuple to write.
+   */
+
+  @Override
+  public void putNext(Tuple tuple) throws IOException {
+    // Must convert integer fields to string, and then to bytes.
+    // Otherwise a DataOutputStream will convert directly from integer to bytes, rather
+    // than using the string representation.
+    int numElts = tuple.size();
+    StringBuilder sb = new StringBuilder();
+    for (int i = 0; i < numElts; i++) {
+      Object field;
+      try {
+        field = tuple.get(i);
+      } catch (ExecException ee) {
+        throw ee;
+      }
+      sb.append(fieldToString(field));
+
+      if (i == numElts - 1) {
+        // Last field in tuple.
+        sb.append(recordDel_);
+      } else {
+        sb.append(fieldDel_);
+      }
+    }
+
+    Text text = new Text(sb.toString());
+    try {
+        writer.write(NullWritable.get(), text);
+    } catch (InterruptedException e) {
+        throw new IOException(e);
+    }
+
+=======
+    super(delimiter);
+>>>>>>> YOURS
+/home/taes/taes/projects/elephant-bird/revisions/rev_ad562ae_130cfc6/rev_ad562ae-130cfc6/src/java/com/twitter/elephantbird/pig/load/LzoTokenizedLoader.java;<<<<<<< MINE
+ * A load function that parses a line of input into fields using a delimiter to set the fields. The
+ * delimiter is given as a single character, \t, or \x___ or slash u___.
+=======
+ * Same as {@link LzoPigStorage}.
+>>>>>>> YOURS
+/home/taes/taes/projects/elephant-bird/revisions/rev_ad562ae_130cfc6/rev_ad562ae-130cfc6/src/java/com/twitter/elephantbird/pig/load/LzoTokenizedLoader.java;<<<<<<< MINE
+    LOG.info("LzoTokenizedLoader with given delimiter [" + delimiter + "]");
+    if (delimiter.length() > 1) {
+      LOG.error("Delimiter is not a single character. Cannot construct LzoTokenizedLoader.");
+      throw new IllegalArgumentException();
+    }
+    // Store the constructor args so that individual slicers can recreate them.
+    fieldDel_ = PigTokenHelper.evaluateDelimiter(delimiter);
+=======
+    super(delimiter);
+>>>>>>> YOURS
+/home/taes/taes/projects/elephant-bird/revisions/rev_ad562ae_130cfc6/rev_ad562ae-130cfc6/src/java/com/twitter/elephantbird/pig/store/LzoTokenizedStorage.java;<<<<<<< MINE
+ * A storage class to store the ouput of each tuple in a delimited file
+ * like PigStorage, but LZO compressed.
+=======
+ * @deprecated use {@link LzoPigStorage} instead
+>>>>>>> YOURS
+/home/taes/taes/projects/archaius/revisions/rev_61eb7f8_8b0dddc/rev_61eb7f8-8b0dddc/archaius-core/src/main/java/com/netflix/config/DeploymentContext.java;<<<<<<< MINE
+        serverId("@serverId"), stack("@stack"), region("@region");
+=======
+        serverId("@serverId"), stack("@stack"), region("@region"), zone("@zone");
+>>>>>>> YOURS
+/home/taes/taes/projects/atlas/revisions/rev_98ae4ea_9a79e22/rev_98ae4ea-9a79e22/atlas-core/src/main/java/android/taobao/atlas/startup/patch/KernalBundle.java;<<<<<<< MINE
+                            new File(patchFile.getParent(),"patch.dex").getAbsolutePath(),0,true) ;
+=======
+                            new File(internalDebugBundleDir,"patch.dex").getAbsolutePath(),0,true) ;
+>>>>>>> YOURS
+/home/taes/taes/projects/atlas/revisions/rev_4e151bd_ffb0907/rev_4e151bd-ffb0907/atlas-gradle-plugin/atlas-plugin/src/main/java/com/taobao/android/builder/tasks/tpatch/TPatchDiffResAPBuildTask.java;<<<<<<< MINE
+        AaptPackageProcessBuilder aaptPackageCommandBuilder = new AaptPackageProcessBuilder(
+            miniManifest,
+            aaptOptions).setAssetsFolder(assetsFolder)
+=======
+        AaptPackageProcessBuilder aaptPackageCommandBuilder = new AaptPackageProcessBuilder(miniManifest,
+                                                                                            aaptOptions).setAssetsFolder(
+            assetsFolder)
+>>>>>>> YOURS
+/home/taes/taes/projects/atlas/revisions/rev_4e151bd_ffb0907/rev_4e151bd-ffb0907/atlas-gradle-plugin/atlas-plugin/src/main/java/com/taobao/android/builder/tasks/tpatch/TPatchDiffResAPBuildTask.java;<<<<<<< MINE
+        public ConfigAction(AppVariantContext appVariantContext,
+                            BaseVariantOutputData baseVariantOutputData) {
+=======
+        public ConfigAction(AppVariantContext appVariantContext, BaseVariantOutputData baseVariantOutputData) {
+>>>>>>> YOURS
+/home/taes/taes/projects/atlas/revisions/rev_4e151bd_ffb0907/rev_4e151bd-ffb0907/atlas-gradle-plugin/atlas-plugin/src/main/java/com/taobao/android/builder/tasks/tpatch/TPatchDiffResAPBuildTask.java;<<<<<<< MINE
+            if (variantData.getSplitHandlingPolicy() ==
+                SplitHandlingPolicy.RELEASE_21_AND_AFTER_POLICY) {
+=======
+            if (variantData.getSplitHandlingPolicy() == SplitHandlingPolicy.RELEASE_21_AND_AFTER_POLICY) {
+>>>>>>> YOURS
+/home/taes/taes/projects/atlas/revisions/rev_4e151bd_ffb0907/rev_4e151bd-ffb0907/atlas-gradle-plugin/atlas-plugin/src/main/java/com/taobao/android/builder/tasks/tpatch/TPatchDiffResAPBuildTask.java;<<<<<<< MINE
+            processDiffResources.mergeBlameLogFolder = scope.getVariantScope()
+                .getResourceBlameLogDir();
+            processDiffResources.pseudoLocalesEnabled = config.getBuildType()
+                .isPseudoLocalesEnabled();
+=======
+            processDiffResources.mergeBlameLogFolder = scope.getVariantScope().getResourceBlameLogDir();
+            processDiffResources.pseudoLocalesEnabled = config.getBuildType().isPseudoLocalesEnabled();
+>>>>>>> YOURS
+/home/taes/taes/projects/atlas/revisions/rev_4e151bd_ffb0907/rev_4e151bd-ffb0907/atlas-gradle-plugin/atlas-plugin/src/main/java/com/taobao/android/builder/tasks/tpatch/TPatchDiffResAPBuildTask.java;<<<<<<< MINE
+                    return new File(appVariantContext.apContext.getApExploredFolder(),  "AndroidManifest.xml");
+=======
+                    return new File(appVariantContext.apContext.getApExploredFolder(), "AndroidManifest.xml");
+>>>>>>> YOURS
+/home/taes/taes/projects/atlas/revisions/rev_4e151bd_ffb0907/rev_4e151bd-ffb0907/atlas-gradle-plugin/atlas-plugin/src/main/java/com/taobao/android/builder/tasks/tpatch/TPatchDiffResAPBuildTask.java;<<<<<<< MINE
+            ConventionMappingHelper.map(processDiffResources,
+                                        "aaptOptions",
+                                        new Callable<AaptOptions>() {
+                                            @Override
+                                            public AaptOptions call() throws Exception {
+                                                //è®¾ç½®aaptåæ°
+                                                AaptOptions aaptOptions = scope.getGlobalScope()
+                                                    .getExtension()
+                                                    .getAaptOptions();
+                                                if (null == aaptOptions.getAdditionalParameters() ||
+                                                    !aaptOptions.getAdditionalParameters()
+                                                        .contains("-B")) {
+
+                                                    PatchConfig patchConfig = appVariantContext.getBuildType()
+                                                        .getPatchConfig();
+                                                    if (patchConfig == null ||
+                                                        !(patchConfig.isCreateAPatch() ||
+                                                            patchConfig.isCreateTPatch())) {
+                                                        return aaptOptions;
+                                                    }
+
+                                                    AaptOptions cloneAaptOptions = new AaptOptions();
+                                                    try {
+                                                        BeanUtils.copyProperties(cloneAaptOptions,
+                                                                                 aaptOptions);
+                                                    } catch (Throwable e) {
+                                                        throw new StopExecutionException(e.getMessage());
+                                                    }
+                                                    aaptOptions = cloneAaptOptions;
+
+                                                    List<String> additionParameters = aaptOptions
+                                                        .getAdditionalParameters();
+                                                    if (null == additionParameters) {
+                                                        additionParameters = new ArrayList<String>();
+                                                    }
+                                                    additionParameters.add("-B");
+                                                    additionParameters.add(appVariantContext.apContext
+                                                                               .getBaseApk()
+                                                                               .getAbsolutePath());
+                                                }
+                                                return aaptOptions;
+                                            }
+                                        });
+
+            ConventionMappingHelper.map(processDiffResources,
+                                        "resourceConfigs",
+                                        new Callable<Collection<String>>() {
+                                            @Override
+                                            public Collection<String> call() throws Exception {
+                                                Collection<String> resConfigs = config.getMergedFlavor()
+                                                    .getResourceConfigurations();
+                                                if (resConfigs.size() == 1 &&
+                                                    Iterators.getOnlyElement(resConfigs.iterator())
+                                                        .equals("auto")) {
+                                                    if (scope.getGlobalScope()
+                                                        .getAndroidBuilder()
+                                                        .getTargetInfo()
+                                                        .getBuildTools()
+                                                        .getRevision()
+                                                        .getMajor() >= 21) {
+                                                        return variantData.discoverListOfResourceConfigsNotDensities();
+                                                    } else {
+                                                        return variantData.discoverListOfResourceConfigs();
+                                                    }
+                                                }
+                                                return config.getMergedFlavor()
+                                                    .getResourceConfigurations();
+                                            }
+                                        });
+
+            ConventionMappingHelper.map(processDiffResources,
+                                        "preferredDensity",
+                                        new Callable<String>() {
+                                            @Override
+                                            @Nullable
+                                            public String call() throws Exception {
+                                                String variantFilter = variantOutputData.getMainOutputFile()
+                                                    .getFilter(com.android.build.OutputFile.DENSITY);
+                                                if (variantFilter != null) {
+                                                    return variantFilter;
+                                                }
+                                                return AndroidGradleOptions.getBuildTargetDensity(
+                                                    scope.getGlobalScope().getProject());
+                                            }
+                                        });
+=======
+            ConventionMappingHelper.map(processDiffResources, "aaptOptions", new Callable<AaptOptions>() {
+                @Override
+                public AaptOptions call() throws Exception {
+                    //è®¾ç½®aaptåæ°
+                    AaptOptions aaptOptions = scope.getGlobalScope().getExtension().getAaptOptions();
+                    if (null == aaptOptions.getAdditionalParameters() || !aaptOptions.getAdditionalParameters()
+                        .contains("-B")) {
+
+                        PatchConfig patchConfig = appVariantContext.getBuildType().getPatchConfig();
+                        if (patchConfig == null || !(patchConfig.isCreateAPatch() || patchConfig.isCreateTPatch())) {
+                            return aaptOptions;
+                        }
+
+                        AaptOptions cloneAaptOptions = new AaptOptions();
+                        try {
+                            BeanUtils.copyProperties(cloneAaptOptions, aaptOptions);
+                        } catch (Throwable e) {
+                            throw new StopExecutionException(e.getMessage());
+                        }
+                        aaptOptions = cloneAaptOptions;
+
+                        List<String> additionParameters = aaptOptions.getAdditionalParameters();
+                        if (null == additionParameters) {
+                            additionParameters = new ArrayList<String>();
+                        }
+                        additionParameters.add("-B");
+                        additionParameters.add(appVariantContext.apContext.getBaseApk().getAbsolutePath());
+                    }
+                    return aaptOptions;
+                }
+            });
+
+            ConventionMappingHelper.map(processDiffResources, "resourceConfigs", new Callable<Collection<String>>() {
+                @Override
+                public Collection<String> call() throws Exception {
+                    Collection<String> resConfigs = config.getMergedFlavor().getResourceConfigurations();
+                    if (resConfigs.size() == 1 && Iterators.getOnlyElement(resConfigs.iterator()).equals("auto")) {
+                        if (scope.getGlobalScope()
+                            .getAndroidBuilder()
+                            .getTargetInfo()
+                            .getBuildTools()
+                            .getRevision()
+                            .getMajor() >= 21) {
+                            return variantData.discoverListOfResourceConfigsNotDensities();
+                        } else {
+                            return variantData.discoverListOfResourceConfigs();
+                        }
+                    }
+                    return config.getMergedFlavor().getResourceConfigurations();
+                }
+            });
+
+            ConventionMappingHelper.map(processDiffResources, "preferredDensity", new Callable<String>() {
+                @Override
+                @Nullable
+                public String call() throws Exception {
+                    String variantFilter = variantOutputData.getMainOutputFile()
+                        .getFilter(com.android.build.OutputFile.DENSITY);
+                    if (variantFilter != null) {
+                        return variantFilter;
+                    }
+                    return AndroidGradleOptions.getBuildTargetDensity(scope.getGlobalScope().getProject());
+                }
+            });
+>>>>>>> YOURS
+/home/taes/taes/projects/atlas/revisions/rev_4e151bd_ffb0907/rev_4e151bd-ffb0907/atlas-gradle-plugin/atlas-plugin/src/main/java/com/taobao/android/builder/tasks/tpatch/TPatchDiffResAPBuildTask.java;<<<<<<< MINE
+                                              "tpatch" +
+                                                  File.separator +
+                                                  config.getFullName() +
+                                                  File.separator +
+                                                  "raw-res");
+=======
+                                              "tpatch"
+                                                  + File.separator
+                                                  + config.getFullName()
+                                                  + File.separator
+                                                  + "raw-res");
+>>>>>>> YOURS
+/home/taes/taes/projects/atlas/revisions/rev_4e151bd_ffb0907/rev_4e151bd-ffb0907/atlas-gradle-plugin/atlas-plugin/src/main/java/com/taobao/android/builder/tasks/tpatch/TPatchDiffResAPBuildTask.java;<<<<<<< MINE
+                                            "tpatch" +
+                                                File.separator +
+                                                config.getFullName() +
+                                                File.separator +
+                                                "diff-res");
+=======
+                                            "tpatch"
+                                                + File.separator
+                                                + config.getFullName()
+                                                + File.separator
+                                                + "diff-res");
+>>>>>>> YOURS
+/home/taes/taes/projects/atlas/revisions/rev_4e151bd_ffb0907/rev_4e151bd-ffb0907/atlas-gradle-plugin/atlas-plugin/src/main/java/com/taobao/android/builder/tasks/tpatch/TPatchDiffResAPBuildTask.java;<<<<<<< MINE
+                    FileUtils.copyDirectory(scope.getVariantScope().getFinalResourcesDir(),
+                                            new File(rawResDir, "res"));
+                    FileUtils.copyDirectory(variantData.mergeAssetsTask.getOutputDir(),
+                                            new File(rawResDir, "assets"));
+=======
+                    FileUtils.copyDirectory(scope.getVariantScope().getFinalResourcesDir(), new File(rawResDir, "res"));
+                    FileUtils.copyDirectory(variantData.mergeAssetsTask.getOutputDir(), new File(rawResDir, "assets"));
+>>>>>>> YOURS
+/home/taes/taes/projects/atlas/revisions/rev_4e151bd_ffb0907/rev_4e151bd-ffb0907/atlas-gradle-plugin/atlas-plugin/src/main/java/com/taobao/android/builder/tasks/tpatch/TPatchDiffResAPBuildTask.java;<<<<<<< MINE
+                    DiffResExtractor.extractDiff(diffFiles,
+=======
+                    DiffResExtractor.extractDiff(appVariantContext,
+                                                 diffFiles,
+>>>>>>> YOURS
+/home/taes/taes/projects/atlas/revisions/rev_4e151bd_ffb0907/rev_4e151bd-ffb0907/atlas-gradle-plugin/atlas-plugin/src/main/java/com/taobao/android/builder/tasks/tpatch/TPatchDiffResAPBuildTask.java;<<<<<<< MINE
+                                                 diffDir);
+=======
+                                                 diffDir,
+                                                 patchConfig.isFullResValues());
+>>>>>>> YOURS
+/home/taes/taes/projects/atlas/revisions/rev_4e151bd_ffb0907/rev_4e151bd-ffb0907/atlas-gradle-plugin/atlas-plugin/src/main/java/com/taobao/android/builder/tools/xml/XmlHelper.java;<<<<<<< MINE
+    public static void saveFile(Document document,
+                                OutputFormat format,
+                                File file) throws IOException {
+=======
+    public static void saveFile(Document document, OutputFormat format, File file) throws IOException {
+>>>>>>> YOURS
+/home/taes/taes/projects/atlas/revisions/rev_4e151bd_ffb0907/rev_4e151bd-ffb0907/atlas-gradle-plugin/atlas-plugin/src/main/java/com/taobao/android/builder/tools/diff/DiffResExtractor.java;<<<<<<< MINE
+    public static void extractDiff(Set<String> diffResFiles, File currentApk, File baseApk, File fullResDir,
+                                   File destDir) throws IOException {
+=======
+    public static void extractDiff(AppVariantContext appVariantContext, Set<String> diffResFiles, File currentApk,
+                                   File baseApk, File fullResDir, File destDir, boolean fullValues) throws IOException {
+>>>>>>> YOURS
+/home/taes/taes/projects/atlas/revisions/rev_4e151bd_ffb0907/rev_4e151bd-ffb0907/atlas-gradle-plugin/atlas-plugin/src/main/java/com/taobao/android/builder/tools/diff/DiffResExtractor.java;<<<<<<< MINE
+            if (baseFile.exists() && currentFile.exists() && MD5Util.getFileMD5(baseFile).equals(
+                MD5Util.getFileMD5(currentFile))) {
+=======
+            if (baseFile.exists() && currentFile.exists() && MD5Util.getFileMD5(baseFile).equals(MD5Util.getFileMD5(
+                currentFile))) {
+>>>>>>> YOURS
+/home/taes/taes/projects/atlas/revisions/rev_4e151bd_ffb0907/rev_4e151bd-ffb0907/atlas-gradle-plugin/atlas-plugin/src/main/java/com/taobao/android/builder/tools/diff/DiffResExtractor.java;<<<<<<< MINE
+        //å¿é¡»çæresource.arsc
+=======
+        // //å¿é¡»çæresource.arsc
+>>>>>>> YOURS
+/home/taes/taes/projects/atlas/revisions/rev_4e151bd_ffb0907/rev_4e151bd-ffb0907/atlas-gradle-plugin/atlas-plugin/src/main/java/com/taobao/android/builder/tools/diff/DiffResExtractor.java;<<<<<<< MINE
+        if (!resDir.exists()) {
+            File valuesDir = new File(resDir, "values");
+            FileUtils.forceMkdir(valuesDir);
+            File stringsFile = new File(valuesDir, "strings.xml");
+            UUID uuid = UUID.randomUUID();
+            FileUtils.writeStringToFile(stringsFile, String.format(
+                "<?xml version=\"1.0\" encoding=\"utf-8\"?>\n<resources>\n    <string "
+                    + "name=\"%s\">%s</string>\n</resources>\n",
+                uuid, uuid), "UTF-8", false);
+=======
+        File valuesDir = new File(resDir, "values");
+        FileUtils.forceMkdir(valuesDir);
+        if (fullValues) {
+            appVariantContext.getProject().copy(new Closure(DiffResExtractor.class) {
+                public Object doCall(CopySpec cs) {
+                    cs.from(fullResDir);
+                    cs.into(destDir);
+                    cs.include("res/values*/**");
+
+                    return cs;
+                }
+            });
+
+            // FileUtils.copyFile(new File(fullResDir, "res/values/values.xml"),
+            //                    new File(destDir, "res/values/values.xml"));
+        } else {
+            if (!resDir.exists()) {
+                File stringsFile = new File(valuesDir, "strings.xml");
+                UUID uuid = UUID.randomUUID();
+                FileUtils.writeStringToFile(stringsFile,
+                                            String.format(
+                                                "<?xml version=\"1.0\" encoding=\"utf-8\"?>\n<resources>\n    <string "
+                                                    + "name=\"%s\">%s</string>\n</resources>\n",
+                                                uuid,
+                                                uuid),
+                                            "UTF-8",
+                                            false);
+            }
+        }
+>>>>>>> YOURS
+/home/taes/taes/projects/atlas/revisions/rev_4e151bd_ffb0907/rev_4e151bd-ffb0907/atlas-gradle-plugin/atlas-plugin/src/main/java/com/taobao/android/builder/tools/diff/DiffResExtractor.java;<<<<<<< MINE
+        //è®¾ç½®values.xml
+        File valuesXml = new File(resDir, "values/values.xml");
+        try {
+            removeStringValue(valuesXml, "ttid");
+        } catch (Exception e) {
+            throw new RuntimeException(e);
+=======
+        //è®¾ç½®values.xml
+        File valuesXml = new File(resDir, "values/values.xml");
+        AtlasBuildContext.sBuilderAdapter.apkInjectInfoCreator.injectTpatchValuesRes(appVariantContext, valuesXml);
+        try {
+            removeStringValue(valuesXml, "config_channel");
+            removeStringValue(valuesXml, "ttid");
+            removeStringValue(valuesXml, "config_channel");
+        } catch (Exception e) {
+            throw new RuntimeException(e);
+>>>>>>> YOURS
+/home/taes/taes/projects/atlas/revisions/rev_4e151bd_ffb0907/rev_4e151bd-ffb0907/atlas-gradle-plugin/atlas-plugin/src/main/java/com/taobao/android/builder/tools/diff/DiffResExtractor.java;<<<<<<< MINE
+        //final Pattern densityOnlyPattern = Pattern.compile("[a-zA-Z]+-[a-zA-Z]+dpi");
+        //if (resDir.exists()) {
+        //    File[] resDirs = resDir.listFiles();
+        //    if (resDirs != null) {
+        //        for (File file : resDirs) {
+        //            Matcher m = densityOnlyPattern.matcher(file.getName());
+        //            if (m.matches()) {
+        //                FileUtils.moveDirectory(file, new File(file.getAbsolutePath() + "-v4"));
+        //            }
+        //        }
+        //    }
+        //}
+
+=======
+        final Pattern densityOnlyPattern = Pattern.compile("[a-zA-Z]+-[a-zA-Z]+dpi");
+        if (resDir.exists()) {
+            File[] resDirs = resDir.listFiles();
+            if (resDirs != null) {
+                for (File file : resDirs) {
+                    Matcher m = densityOnlyPattern.matcher(file.getName());
+                    if (m.matches()) {
+                        FileUtils.moveDirectory(file, new File(file.getAbsolutePath() + "-v3"));
+                    }
+                }
+            }
+        }
+>>>>>>> YOURS
+/home/taes/taes/projects/atlas/revisions/rev_4e151bd_ffb0907/rev_4e151bd-ffb0907/atlas-gradle-plugin/atlas-plugin/src/main/java/com/taobao/android/builder/extension/MultiDexConfig.java;<<<<<<< MINE
+    private Set<String> mainDexWhiteList = Sets.newHashSet();
+
+=======
+    @Config(title = "ä¸è¿å¥ç¬¬ä¸ä¸ªdexçé»åååè¡¨", message = "a", order = 2, group = "atlas")
+>>>>>>> YOURS
+/home/taes/taes/projects/ribbon/revisions/rev_b33a5ed_42c3e4c/rev_b33a5ed-42c3e4c/ribbon-core/src/main/java/com/netflix/client/config/CommonClientConfigKey.java;<<<<<<< MINE
+    RulePredicateClasses("RulePredicateClasses"),
+    
+    // serialization
+    SerializationFactoryClassName("SerializationClassName");
+
+=======
+    RulePredicateClasses("RulePredicateClasses"),
+    
+    // serialization
+    DefaultSerializationFactoryClassName("DefaultSerializationClassName");
+
+>>>>>>> YOURS
+/home/taes/taes/projects/ribbon/revisions/rev_b33a5ed_42c3e4c/rev_b33a5ed-42c3e4c/ribbon-core/src/main/java/com/netflix/client/config/DefaultClientConfigImpl.java;<<<<<<< MINE
+		DefaultClientConfigImpl config = new DefaultClientConfigImpl(nameSpace);
+		config.loadProperties(clientName);
+=======
+	    DefaultClientConfigImpl config = new DefaultClientConfigImpl(nameSpace);
+	    config.loadProperties(clientName);
+>>>>>>> YOURS
+/home/taes/taes/projects/ribbon/revisions/rev_b33a5ed_42c3e4c/rev_b33a5ed-42c3e4c/ribbon-httpclient/src/main/java/com/netflix/niws/client/http/RestClient.java;<<<<<<< MINE
+    protected boolean isRetriableException(Throwable e) {
+        boolean shouldRetry = isConnectException(e) || isSocketException(e);
+=======
+    protected boolean isRetriableException(Throwable e) {
+>>>>>>> YOURS
+/home/taes/taes/projects/ribbon/revisions/rev_b33a5ed_42c3e4c/rev_b33a5ed-42c3e4c/ribbon-httpclient/src/main/java/com/netflix/niws/client/http/RestClient.java;<<<<<<< MINE
+    protected boolean isCircuitBreakerException(Throwable e) {
+=======
+    protected boolean isCircuitBreakerException(Throwable e) {
+        if (e instanceof ClientException) {
+            ClientException clientException = (ClientException) e;
+            if (clientException.getErrorType() == ClientException.ErrorType.SERVER_THROTTLED) {
+                return true;
+            }
+        }
+>>>>>>> YOURS
+/home/taes/taes/projects/atlas/revisions/rev_799f8e4_9f4a697/rev_799f8e4-9f4a697/atlas-gradle-plugin/dexpatch/src/main/java/com/taobao/android/apatch/ApkPatch.java;<<<<<<< MINE
+            prepareClasses = buildPrepareClass(smaliDir2, newFiles, info);
+=======
+
+            List finalFilterClasses = filterClasses;
+            Collections.sort(classes, new Comparator<String>() {
+                @Override
+                public int compare(String o1, String o2) {
+                    if (dexDiffer.getFilter() == null){
+                        return 0;
+                    }else {
+                        return finalFilterClasses.indexOf(o1) - finalFilterClasses.indexOf(o2);
+                    }
+                }
+            });
+
+
+
+//            //æ¯å¦ä¿®æ¹dex
+//            if (APatchTool.debug) {
+//                PatchMethodTool.modifyMethod(dexFile.getAbsolutePath(), dexFile.getAbsolutePath(), true);
+//            }
+//
+            File smaliDir2 = new File(aptchFolder, "smali2");
+            if (!smaliDir2.exists()) {
+                smaliDir2.mkdirs();
+            }
+            try {
+                FileUtils.cleanDirectory(smaliDir2);
+            } catch (IOException e) {
+                throw new RuntimeException(e);
+            }
+           prepareClasses = buildPrepareClass(smaliDir2, newFiles, info);
+>>>>>>> YOURS
+/home/taes/taes/projects/elephant-bird/revisions/rev_d005ea3_539efc9/rev_d005ea3-539efc9/src/java/com/twitter/elephantbird/util/Protobufs.java;<<<<<<< MINE
+   public static List<String> getMessageFieldNames(Class<? extends Message> protoClass, Map<String, String> fieldNameTranslations) {
+=======
+  public static List<String> getMessageFieldNames(Class<? extends Message> protoClass, Map<String, String> fieldNameTranslations) {
+    return getMessageFieldNames(getMessageDescriptor(protoClass), fieldNameTranslations);
+  }
+
+   public static List<String> getMessageFieldNames(Descriptor descriptor, Map<String, String> fieldNameTranslations) {
+>>>>>>> YOURS
+/home/taes/taes/projects/elephant-bird/revisions/rev_d005ea3_539efc9/rev_d005ea3-539efc9/src/java/com/twitter/elephantbird/util/Protobufs.java;<<<<<<< MINE
+     return ListHelper.filter(Lists.transform(getMessageDescriptor(protoClass).getFields(), fieldTransformer), Predicates.<String>notNull());
+=======
+     return ListHelper.filter(Lists.transform(descriptor.getFields(), fieldTransformer), Predicates.<String>notNull());
+>>>>>>> YOURS
+/home/taes/taes/projects/ribbon/revisions/rev_aebc2c4_89ee7d8/rev_aebc2c4-89ee7d8/ribbon-client-extensions/src/main/java/com/netflix/ribbonclientextensions/Ribbon.java;<<<<<<< MINE
+ 
+    public static <I, O, T> T from(Class<T> contract, HttpClient<I, O> transportClient) {
+        return RibbonDynamicProxy.newInstance(contract, transportClient);
+=======
+
+    public static <T> T from(Class<T> contract) {
+        return null;
+>>>>>>> YOURS
+/home/taes/taes/projects/elephant-bird/revisions/rev_b784885_342f336/rev_b784885-342f336/src/java/com/twitter/elephantbird/pig/util/ThriftToPig.java;<<<<<<< MINE
+    return new LazyTuple(thriftObj);
+=======
+    return new LazyTuple(structDesc, thriftObj);
+>>>>>>> YOURS
+/home/taes/taes/projects/elephant-bird/revisions/rev_b784885_342f336/rev_b784885-342f336/src/java/com/twitter/elephantbird/pig/util/ThriftToPig.java;<<<<<<< MINE
+        tuple.set(i, toPigObject(field, value));
+=======
+        tuple.set(i, toPigObject(field, value, false));
+>>>>>>> YOURS
+/home/taes/taes/projects/elephant-bird/revisions/rev_b784885_342f336/rev_b784885-342f336/src/java/com/twitter/elephantbird/pig/util/ThriftToPig.java;<<<<<<< MINE
+  private static Object toPigObject(Field field, Object value) {
+=======
+  static Object toPigObject(Field field, Object value, boolean lazy) {
+>>>>>>> YOURS
+/home/taes/taes/projects/elephant-bird/revisions/rev_b784885_342f336/rev_b784885-342f336/src/java/com/twitter/elephantbird/pig/util/ThriftToPig.java;<<<<<<< MINE
+      return toTuple(field.gettStructDescriptor(), (TBase<?, ?>)value);
+=======
+      if (lazy) {
+        return new LazyTuple(field.gettStructDescriptor(), (TBase<?, ?>)value);
+      } else {
+        return toTuple(field.gettStructDescriptor(), (TBase<?, ?>)value);
+      }
+>>>>>>> YOURS
+/home/taes/taes/projects/elephant-bird/revisions/rev_b784885_342f336/rev_b784885-342f336/src/java/com/twitter/elephantbird/pig/util/ThriftToPig.java;<<<<<<< MINE
+      return toPigMap(field, (Map<Object, Object>)value);
+=======
+      return toPigMap(field, (Map<Object, Object>)value, lazy);
+>>>>>>> YOURS
+/home/taes/taes/projects/elephant-bird/revisions/rev_b784885_342f336/rev_b784885-342f336/src/java/com/twitter/elephantbird/pig/util/ThriftToPig.java;<<<<<<< MINE
+      return toPigBag(field.getSetElemField(), (Collection<Object>)value);
+=======
+      return toPigBag(field.getSetElemField(), (Collection<Object>)value, lazy);
+>>>>>>> YOURS
+/home/taes/taes/projects/elephant-bird/revisions/rev_b784885_342f336/rev_b784885-342f336/src/java/com/twitter/elephantbird/pig/util/ThriftToPig.java;<<<<<<< MINE
+      return toPigBag(field.getListElemField(), (Collection<Object>)value);
+=======
+      return toPigBag(field.getListElemField(), (Collection<Object>)value, lazy);
+>>>>>>> YOURS
+/home/taes/taes/projects/elephant-bird/revisions/rev_b784885_342f336/rev_b784885-342f336/src/java/com/twitter/elephantbird/pig/util/ThriftToPig.java;<<<<<<< MINE
+  private static Map<String, Object> toPigMap(Field field, Map<Object, Object> map) {
+=======
+  private static Map<String, Object> toPigMap(Field field,
+                                              Map<Object, Object> map,
+                                              boolean lazy) {
+>>>>>>> YOURS
+/home/taes/taes/projects/elephant-bird/revisions/rev_b784885_342f336/rev_b784885-342f336/src/java/com/twitter/elephantbird/pig/util/ThriftToPig.java;<<<<<<< MINE
+                            toPigObject(valueField, e.getValue()));
+=======
+                            toPigObject(valueField, e.getValue(), lazy));
+>>>>>>> YOURS
+/home/taes/taes/projects/elephant-bird/revisions/rev_b784885_342f336/rev_b784885-342f336/src/java/com/twitter/elephantbird/pig/util/ThriftToPig.java;<<<<<<< MINE
+  private static DataBag toPigBag(Field field, Collection<Object> values) {
+=======
+  private static DataBag toPigBag(Field field,
+                                  Collection<Object> values,
+                                  boolean lazy) {
+>>>>>>> YOURS
+/home/taes/taes/projects/elephant-bird/revisions/rev_b784885_342f336/rev_b784885-342f336/src/java/com/twitter/elephantbird/pig/util/ThriftToPig.java;<<<<<<< MINE
+    LazyTuple(M tObject) {
+      initRealTuple(structDesc.getFields().size());
+=======
+    LazyTuple(TStructDescriptor desc, TBase<?, ?> tObject) {
+      initRealTuple(desc.getFields().size());
+>>>>>>> YOURS
+/home/taes/taes/projects/elephant-bird/revisions/rev_b784885_342f336/rev_b784885-342f336/src/java/com/twitter/elephantbird/pig/util/ThriftToPig.java;<<<<<<< MINE
+      Field field = structDesc.getFieldAt(index);
+      return toPigObject(field, structDesc.getFieldValue(index, tObject));
+=======
+      Field field = desc.getFieldAt(index);
+      return toPigObject(field, desc.getFieldValue(index, tObject), true);
+>>>>>>> YOURS
+/home/taes/taes/projects/elephant-bird/revisions/rev_b784885_342f336/rev_b784885-342f336/src/java/com/twitter/elephantbird/pig/util/ProtobufTuple.java;<<<<<<< MINE
+    if (fieldDescriptor.getType() == FieldDescriptor.Type.MESSAGE) {
+      return protoConv_.messageToTuple(fieldDescriptor, fieldValue);
+    } else {
+      return protoConv_.singleFieldToTuple(fieldDescriptor, fieldValue);
+    }
+=======
+    return protoConv_.fieldToPig(fieldDescriptor, fieldValue);
+>>>>>>> YOURS
+/home/taes/taes/projects/elephant-bird/revisions/rev_b784885_342f336/rev_b784885-342f336/src/java/com/twitter/elephantbird/pig/load/LzoThriftB64LinePigLoader.java;<<<<<<< MINE
+      thriftToPig_.getLazyTuple(value) : null;
+=======
+      tupleTemplate.newTuple(value) : null;
+  }
+
+  @Override
+  public RequiredFieldResponse pushProjection(RequiredFieldList requiredFieldList)
+                                              throws FrontendException {
+    return pushProjectionHelper(requiredFieldList);
+>>>>>>> YOURS
+/home/taes/taes/projects/elephant-bird/revisions/rev_b784885_342f336/rev_b784885-342f336/src/java/com/twitter/elephantbird/pig/load/LzoThriftBlockPigLoader.java;<<<<<<< MINE
+    typeRef_ = PigUtil.getThriftTypeRef(thriftClassName);
+    thriftToPig_ =  ThriftToPig.newInstance(typeRef_);
+  }
+
+  /**
+   * Returns next Tuple for the Thrift object read from the input.
+   * <p>
+   * A small fraction of bad records are tolerated. See {@link LzoRecordReader}
+   * for more information on error handling.
+   *
+   * @see org.apache.pig.LoadFunc#getNext()
+   */
+  @Override
+  public Tuple getNext() throws IOException {
+    M value = getNextBinaryValue(typeRef_);
+
+    return value != null ?
+      thriftToPig_.getLazyTuple(value) : null;
+  }
+
+  @Override
+  public ResourceSchema getSchema(String filename, Job job) throws IOException {
+    return new ResourceSchema(ThriftToPig.toSchema(typeRef_.getRawClass()));
+=======
+    super(thriftClassName);
+>>>>>>> YOURS
+/home/taes/taes/projects/elephant-bird/revisions/rev_b784885_342f336/rev_b784885-342f336/src/java/com/twitter/elephantbird/pig/load/LzoProtobufBlockPigLoader.java;<<<<<<< MINE
+    TypeRef<M> typeRef = PigUtil.getProtobufTypeRef(protoClassName);
+    setTypeRef(typeRef);
+  }
+
+  /**
+   * Set the type parameter so it doesn't get erased by Java.  Must be called before getNext!
+   *
+   * @param typeRef
+   */
+  public void setTypeRef(TypeRef<M> typeRef) {
+    typeRef_ = typeRef;
+  }
+
+  /**
+   * Return next Protobuf Tuple from input.
+   * <p>
+   * A small fraction of bad records in input are tolerated.
+   * See  {@link LzoRecordReader} for more information on error handling.
+   */
+  public Tuple getNext() throws IOException {
+    M value = getNextBinaryValue(typeRef_);
+
+    return value != null ?
+        new ProtobufTuple(value) : null;
+  }
+
+  @Override
+  public String[] getPartitionKeys(String location, Job job) throws IOException {
+    return null;
+  }
+
+  @Override
+  public ResourceSchema getSchema(String location, Job job) throws IOException {
+    return new ResourceSchema(protoToPig_.toSchema(Protobufs.getMessageDescriptor(typeRef_.getRawClass())));
+=======
+    super(protoClassName);
+>>>>>>> YOURS
+/home/taes/taes/projects/elephant-bird/revisions/rev_b784885_342f336/rev_b784885-342f336/src/java/com/twitter/elephantbird/pig/load/LzoProtobufB64LinePigLoader.java;<<<<<<< MINE
+        new ProtobufTuple(value) : null;
+=======
+        tupleTemplate.newTuple(value) : null;
+>>>>>>> YOURS
+/home/taes/taes/projects/elephant-bird/revisions/rev_13f2963_3a82539/rev_13f2963-3a82539/src/java/com/twitter/elephantbird/cascading2/scheme/LzoTextDelimited.java;<<<<<<< MINE
+    conf.setOutputFormat(TextOutputFormat.class);
+    FileOutputFormat.setCompressOutput(conf, true);
+    FileOutputFormat.setOutputCompressorClass(conf, LzopCodec.class);
+    conf.setOutputKeyClass(Text.class);
+    conf.setOutputValueClass(Text.class);
+=======
+    conf.setOutputFormat(DeprecatedLzoTextOutputFormat.class);
+>>>>>>> YOURS
+/home/taes/taes/projects/elephant-bird/revisions/rev_13f2963_3a82539/rev_13f2963-3a82539/src/java/com/twitter/elephantbird/cascading2/scheme/LzoTextLine.java;<<<<<<< MINE
+    conf.setOutputFormat(TextOutputFormat.class);
+    FileOutputFormat.setCompressOutput(conf, true);
+    FileOutputFormat.setOutputCompressorClass(conf, LzopCodec.class);
+    conf.setOutputKeyClass(Text.class);
+    conf.setOutputValueClass(Text.class);
+=======
+    conf.setOutputFormat(DeprecatedLzoTextOutputFormat.class);
+>>>>>>> YOURS
+/home/taes/taes/projects/elephant-bird/revisions/rev_13f2963_3a82539/rev_13f2963-3a82539/src/java/com/twitter/elephantbird/mapred/output/DeprecatedLzoThriftB64LineOutputFormat.java;<<<<<<< MINE
+    extends DeprecatedLzoOutputFormat<M, ThriftWritable<M>> {
+=======
+    extends DeprecatedLzoOutputFormat<NullWritable, ThriftWritable<M>> {
+>>>>>>> YOURS
+/home/taes/taes/projects/elephant-bird/revisions/rev_13f2963_3a82539/rev_13f2963-3a82539/src/java/com/twitter/elephantbird/mapred/output/DeprecatedLzoOutputFormat.java;<<<<<<< MINE
+    FileSystem fs = file.getFileSystem(job);
+    FSDataOutputStream fileOut = fs.create(file, false);
+    return new DataOutputStream(codec.createOutputStream(fileOut));
+=======
+
+    return LzoUtils.getIndexedLzoOutputStream(job, file);
+>>>>>>> YOURS
+/home/taes/taes/projects/curator/revisions/rev_74434b8_8cd8347/rev_74434b8-8cd8347/curator-framework/src/main/java/com/netflix/curator/framework/listen/ListenerContainer.java;<<<<<<< MINE
+    public void     forEach(Function<T, Void> function)
+=======
+    public void     forEach(final Function<T, Void> function)
+>>>>>>> YOURS
+/home/taes/taes/projects/curator/revisions/rev_74434b8_8cd8347/rev_74434b8-8cd8347/curator-framework/src/main/java/com/netflix/curator/framework/listen/ListenerContainer.java;<<<<<<< MINE
+            try
+            {
+                function.apply(entry.listener);
+            }
+            catch ( Throwable e )
+            {
+                log.error(String.format("Listener (%s) threw an exception", entry.listener), e);
+            }
+=======
+            entry.executor.execute
+            (
+                new Runnable()
+                {
+                    @Override
+                    public void run()
+                    {
+                        try
+                        {
+                            function.apply(entry.listener);
+                        }
+                        catch ( Throwable e )
+                        {
+                            log.error(String.format("Listener (%s) threw an exception", entry.listener), e);
+                        }
+                    }
+                }
+            );
+>>>>>>> YOURS
+/home/taes/taes/projects/curator/revisions/rev_d4c0be0_ff4ec29/rev_d4c0be0-ff4ec29/curator-framework/src/main/java/com/netflix/curator/framework/imps/CreateBuilderImpl.java;<<<<<<< MINE
+                        try
+                        {
+                            ZKPaths.mkdirs(client.getZooKeeper(), operationAndData.getData().getPath(), false);
+                            retry = true;
+                        }
+                        catch ( Exception e )
+                        {
+                            client.logError("Could not create parents for path: " + operationAndData.getData().getPath(), e);
+                        }
+                    }
+
+                    if ( retry )
+                    {
+                        try
+                        {
+                            performBackgroundOperation(operationAndData);
+                        }
+                        catch ( Exception e )
+                        {
+                            client.logError("Could not create node after creating parents for path: " + operationAndData.getData().getPath(), e);
+                        }
+=======
+                        backgroundCreateParentsThenNode(operationAndData);
+>>>>>>> YOURS
+/home/taes/taes/projects/curator/revisions/rev_d4c0be0_ff4ec29/rev_d4c0be0-ff4ec29/curator-framework/src/main/java/com/netflix/curator/framework/imps/CuratorFrameworkImpl.java;<<<<<<< MINE
+                    queueOperation = true;
+=======
+                    doQueueOperation = true;
+>>>>>>> YOURS
+/home/taes/taes/projects/curator/revisions/rev_d4c0be0_ff4ec29/rev_d4c0be0-ff4ec29/curator-framework/src/main/java/com/netflix/curator/framework/imps/CuratorFrameworkImpl.java;<<<<<<< MINE
+        if ( queueOperation )
+=======
+        if ( doQueueOperation )
+>>>>>>> YOURS
+/home/taes/taes/projects/curator/revisions/rev_d4c0be0_ff4ec29/rev_d4c0be0-ff4ec29/curator-framework/src/main/java/com/netflix/curator/framework/imps/CuratorFrameworkImpl.java;<<<<<<< MINE
+            backgroundOperations.offer(operationAndData);
+=======
+            queueOperation(operationAndData);
+>>>>>>> YOURS
+/home/taes/taes/projects/elephant-bird/revisions/rev_723eb3c_11dfa53/rev_723eb3c-11dfa53/src/java/com/twitter/elephantbird/thrift/TStructDescriptor.java;<<<<<<< MINE
+    fields = ImmutableList.of(arr);
+=======
+    fields = ImmutableList.copyOf(arr);
+>>>>>>> YOURS
+/home/taes/taes/projects/archaius/revisions/rev_1ad0c78_5296b30/rev_1ad0c78-5296b30/archaius-core/src/main/java/com/netflix/config/DynamicStringSetProperty.java;<<<<<<< MINE
+/*
+ * Copyright 2014 Netflix, Inc.
+=======
+/**
+ * Copyright 2014 Netflix, Inc.
+>>>>>>> YOURS
+/home/taes/taes/projects/archaius/revisions/rev_1ad0c78_5296b30/rev_1ad0c78-5296b30/archaius-core/src/main/java/com/netflix/config/DynamicStringSetProperty.java;<<<<<<< MINE
+ * http://www.apache.org/licenses/LICENSE-2.0
+=======
+ *     http://www.apache.org/licenses/LICENSE-2.0
+>>>>>>> YOURS
+/home/taes/taes/projects/retrofit/revisions/rev_2ef7ca0_941ae85/rev_2ef7ca0-941ae85/retrofit/src/main/java/retrofit/http/RestMethodInfo.java;<<<<<<< MINE
+  /** Loads {@link #requestMethod} and {@link #requestType}. */
+=======
+  /**
+   * Loads {@link #restMethod}, {@link #path}, {@link #pathParams}, {@link #pathQueryParams},
+   * {@link headers}, and {@link #isMultipart}.
+   */
+>>>>>>> YOURS
+/home/taes/taes/projects/retrofit/revisions/rev_2ef7ca0_941ae85/rev_2ef7ca0-941ae85/retrofit/src/main/java/retrofit/http/RestMethodInfo.java;<<<<<<< MINE
+   * Loads {@link #requestUrlParam}, {@link #requestQueryName}, {@link #requestFormPair}, and
+   * {@link #requestMultipartPart}. Must be called after {@link #parseMethodAnnotations()}.
+=======
+   * Loads {@link #namedParams}, {@link headerParams}, {@link #singleEntityArgumentIndex},
+   * Must be called after {@link #parseMethodAnnotations()}}.
+>>>>>>> YOURS
+/home/taes/taes/projects/retrofit/revisions/rev_2ef7ca0_941ae85/rev_2ef7ca0-941ae85/retrofit/src/main/java/retrofit/http/RestMethodInfo.java;<<<<<<< MINE
+      if (parameterAnnotations != null) {
+        for (Annotation parameterAnnotation : parameterAnnotations) {
+          Class<? extends Annotation> annotationType = parameterAnnotation.annotationType();
+
+          if (annotationType == Path.class) {
+            hasRetrofitAnnotation = true;
+            String name = ((Path) parameterAnnotation).value();
+
+            // Verify URL replacement name is actually present in the URL path.
+            if (!requestUrlParamNames.contains(name)) {
+              throw new IllegalStateException(
+                  "Method path \"" + requestUrl + "\" does not contain {" + name + "}.");
+            }
+
+            urlParam[i] = name;
+          } else if (annotationType == Query.class) {
+            hasRetrofitAnnotation = true;
+            hasQueryParams = true;
+            String name = ((Query) parameterAnnotation).value();
+
+            // TODO verify query name not already used in URL?
+
+            queryName[i] = name;
+          } else if (annotationType == Pair.class) {
+            if (requestType != RequestType.FORM_ENCODED) {
+              throw new IllegalStateException(
+                  "@Pair parameters can only be used with form encoding.");
+            }
+
+            gotPair = true;
+            hasRetrofitAnnotation = true;
+            String name = ((Pair) parameterAnnotation).value();
+
+            // TODO verify name not already used?
+
+            formValue[i] = name;
+          } else if (annotationType == Part.class) {
+            if (requestType != RequestType.MULTIPART) {
+              throw new IllegalStateException(
+                  "@Part parameters can only be used with multipart encoding.");
+            }
+
+            gotPart = true;
+            hasRetrofitAnnotation = true;
+            String name = ((Part) parameterAnnotation).value();
+
+            // TODO verify name not already used?
+
+            multipartPart[i] = name;
+          } else if (annotationType == Body.class) {
+            if (requestType != RequestType.SIMPLE) {
+              throw new IllegalStateException(
+                  "@Body parameters cannot be used with form or multi-part encoding.");
+            }
+            if (bodyIndex != NO_BODY) {
+              throw new IllegalStateException(
+                  "Method annotated with multiple Body method annotations: " + method);
+            }
+
+            hasRetrofitAnnotation = true;
+            bodyIndex = i;
+=======
+      if (parameterAnnotations == null || parameterAnnotations.length == 0) {
+        throw new IllegalStateException("Argument " + i + " lacks annotation.");
+      }
+      for (Annotation parameterAnnotation : parameterAnnotations) {
+        Class<? extends Annotation> annotationType = parameterAnnotation.annotationType();
+        if (annotationType == Name.class) {
+          String name = ((Name) parameterAnnotation).value();
+          namedParams[i] = name;
+          boolean isPathParam = pathParams.contains(name);
+          if (parameterType == TypedOutput.class && (isPathParam || !restMethod.hasBody())) {
+            throw new IllegalStateException("TypedOutput cannot be used as URL parameter.");
+          }
+          if (!isPathParam && !isMultipart && restMethod.hasBody()) {
+            throw new IllegalStateException(
+                "Non-path params can only be used in multipart request.");
+          }
+        } else if (annotationType == Header.class) {
+          String header = ((Header) parameterAnnotation).value();
+          headerParams[i] = header;
+          if (parameterType != String.class) {
+            throw new IllegalStateException(
+                "Expected @Header parameter type to be String: " + header);
+          }
+        } else if (annotationType == SingleEntity.class) {
+          if (isMultipart) {
+            throw new IllegalStateException("SingleEntity cannot be used with multipart request.");
+>>>>>>> YOURS
+/home/taes/taes/projects/retrofit/revisions/rev_2ef7ca0_941ae85/rev_2ef7ca0-941ae85/retrofit/src/main/java/retrofit/http/RequestBuilder.java;<<<<<<< MINE
+  /** A list of custom headers. */
+  RequestBuilder headers(List<Header> headers) {
+=======
+  RequestBuilder setHeaders(List<HeaderPair> headers) {
+>>>>>>> YOURS
+/home/taes/taes/projects/retrofit/revisions/rev_2ef7ca0_941ae85/rev_2ef7ca0-941ae85/retrofit/src/main/java/retrofit/http/RequestBuilder.java;<<<<<<< MINE
+  /**
+   * Construct a {@link Request} from the supplied information. You <strong>must</strong> call
+   * {@link #methodInfo}, {@link #apiUrl}, {@link #args}, and {@link #headers} before invoking this
+   * method.
+   */
+  Request build() throws UnsupportedEncodingException {
+    String apiUrl = this.apiUrl;
+
+    StringBuilder url = new StringBuilder(apiUrl);
+    if (apiUrl.endsWith("/")) {
+      // We enforce relative paths to start with '/'. Prevent a double-slash.
+      url.deleteCharAt(url.length() - 1);
+    }
+
+    // Append the method relative URL.
+    url.append(buildRelativeUrl());
+
+    // Append query parameters, if needed.
+    if (methodInfo.hasQueryParams) {
+      boolean first = true;
+      String requestQuery = methodInfo.requestQuery;
+      if (requestQuery != null) {
+        url.append(requestQuery);
+        first = false;
+      }
+      String[] requestQueryName = methodInfo.requestQueryName;
+      for (int i = 0; i < requestQueryName.length; i++) {
+        String query = requestQueryName[i];
+        if (query != null) {
+          String value = URLEncoder.encode(String.valueOf(args[i]), "UTF-8");
+          url.append(first ? '?' : '&').append(query).append('=').append(value);
+          first = false;
+        }
+=======
+  /** List of all URL parameters. Return value will be mutated. */
+  private List<Parameter> createParamList() {
+    List<Parameter> params = new ArrayList<Parameter>();
+
+    // Add arguments as parameters.
+    String[] pathNamedParams = methodInfo.namedParams;
+    int singleEntityArgumentIndex = methodInfo.singleEntityArgumentIndex;
+    for (int i = 0; i < pathNamedParams.length; i++) {
+      Object arg = args[i];
+      if (arg == null || pathNamedParams[i] == null) continue;
+      if (i != singleEntityArgumentIndex) {
+        params.add(new Parameter(pathNamedParams[i], arg, arg.getClass()));
+>>>>>>> YOURS
+/home/taes/taes/projects/retrofit/revisions/rev_2ef7ca0_941ae85/rev_2ef7ca0-941ae85/retrofit/src/main/java/retrofit/http/RestAdapter.java;<<<<<<< MINE
+      Executor callbackExecutor, RequestHeaders requestHeaders, Converter converter,
+      Profiler profiler, Log log, boolean debug) {
+=======
+      Executor callbackExecutor, HeaderPairs headers, Converter converter, Profiler profiler,
+      Log log, boolean debug) {
+>>>>>>> YOURS
+/home/taes/taes/projects/retrofit/revisions/rev_2ef7ca0_941ae85/rev_2ef7ca0-941ae85/retrofit/src/main/java/retrofit/http/RestAdapter.java;<<<<<<< MINE
+    public Builder setRequestHeaders(RequestHeaders requestHeaders) {
+      if (requestHeaders == null) throw new NullPointerException("requestHeaders");
+      this.requestHeaders = requestHeaders;
+=======
+    public Builder setHeaders(HeaderPairs headers) {
+      if (headers == null) throw new NullPointerException("headers");
+      this.headers = headers;
+>>>>>>> YOURS
+/home/taes/taes/projects/retrofit/revisions/rev_2ef7ca0_941ae85/rev_2ef7ca0-941ae85/retrofit/src/test/java/retrofit/http/RequestBuilderTest.java;<<<<<<< MINE
+    Helper setBody(Object value) {
+      addParam(null, null, null, null, value);
+      bodyIndex = args.size() - 1;
+=======
+    Helper addHeaderParam(String name, Object value) {
+      if (name == null) {
+        throw new IllegalArgumentException("Name can not be null.");
+      }
+      headerParams.add(name);
+      args.add(value);
+      return this;
+    }
+
+    Helper addSingleEntityParam(Object value) {
+      if (singleEntityArgumentIndex != NO_SINGLE_ENTITY) {
+        throw new IllegalStateException("Single entity param already added.");
+      }
+      // Relying on the fact that this is already less one.
+      singleEntityArgumentIndex = namedParams.size();
+      namedParams.add(null);
+      args.add(value);
+>>>>>>> YOURS
+/home/taes/taes/projects/retrofit/revisions/rev_2ef7ca0_941ae85/rev_2ef7ca0-941ae85/retrofit/src/main/java/retrofit/http/RestMethodInfo.java;<<<<<<< MINE
+  /** Loads {@link #responseObjectType}. Returns {@code true} if method is synchronous. */
+=======
+  private List<HeaderPair> parseHeaders(String[] headersToParse) {
+    List<HeaderPair> headers = new ArrayList<HeaderPair>();
+    for (String headerToParse: headersToParse) {
+      int colon = headerToParse.indexOf(':');
+      headers.add(new HeaderPair(headerToParse.substring(0, colon),
+                                 headerToParse.substring(colon + 2)));
+
+    }
+    return headers;
+  }
+
+  /** Loads {@link #type}. Returns true if the method is synchronous. */
+>>>>>>> YOURS
+/home/taes/taes/projects/elephant-bird/revisions/rev_2e05eec_21dbeee/rev_2e05eec-21dbeee/src/java/com/twitter/elephantbird/util/ThriftUtils.java;<<<<<<< MINE
+      java.lang.reflect.Field field = containingClass.getDeclaredField(fieldName);
+      return field.getType();
+    } catch (NoSuchFieldException e) {
+      throw new RuntimeException("while trying to find " + fieldName + " in "
+                                 + containingClass, e);
+=======
+      // checking the return type of get method works for union as well.
+      String getMethodName = "get"
+                             + fieldName.substring(0, 1).toUpperCase()
+                             + fieldName.substring(1);
+      Method method = containingClass.getDeclaredMethod(getMethodName);
+      return method.getReturnType();
+    } catch (NoSuchMethodException e) {
+      throw new RuntimeException("while trying to find type for " + fieldName +
+                                 " in " + containingClass, e);
+>>>>>>> YOURS
+/home/taes/taes/projects/elephant-bird/revisions/rev_a7db88d_d84d866/rev_a7db88d-d84d866/src/java/com/twitter/elephantbird/mapreduce/input/MultiInputFormat.java;<<<<<<< MINE
+  protected static void setClassConf(Class<?> clazz, Configuration conf) {
+=======
+  public static void setClassConf(Class<?> clazz, Configuration conf) {
+>>>>>>> YOURS
+/home/taes/taes/projects/elephant-bird/revisions/rev_a7db88d_d84d866/rev_a7db88d-d84d866/src/java/com/twitter/elephantbird/mapred/input/DeprecatedInputFormatWrapper.java;<<<<<<< MINE
+  public static void setInputFormat(Class<?> realInputFormatClass,
+                                    JobConf jobConf) {
+=======
+  public static void setInputFormat(Class<?> realInputFormatClass, JobConf jobConf) {
+>>>>>>> YOURS
+/home/taes/taes/projects/ribbon/revisions/rev_879cae7_4bd4aa3/rev_879cae7-4bd4aa3/ribbon/src/main/java/com/netflix/ribbon/proxy/MethodTemplateExecutor.java;<<<<<<< MINE
+        httpRequestTemplate = createHttpRequestTemplate();
+=======
+        this.evCacheProviderPool = evCacheProviderPool;
+        httpRequestTemplateBuilder = createHttpRequestTemplateBuilder();
+>>>>>>> YOURS
+/home/taes/taes/projects/ribbon/revisions/rev_879cae7_4bd4aa3/rev_879cae7-4bd4aa3/ribbon/src/main/java/com/netflix/ribbon/proxy/MethodTemplateExecutor.java;<<<<<<< MINE
+    private HttpRequestTemplate<?> createHttpRequestTemplate() {
+        HttpRequestTemplate<?> httpRequestTemplate = createBaseHttpRequestTemplate(httpResourceGroup);
+        for (AnnotationProcessor processor: proxyAnnotations.getProcessors()) {
+            processor.process(httpRequestTemplate, methodTemplate.getMethod());
+        }
+        return httpRequestTemplate;
+=======
+    private Builder<?> createHttpRequestTemplateBuilder() {
+        Builder<?> httpRequestTemplateBuilder = createBaseHttpRequestTemplate(httpResourceGroup);
+        withRequestUriBase(httpRequestTemplateBuilder);
+        withHttpHeaders(httpRequestTemplateBuilder);
+        withHystrixHandlers(httpRequestTemplateBuilder);
+        withCacheProviders(httpRequestTemplateBuilder);
+        return httpRequestTemplateBuilder;
+>>>>>>> YOURS
+/home/taes/taes/projects/elephant-bird/revisions/rev_56e97f9_c1ca987/rev_56e97f9-c1ca987/rcfile/src/main/java/com/twitter/elephantbird/mapreduce/output/RCFileThriftOutputFormat.java;<<<<<<< MINE
+          if (tObj.isSet(fd.getFieldIdEnum())) {
+            ThriftUtils.writeFieldNoTag(tProto, fd, tDesc.getFieldValue(i, tObj));
+          }
+=======
+          ThriftUtils.writeFieldNoTag(tProto, fd, tDesc.getFieldValue(i, tObj));
+>>>>>>> YOURS
+/home/taes/taes/projects/elephant-bird/revisions/rev_56e97f9_c1ca987/rev_56e97f9-c1ca987/rcfile/src/main/java/com/twitter/elephantbird/mapreduce/input/RCFileProtobufInputFormat.java;<<<<<<< MINE
+          Object value = Protobufs.readFieldNoTag(
+=======
+          value = Protobufs.readFieldNoTag(
+>>>>>>> YOURS
+/home/taes/taes/projects/elephant-bird/revisions/rev_56e97f9_c1ca987/rev_56e97f9-c1ca987/rcfile/src/main/java/com/twitter/elephantbird/mapreduce/input/RCFileProtobufInputFormat.java;<<<<<<< MINE
+          tuple.set(i, protoToPig.fieldToPig(knownRequiredFields.get(i), value));
+=======
+        } else if (fd.getType() != FieldDescriptor.Type.MESSAGE) {
+          value = fd.getDefaultValue();
+>>>>>>> YOURS
+/home/taes/taes/projects/elephant-bird/revisions/rev_6d28c12_2c0f0fe/rev_6d28c12-2c0f0fe/rcfile/src/main/java/com/twitter/elephantbird/mapreduce/input/RCFileProtobufInputFormat.java;<<<<<<< MINE
+      currentValue = builder.build();
+      return currentValue;
+    }
+
+    /**
+     * Returns a Tuple consisting of required fields with out creating
+     * a Protobuf message at the top level.
+     */
+    public Tuple getCurrentTupleValue() throws IOException, InterruptedException {
+
+      BytesRefArrayWritable byteRefs = getCurrentValue();
+      if (byteRefs == null) {
+        return null;
+      }
+
+      Tuple tuple = tf.newTuple(knownRequiredFields.size());
+
+      for (int i=0; i < knownRequiredFields.size(); i++) {
+        BytesRefWritable buf = byteRefs.get(columnsBeingRead.get(i));
+        FieldDescriptor fd = knownRequiredFields.get(i);
+        Object value = null;
+        if (buf.getLength() > 0) {
+          value = Protobufs.readFieldNoTag(
+              CodedInputStream.newInstance(buf.getData(), buf.getStart(), buf.getLength()),
+              knownRequiredFields.get(i),
+              msgBuilder);
+        } else { // use the value from default instance
+          value = msgInstance.getField(fd);
+        }
+        tuple.set(i, protoToPig.fieldToPig(fd, value));
+      }
+
+      if (readUnknownsColumn) {
+        // we can handle this if needed.
+        throw new IOException("getCurrentTupleValue() is not supported when 'readUnknownColumns' is set");
+      }
+
+      return tuple;
+=======
+      return builder.build();
+>>>>>>> YOURS
+/home/taes/taes/projects/elephant-bird/revisions/rev_c8c3348_ea96846/rev_c8c3348-ea96846/hadoop-compat/src/main/java/com/twitter/elephantbird/util/HadoopCompat.java;<<<<<<< MINE
+
+      GET_CONFIGURATION_METHOD  = JobContext.class        .getMethod("getConfiguration");
+      SET_STATUS_METHOD         = TaskAttemptContext.class.getMethod("setStatus", String.class);
+      GET_TASK_ATTEMPT_ID       = TaskAttemptContext.class.getMethod("getTaskAttemptID");
+      INCREMENT_COUNTER_METHOD  = Counter.class           .getMethod("increment", Long.TYPE);
+      GET_COUNTER_VALUE_METHOD  = Counter.class           .getMethod("getValue");
+      GET_JOB_ID_METHOD         = JobContext.class        .getMethod("getJobID");
+      GET_JOB_NAME_METHOD       = JobContext.class        .getMethod("getJobName");
+      GET_INPUT_SPLIT_METHOD    = MapContext.class        .getMethod("getInputSplit");
+
+=======
+      GET_CONFIGURATION_METHOD = Class.forName(PACKAGE+".JobContext")
+                                    .getMethod("getConfiguration");
+      SET_STATUS_METHOD = Class.forName(PACKAGE+".TaskAttemptContext")
+                                    .getMethod("setStatus", String.class);
+      GET_TASK_ATTEMPT_ID = Class.forName(PACKAGE+".TaskAttemptContext")
+                                    .getMethod("getTaskAttemptID");
+      INCREMENT_COUNTER_METHOD = Class.forName(PACKAGE+".Counter")
+                                    .getMethod("increment", Long.TYPE);
+      PROGRESS_METHOD = Class.forName(PACKAGE+".TaskAttemptContext")
+                                    .getMethod("progress");
+
+>>>>>>> YOURS
+/home/taes/taes/projects/elephant-bird/revisions/rev_9f1257c_88aca05/rev_9f1257c-88aca05/core/src/main/java/com/twitter/elephantbird/mapreduce/input/LzoBinaryBlockRecordReader.java;<<<<<<< MINE
+    deserializer_ = reader.getProtoConverter();
+=======
+    deserializer_ = reader.getConverter();
+>>>>>>> YOURS
+/home/taes/taes/projects/elephant-bird/revisions/rev_9f1257c_88aca05/rev_9f1257c-88aca05/core/src/main/java/com/twitter/elephantbird/mapreduce/input/LzoBinaryBlockRecordReader.java;<<<<<<< MINE
+      } catch (Throwable e) {
+=======
+      } catch (Exception e) {
+>>>>>>> YOURS
+/home/taes/taes/projects/elephant-bird/revisions/rev_9f1257c_88aca05/rev_9f1257c-88aca05/core/src/main/java/com/twitter/elephantbird/mapreduce/io/BinaryBlockReader.java;<<<<<<< MINE
+  public BinaryConverter<M> getProtoConverter() {
+=======
+  public BinaryConverter<M> getConverter() {
+>>>>>>> YOURS

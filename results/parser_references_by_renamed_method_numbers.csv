@@ -1,0 +1,46 @@
+revision;file;methodSignature;references
+/home/taes/taes//projects/elephant-bird/revisions/rev_dd64dd0_8ff804b/rev_dd64dd0-8ff804b;/src/java/com/twitter/elephantbird/pig/load/HBaseSlice;getProgress();@Override  public float getProgress() throws IOException {;0
+/home/taes/taes//projects/elephant-bird/revisions/rev_c01b27b_cebd3d0/rev_c01b27b-cebd3d0;/src/java/com/twitter/elephantbird/pig/piggybank/BytesToThriftTuple;exec(org.apache.pig.data.Tuple);;0
+/home/taes/taes//projects/elephant-bird/revisions/rev_c01b27b_cebd3d0/rev_c01b27b-cebd3d0;/src/java/com/twitter/elephantbird/pig/load/LzoProtobufB64LinePigLoader;getNext();;0
+/home/taes/taes//projects/elephant-bird/revisions/rev_c01b27b_cebd3d0/rev_c01b27b-cebd3d0;/src/java/com/twitter/elephantbird/pig/util/PigCounterHelper;incrCounter(Enum<?>,long);;0
+/home/taes/taes//projects/elephant-bird/revisions/rev_c01b27b_cebd3d0/rev_c01b27b-cebd3d0;/src/java/com/twitter/elephantbird/pig/load/LzoProtobufBlockPigLoader;getNext();;0
+/home/taes/taes//projects/elephant-bird/revisions/rev_d5876bb_b813096/rev_d5876bb-b813096;/src/java/com/twitter/elephantbird/pig/piggybank/ProtobufBytesToTuple;exec(Tuple);;0
+/home/taes/taes//projects/elephant-bird/revisions/rev_d5876bb_b813096/rev_d5876bb-b813096;/src/java/com/twitter/elephantbird/pig/load/LzoProtobufB64LinePigLoader;getNext();;0
+/home/taes/taes//projects/elephant-bird/revisions/rev_6c5529a_64bb16e/rev_6c5529a-64bb16e;/src/java/com/twitter/elephantbird/pig/piggybank/ThriftToPig;writeStructBegin(TStruct);@Override    public void writeStructBegin(TStruct struct) throws TException {;0
+/home/taes/taes//projects/elephant-bird/revisions/rev_b87762a_3125301/rev_b87762a-3125301;/src/java/com/twitter/elephantbird/pig/load/HBaseSlice;convertResultToTuple(Result,Tuple);;0
+/home/taes/taes//projects/elephant-bird/revisions/rev_b87762a_3125301/rev_b87762a-3125301;/src/java/com/twitter/elephantbird/pig/load/HBaseLoader;bytesToLong(byte[]);;0
+/home/taes/taes//projects/curator/revisions/rev_b5a2a9f_0ca5859/rev_b5a2a9f-0ca5859;/curator-framework/src/main/java/com/netflix/curator/framework/imps/CuratorTransactionImpl;commit();;0
+/home/taes/taes//projects/curator/revisions/rev_b5a2a9f_0ca5859/rev_b5a2a9f-0ca5859;/curator-framework/src/main/java/com/netflix/curator/framework/imps/CuratorFrameworkImpl;inTransaction();;0
+/home/taes/taes//projects/elephant-bird/revisions/rev_110e154_738e6ce/rev_110e154-738e6ce;/src/java/com/twitter/elephantbird/pig/piggybank/ThriftToPig;add(Object);@Override    public void add(Object o) throws TException {;0
+/home/taes/taes//projects/elephant-bird/revisions/rev_110e154_738e6ce/rev_110e154-738e6ce;/src/java/com/twitter/elephantbird/pig/util/PigToProtobuf;tupleFieldToSingleField(FieldDescriptor,Object);;0
+/home/taes/taes//projects/elephant-bird/revisions/rev_110e154_738e6ce/rev_110e154-738e6ce;/src/java/com/twitter/elephantbird/pig/store/LzoProtobufBlockPigStorage;putNext(Tuple);;0
+/home/taes/taes//projects/elephant-bird/revisions/rev_110e154_738e6ce/rev_110e154-738e6ce;/src/java/com/twitter/elephantbird/pig/store/LzoProtobufB64LinePigStorage;putNext(Tuple);;0
+/home/taes/taes//projects/elephant-bird/revisions/rev_27ceb0c_4353485/rev_27ceb0c-4353485;/src/java/com/twitter/elephantbird/pig/load/LzoThriftBlockPigLoader;getNext();;0
+/home/taes/taes//projects/elephant-bird/revisions/rev_27ceb0c_4353485/rev_27ceb0c-4353485;/src/java/com/twitter/elephantbird/pig/util/ProtobufTuple;getMemorySize();;0
+/home/taes/taes//projects/elephant-bird/revisions/rev_27ceb0c_4353485/rev_27ceb0c-4353485;/src/java/com/twitter/elephantbird/pig/load/LzoProtobufB64LinePigLoader;determineSchema(String,ExecType,DataStorage);;0
+/home/taes/taes//projects/elephant-bird/revisions/rev_27ceb0c_4353485/rev_27ceb0c-4353485;/src/java/com/twitter/elephantbird/pig/util/ProtobufToPig;singleFieldToTuple(FieldDescriptor,Object);;0
+/home/taes/taes//projects/elephant-bird/revisions/rev_27ceb0c_4353485/rev_27ceb0c-4353485;/src/java/com/twitter/elephantbird/pig/util/PigCounterHelper;getReporter();;0
+/home/taes/taes//projects/elephant-bird/revisions/rev_27ceb0c_4353485/rev_27ceb0c-4353485;/src/java/com/twitter/elephantbird/pig/store/LzoProtobufBlockPigStorage;putNext(Tuple);;0
+/home/taes/taes//projects/elephant-bird/revisions/rev_27ceb0c_4353485/rev_27ceb0c-4353485;/src/java/com/twitter/elephantbird/pig/store/LzoProtobufB64LinePigStorage;putNext(Tuple);;0
+/home/taes/taes//projects/elephant-bird/revisions/rev_27ceb0c_4353485/rev_27ceb0c-4353485;/src/java/com/twitter/elephantbird/pig/util/ThriftToPig;toPigScript(Class<?extendsTBase<?,?>>,Class<?extendsLoadFunc>);;0
+/home/taes/taes//projects/elephant-bird/revisions/rev_d48ed68_da570d2/rev_d48ed68-da570d2;/src/java/com/twitter/elephantbird/pig/util/ThriftToPig;singleFieldToTupleSchema(String,Field);;0
+/home/taes/taes//projects/atlas/revisions/rev_06b2d1f_53cd9d2/rev_06b2d1f-53cd9d2;/atlas-demo/AtlasDemo/buildSrc/src/main/java/com/taobao/android/builder/tools/diff/DiffResExtractor;extractDiff(Set<String>,File,File,File,File);;0
+/home/taes/taes//projects/elephant-bird/revisions/rev_f06548b_513c57a/rev_f06548b-513c57a;/src/java/com/twitter/elephantbird/pig/load/LzoSlice;init(DataStorage);public void init(DataStorage store) throws IOException {;0
+/home/taes/taes//projects/ribbon/revisions/rev_7620032_42c3e4c/rev_7620032-42c3e4c;/ribbon-core/src/main/java/com/netflix/loadbalancer/DynamicServerListLoadBalancer;run();;0
+/home/taes/taes//projects/ribbon/revisions/rev_7620032_42c3e4c/rev_7620032-42c3e4c;/ribbon-core/src/main/java/com/netflix/client/LoadBalancerContext;computeFinalUriWithLoadBalancer(T);;0
+/home/taes/taes//projects/ribbon/revisions/rev_7620032_42c3e4c/rev_7620032-42c3e4c;/ribbon-core/src/main/java/com/netflix/loadbalancer/BaseLoadBalancer;setServersList(List);;0
+/home/taes/taes//projects/ribbon/revisions/rev_b33a5ed_42c3e4c/rev_b33a5ed-42c3e4c;/ribbon-core/src/main/java/com/netflix/client/AbstractLoadBalancerAwareClient;handleRetry(String,int,int,Exception);protected int handleRetry(String uri, int retries, int numRetries,            Exception e) throws ClientException {;0
+/home/taes/taes//projects/ribbon/revisions/rev_4be8bde_47e5ff8/rev_4be8bde-47e5ff8;/ribbon-core/src/main/java/com/netflix/client/PrimeConnections;shutdown();;0
+/home/taes/taes//projects/ribbon/revisions/rev_4be8bde_47e5ff8/rev_4be8bde-47e5ff8;/ribbon-core/src/main/java/com/netflix/loadbalancer/DynamicServerListLoadBalancer;toString();;0
+/home/taes/taes//projects/ribbon/revisions/rev_aebc2c4_89ee7d8/rev_aebc2c4-89ee7d8;/ribbon-client-extensions/src/main/java/com/netflix/ribbonclientextensions/Ribbon;from(Class<T>,HttpClient<I,O>);public static <I, O, T> T from(Class<T> contract, HttpClient<I, O> transportClient) {;0
+/home/taes/taes//projects/retrofit/revisions/rev_2ef7ca0_941ae85/rev_2ef7ca0-941ae85;/retrofit/src/main/java/retrofit/http/RequestBuilder;createParamList();;0
+/home/taes/taes//projects/elephant-bird/revisions/rev_2e05eec_21dbeee/rev_2e05eec-21dbeee;/src/java/com/twitter/elephantbird/util/ThriftUtils;getFiedlType(Class<?>,String);public static Class<?> getFiedlType(Class<?> containingClass, String fieldName) {;0
+/home/taes/taes//projects/retrofit/revisions/rev_d665e56_bf94f53/rev_d665e56-bf94f53;/retrofit/src/main/java/retrofit/http/RequestBuilder;buildBody();private TypedOutput buildBody() {;0
+/home/taes/taes//projects/retrofit/revisions/rev_d665e56_bf94f53/rev_d665e56-bf94f53;/retrofit/src/test/java/retrofit/http/mime/FormUrlEncodingTypedOutputTest;encodedPairs();@Test public void encodedPairs() throws Exception {;0
+/home/taes/taes//projects/ribbon/revisions/rev_879cae7_4bd4aa3/rev_879cae7-4bd4aa3;/ribbon/src/main/java/com/netflix/ribbon/proxy/MethodTemplateExecutor;withCacheProviders(HttpRequestTemplate<?>);@SuppressWarnings({;0
+/home/taes/taes//projects/ribbon/revisions/rev_352cb58_00824ee/rev_352cb58-00824ee;/ribbon-transport/src/test/java/com/netflix/client/netty/udp/UdpClientTest;testUdpClientTimeout();@Test    public void testUdpClientTimeout() throws Exception {;0
+/home/taes/taes//projects/elephant-bird/revisions/rev_9a3bd70_20697f0/rev_9a3bd70-20697f0;/src/java/com/twitter/elephantbird/pig/load/SequenceFileLoader;getNext();;0
+/home/taes/taes//projects/elephant-bird/revisions/rev_2ad1a24_abcabcd/rev_2ad1a24-abcabcd;/src/java/com/twitter/elephantbird/pig/util/ThriftToPig;singleFieldToFieldSchema(String,Field);;0
+/home/taes/taes//projects/elephant-bird/revisions/rev_6d28c12_2c0f0fe/rev_6d28c12-2c0f0fe;/rcfile/src/main/java/com/twitter/elephantbird/mapreduce/input/RCFileProtobufInputFormat;getCurrentTupleValue();public Tuple getCurrentTupleValue() throws IOException, InterruptedException {;0
+/home/taes/taes//projects/elephant-bird/revisions/rev_923d61a_468dd30/rev_923d61a-468dd30;/src/java/com/twitter/elephantbird/thrift/TStructDescriptor;build(Class<?extendsTBase<?,?>>);private void build(Class<? extends TBase<?, ?>> tClass) {;0
+/home/taes/taes//projects/elephant-bird/revisions/rev_af48e3e_1efa52d/rev_af48e3e-1efa52d;/core/src/main/java/com/twitter/elephantbird/mapreduce/io/BinaryBlockReader;parseNextBlock();public List<ByteString> parseNextBlock() throws IOException {;0

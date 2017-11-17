@@ -1,0 +1,9 @@
+revision;file;leftImport;rightImport;conflictUnmerge
+/home/taes/taes//projects/elephant-bird/revisions/rev_34cf049_2c0f0fe/rev_34cf049-2c0f0fe.revisions;/home/taes/taes/projects/elephant-bird/revisions/rev_34cf049_2c0f0fe/rev_34cf049-2c0f0fe/rcfile/src/main/java/com/twitter/elephantbird/mapreduce/output/RCFileOutputFormat.java;importcom.twitter.elephantbird.pig.util.RCFileUtil;;importcom.twitter.elephantbird.util.RCFileUtil;;
+import com.twitter.elephantbird.pig.util.RCFileUtil;
+=======
+import com.twitter.data.proto.Misc.ColumnarMetadata;
+import com.twitter.elephantbird.util.RCFileUtil;
+import com.twitter.elephantbird.util.Protobufs;
+
+

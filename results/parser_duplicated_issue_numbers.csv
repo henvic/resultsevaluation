@@ -1,0 +1,6 @@
+revision;file;errors
+/home/taes/taes//projects/atlas/revisions/rev_4e151bd_ffb0907/rev_4e151bd-ffb0907.revisions;/home/taes/taes/projects/atlas/revisions/rev_4e151bd_ffb0907/rev_4e151bd-ffb0907/atlas-gradle-plugin/atlas-plugin/src/main/java/com/taobao/android/builder/tools/diff/DiffResExtractor.java;1
+/home/taes/taes//projects/ribbon/revisions/rev_b33a5ed_42c3e4c/rev_b33a5ed-42c3e4c.revisions;/home/taes/taes/projects/ribbon/revisions/rev_b33a5ed_42c3e4c/rev_b33a5ed-42c3e4c/ribbon-httpclient/src/main/java/com/netflix/niws/client/http/RestClient.java;2
+/home/taes/taes//projects/ribbon/revisions/rev_b33a5ed_42c3e4c/rev_b33a5ed-42c3e4c.revisions;/home/taes/taes/projects/ribbon/revisions/rev_b33a5ed_42c3e4c/rev_b33a5ed-42c3e4c/ribbon-core/src/main/java/com/netflix/client/AbstractLoadBalancerAwareClient.java;5
+/home/taes/taes//projects/elephant-bird/revisions/rev_b784885_342f336/rev_b784885-342f336.revisions;/home/taes/taes/projects/elephant-bird/revisions/rev_b784885_342f336/rev_b784885-342f336/src/java/com/twitter/elephantbird/pig/load/LzoThriftB64LinePigLoader.java;1
+/home/taes/taes//projects/elephant-bird/revisions/rev_b784885_342f336/rev_b784885-342f336.revisions;/home/taes/taes/projects/elephant-bird/revisions/rev_b784885_342f336/rev_b784885-342f336/src/java/com/twitter/elephantbird/pig/load/LzoProtobufB64LinePigLoader.java;2

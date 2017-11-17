@@ -1,0 +1,259 @@
+/home/taes/taes/projects/jodd/revisions/rev_b308375_38b60c8/rev_b308375-38b60c8/jodd-http/src/main/java/jodd/http/HttpBrowser.java;<<<<<<< MINE
+=======
+                
+			    Integer maxAge = cookie.getMaxAge();
+				if (maxAge != null && maxAge.intValue() == 0) {
+				    continue;
+				}
+
+>>>>>>> YOURS
+/home/taes/taes/projects/elephant-bird/revisions/rev_8eed34e_cebd3d0/rev_8eed34e-cebd3d0/src/java/com/twitter/elephantbird/util/Protobufs.java;<<<<<<< MINE
+=======
+    //XXX Remove this.
+>>>>>>> YOURS
+/home/taes/taes/projects/elephant-bird/revisions/rev_8eed34e_cebd3d0/rev_8eed34e-cebd3d0/src/java/com/twitter/elephantbird/mapreduce/io/ProtobufBlockReader.java;<<<<<<< MINE
+=======
+    super(in, new ProtobufConverter<M>(typeRef));
+>>>>>>> YOURS
+/home/taes/taes/projects/elephant-bird/revisions/rev_8eed34e_cebd3d0/rev_8eed34e-cebd3d0/src/java/com/twitter/elephantbird/pig/load/LzoProtobufBlockPigLoader.java;<<<<<<< MINE
+=======
+    String group = "LzoBlocks of " + typeRef_.getRawClass().getName();
+    protobufsRead = new Pair<String, String>(group, "Protobufs Read");
+    protobufErrors = new Pair<String, String>(group, "Errors");
+>>>>>>> YOURS
+/home/taes/taes/projects/elephant-bird/revisions/rev_8eed34e_cebd3d0/rev_8eed34e-cebd3d0/src/java/com/twitter/elephantbird/pig/load/LzoProtobufBlockPigLoader.java;<<<<<<< MINE
+=======
+      if (value_.get() == null) {
+        incrCounter(protobufErrors, 1);
+      }
+>>>>>>> YOURS
+/home/taes/taes/projects/elephant-bird/revisions/rev_8eed34e_cebd3d0/rev_8eed34e-cebd3d0/src/java/com/twitter/elephantbird/pig/load/LzoProtobufB64LinePigLoader.java;<<<<<<< MINE
+=======
+    String group = "LzoB64Lines of " + typeRef_.getRawClass().getName();
+    linesRead = new Pair<String, String>(group, "Lines Read");
+    protobufsRead = new Pair<String, String>(group, "Protobufs Read");
+    protobufErrors = new Pair<String, String>(group, "Errors");
+>>>>>>> YOURS
+/home/taes/taes/projects/elephant-bird/revisions/rev_8eed34e_cebd3d0/rev_8eed34e-cebd3d0/src/java/com/twitter/elephantbird/pig/load/LzoProtobufB64LinePigLoader.java;<<<<<<< MINE
+=======
+      } else {
+        incrCounter(protobufErrors, 1L);
+>>>>>>> YOURS
+/home/taes/taes/projects/elephant-bird/revisions/rev_8eed34e_cebd3d0/rev_8eed34e-cebd3d0/src/java/com/twitter/elephantbird/pig/piggybank/BytesToThriftTuple.java;<<<<<<< MINE
+=======
+    thriftToTuple_ = ThriftToPig.newInstance(typeRef);
+>>>>>>> YOURS
+/home/taes/taes/projects/elephant-bird/revisions/rev_b0d7a3e_6abbab9/rev_b0d7a3e-6abbab9/src/java/com/twitter/elephantbird/mapreduce/input/LzoProtobufB64LineInputFormat.java;<<<<<<< MINE
+=======
+  // should remove this.
+>>>>>>> YOURS
+/home/taes/taes/projects/elephant-bird/revisions/rev_1416fa5_839a574/rev_1416fa5-839a574/src/java/com/twitter/elephantbird/mapreduce/input/LzoProtobufB64LineInputFormat.java;<<<<<<< MINE
+=======
+  // should remove this.
+>>>>>>> YOURS
+/home/taes/taes/projects/jodd/revisions/rev_7afb21f_a3241cf/rev_7afb21f-a3241cf/jodd-vtor/src/test/java/jodd/vtor/ManualTest.java;<<<<<<< MINE
+=======
+		assertNull(v.getCheck().getMessage());
+>>>>>>> YOURS
+/home/taes/taes/projects/curator/revisions/rev_b5a2a9f_0ca5859/rev_b5a2a9f-0ca5859/curator-framework/src/main/java/com/netflix/curator/framework/imps/CuratorFrameworkImpl.java;<<<<<<< MINE
+=======
+    public CuratorTransaction inTransaction()
+    {
+        Preconditions.checkState(state.get() == State.STARTED, "instance must be started before calling this method");
+
+        return new CuratorTransactionImpl(this);
+    }
+
+    @Override
+>>>>>>> YOURS
+/home/taes/taes/projects/curator/revisions/rev_1ee1673_859a623/rev_1ee1673-859a623/curator-recipes/src/test/java/com/netflix/curator/framework/recipes/queue/TestQueueSharder.java;<<<<<<< MINE
+=======
+            timing.sleepABit(); // let queue clear
+>>>>>>> YOURS
+/home/taes/taes/projects/curator/revisions/rev_1ee1673_859a623/rev_1ee1673-859a623/curator-recipes/src/test/java/com/netflix/curator/framework/recipes/queue/TestQueueSharder.java;<<<<<<< MINE
+=======
+            timing.sleepABit(); // let queues clear
+>>>>>>> YOURS
+/home/taes/taes/projects/ribbon/revisions/rev_a64b868_6e11c79/rev_a64b868-6e11c79/ribbon-core/src/main/java/com/netflix/client/AbstractLoadBalancerAwareClient.java;<<<<<<< MINE
+=======
+     * @deprecated replaced by {@link #getDefaultPortFromScheme(String)}
+>>>>>>> YOURS
+/home/taes/taes/projects/retrofit/revisions/rev_35b7257_838711b/rev_35b7257-838711b/http/src/main/java/retrofit/http/RestAdapter.java;<<<<<<< MINE
+=======
+   * Returns a new instance of {@code type} that uses {@code restAdapter} to
+   * convert Java method calls to Rest calls.
+   */
+  @SuppressWarnings("unchecked")
+  public static <T> T create(RestAdapter restAdapter, Class<T> type) {
+    RestAdapter.RestHandler handler = restAdapter.new RestHandler();
+    return (T) Proxy.newProxyInstance(type.getClassLoader(), new Class<?>[]{type}, handler);
+  }
+
+  /**
+>>>>>>> YOURS
+/home/taes/taes/projects/retrofit/revisions/rev_35b7257_838711b/rev_35b7257-838711b/http/src/test/java/retrofit/http/RestAdapterTest.java;<<<<<<< MINE
+=======
+    mockProfiler   = createMock(HttpProfiler.class);
+>>>>>>> YOURS
+/home/taes/taes/projects/retrofit/revisions/rev_35b7257_838711b/rev_35b7257-838711b/http/src/test/java/retrofit/http/RestAdapterTest.java;<<<<<<< MINE
+=======
+            bind(HttpProfiler.class).toInstance(HttpProfiler.NONE);
+>>>>>>> YOURS
+/home/taes/taes/projects/elephant-bird/revisions/rev_ed6d50d_1f0c02e/rev_ed6d50d-1f0c02e/src/java/com/twitter/elephantbird/util/Codecs.java;<<<<<<< MINE
+=======
+      /* with constructor Base64() in commons-codec-1.4
+       * encode() inserts a newline after every 76 characters.
+       * Base64(0) disables that incompatibility.
+       */
+>>>>>>> YOURS
+/home/taes/taes/projects/atlas/revisions/rev_a504c52_dd98861/rev_a504c52-dd98861/atlas-core/src/main/java/android/taobao/atlas/framework/bundlestorage/BundleArchive.java;<<<<<<< MINE
+=======
+                Log.e("BundleArchive","purge "+bundleDir +" : "+dir.getName());
+>>>>>>> YOURS
+/home/taes/taes/projects/atlas/revisions/rev_8d5a4e8_cc2b800/rev_8d5a4e8-cc2b800/atlas-gradle-plugin/atlas-plugin/src/main/java/com/taobao/android/builder/extension/MultiDexConfig.java;<<<<<<< MINE
+=======
+    @Config(title = "é¢å¤ç¬¬ä¸ä¸ªdexç±»åè¡¨", message = "èªå®ä¹éè¦æ¾å°ç¬¬ä¸ä¸ªdexä¸­çå¥å£ç±»", order = 3, group = "atlas")
+>>>>>>> YOURS
+/home/taes/taes/projects/atlas/revisions/rev_8d5a4e8_cc2b800/rev_8d5a4e8-cc2b800/atlas-gradle-plugin/atlas-plugin/src/main/java/com/taobao/android/builder/manager/AtlasAppTaskManager.java;<<<<<<< MINE
+=======
+                }
+
+                try {
+                    hookFastDex(appVariantContext);
+                    hookFastMultiDex(appVariantContext);
+                } catch (Exception e) {
+                    throw new GradleException(e.getMessage(), e);
+                }
+
+                for (final BaseVariantOutputData vod : baseVariantOutputDataList) {
+>>>>>>> YOURS
+/home/taes/taes/projects/atlas/revisions/rev_8d5a4e8_cc2b800/rev_8d5a4e8-cc2b800/atlas-gradle-plugin/atlas-plugin/src/main/java/com/taobao/android/builder/manager/AtlasAppTaskManager.java;<<<<<<< MINE
+=======
+                if (appVariantContext.getBuildType().getDexConfig()!= null && appVariantContext.getBuildType().getDexConfig().isUseMyDex()){
+                    dexOptions.getAdditionalParameters().add("--useMyDex");
+                }
+>>>>>>> YOURS
+/home/taes/taes/projects/ribbon/revisions/rev_1c246b4_f841ad0/rev_1c246b4-f841ad0/ribbon-core/src/main/java/com/netflix/client/LoadBalancerContext.java;<<<<<<< MINE
+=======
+            if (isURIEncoded(theUrl)) {
+                StringBuilder sb = new StringBuilder();
+                sb.append(newURI.getScheme())
+                  .append("://")
+                  .append(newURI.getRawAuthority())
+                  .append(theUrl.getRawPath());
+                if (!Strings.isNullOrEmpty(theUrl.getRawQuery())) {
+                    sb.append("?").append(theUrl.getRawQuery());
+                }
+                if (!Strings.isNullOrEmpty(theUrl.getRawFragment())) {
+                    sb.append("#").append(theUrl.getRawFragment());
+                }
+                newURI = new URI(sb.toString());
+            }
+>>>>>>> YOURS
+/home/taes/taes/projects/ribbon/revisions/rev_1c246b4_f841ad0/rev_1c246b4-f841ad0/ribbon-httpclient/src/main/java/com/netflix/http4/NFHttpClient.java;<<<<<<< MINE
+=======
+        this(name, config, true);
+    }
+
+    protected NFHttpClient(String name, IClientConfig config, boolean registerMonitor) {
+>>>>>>> YOURS
+/home/taes/taes/projects/elephant-bird/revisions/rev_ad562ae_130cfc6/rev_ad562ae-130cfc6/src/java/com/twitter/elephantbird/pig/load/LzoTextLoader.java;<<<<<<< MINE
+=======
+    super("\n");
+>>>>>>> YOURS
+/home/taes/taes/projects/atlas/revisions/rev_98ae4ea_9a79e22/rev_98ae4ea-9a79e22/atlas-core/src/main/java/android/taobao/atlas/startup/patch/KernalBundle.java;<<<<<<< MINE
+=======
+                    File internalDebugBundleDir = new File(new File(application.getFilesDir(), "debug_storage"), KERNAL_BUNDLE_NAME);
+                    internalDebugBundleDir.mkdirs();
+>>>>>>> YOURS
+/home/taes/taes/projects/ribbon/revisions/rev_7620032_42c3e4c/rev_7620032-42c3e4c/ribbon-httpclient/src/test/java/com/netflix/niws/client/http/RestClientTest.java;<<<<<<< MINE
+=======
+        ConfigurationManager.getConfigInstance().setProperty("allservices.ribbon." + CommonClientConfigKey.ReadTimeout, "10000");
+>>>>>>> YOURS
+/home/taes/taes/projects/atlas/revisions/rev_4e151bd_ffb0907/rev_4e151bd-ffb0907/atlas-gradle-plugin/atlas-plugin/src/main/java/com/taobao/android/builder/tools/diff/DiffResExtractor.java;<<<<<<< MINE
+=======
+     * @param appVariantContext
+>>>>>>> YOURS
+/home/taes/taes/projects/elephant-bird/revisions/rev_b784885_342f336/rev_b784885-342f336/src/java/com/twitter/elephantbird/pig/util/ThriftToPig.java;<<<<<<< MINE
+=======
+      this.desc = desc;
+>>>>>>> YOURS
+/home/taes/taes/projects/elephant-bird/revisions/rev_b784885_342f336/rev_b784885-342f336/src/java/com/twitter/elephantbird/pig/util/ProtobufToPig.java;<<<<<<< MINE
+=======
+   * Returns either {@link #messageToTuple(FieldDescriptor, Object)}
+   * or {@link #singleFieldToTuple(FieldDescriptor, Object)} depending
+   * on whether the field is a Message or a simple field.
+   */
+  protected Object fieldToPig(FieldDescriptor fieldDescriptor, Object fieldValue) {
+    if (fieldDescriptor.getType() == FieldDescriptor.Type.MESSAGE) {
+      return messageToTuple(fieldDescriptor, fieldValue);
+    } else {
+      return singleFieldToTuple(fieldDescriptor, fieldValue);
+    }
+  }
+
+  /**
+>>>>>>> YOURS
+/home/taes/taes/projects/elephant-bird/revisions/rev_b784885_342f336/rev_b784885-342f336/src/java/com/twitter/elephantbird/pig/load/LzoBaseLoadFunc.java;<<<<<<< MINE
+=======
+  protected final String LZO_EXTENSION = new LzopCodec().getDefaultExtension();
+
+  @SuppressWarnings("unchecked")
+>>>>>>> YOURS
+/home/taes/taes/projects/elephant-bird/revisions/rev_b784885_342f336/rev_b784885-342f336/src/test/com/twitter/elephantbird/pig/piggybank/TestProtoToPig.java;<<<<<<< MINE
+=======
+      if (idx%2 == 0) {
+        assertEquals(projectedTuple.get(fd.getIndex()/2), normalTuple.get(fd.getIndex()));
+      }
+      idx++;
+>>>>>>> YOURS
+/home/taes/taes/projects/retrofit/revisions/rev_2ef7ca0_941ae85/rev_2ef7ca0-941ae85/retrofit/src/main/java/retrofit/http/RequestBuilder.java;<<<<<<< MINE
+=======
+    }
+
+    List<HeaderPair> headers = new ArrayList<HeaderPair>();
+    if (this.headers != null) {
+      headers.addAll(this.headers);
+    }
+    if (methodInfo.headers != null) {
+      headers.addAll(methodInfo.headers);
+    }
+    // RFC 2616: Field names are case-insensitive
+    List<String> lcHeadersToRemove = new ArrayList<String>();
+    if (methodInfo.headerParams != null) {
+      for (int i = 0; i < methodInfo.headerParams.length; i++) {
+        String name = methodInfo.headerParams[i];
+        if (name == null) continue;
+        Object arg = args[i];
+        if (arg != null) {
+          headers.add(new HeaderPair(name, arg.toString()));
+        } else {
+          lcHeadersToRemove.add(name.toLowerCase());
+        }
+      }
+    }
+    for (Iterator<HeaderPair> header = headers.iterator(); header.hasNext();) {
+      // RFC 2616: Field names are case-insensitive
+      if (lcHeadersToRemove.contains(header.next().getName().toLowerCase()))
+        header.remove();
+    }
+    return new Request(methodInfo.restMethod.value(), url.toString(), headers, body);
+  }
+>>>>>>> YOURS
+/home/taes/taes/projects/elephant-bird/revisions/rev_56e97f9_c1ca987/rev_56e97f9-c1ca987/core/src/main/java/com/twitter/elephantbird/util/ThriftToProto.java;<<<<<<< MINE
+=======
+@SuppressWarnings("rawtypes")
+>>>>>>> YOURS
+/home/taes/taes/projects/elephant-bird/revisions/rev_56e97f9_c1ca987/rev_56e97f9-c1ca987/rcfile/src/main/java/com/twitter/elephantbird/mapreduce/output/RCFileProtobufOutputFormat.java;<<<<<<< MINE
+=======
+            // match protobuf's serialization (write only if hasField() is true)
+>>>>>>> YOURS
+/home/taes/taes/projects/elephant-bird/revisions/rev_56e97f9_c1ca987/rev_56e97f9-c1ca987/rcfile/src/main/java/com/twitter/elephantbird/mapreduce/input/RCFileThriftInputFormat.java;<<<<<<< MINE
+=======
+        // else no need to set default value since any default value
+        // would have been serialized when this record was written.
+>>>>>>> YOURS
+/home/taes/taes/projects/elephant-bird/revisions/rev_56e97f9_c1ca987/rev_56e97f9-c1ca987/rcfile/src/main/java/com/twitter/elephantbird/mapreduce/input/RCFileProtobufInputFormat.java;<<<<<<< MINE
+=======
+        tuple.set(i, protoToPig.fieldToPig(fd, value));
+>>>>>>> YOURS

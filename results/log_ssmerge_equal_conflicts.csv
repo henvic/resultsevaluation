@@ -1,0 +1,964 @@
+file;ssmergeConf;linedbasedConf
+/home/taes/taes/projects/atlas/revisions/rev_e753b87_09d4b5a/rev_e753b87-09d4b5a/atlas-gradle-plugin/atlas-plugin/src/main/java/com/android/build/gradle/internal/TDependencyManager.java;<<<<<<< MINE
+=======
+            logger.info(">>>>>>> YOURS;<<<<<<< MINE
+=======
+            logger.info(">>>>>>> YOURS
+/home/taes/taes/projects/atlas/revisions/rev_627074d_8a3cb77/rev_627074d-8a3cb77/atlas-gradle-plugin/atlas-plugin/src/main/java/com/android/build/gradle/internal/TDependencyManager.java;<<<<<<< MINE
+=======
+            logger.info(">>>>>>> YOURS;<<<<<<< MINE
+=======
+            logger.info(">>>>>>> YOURS
+/home/taes/taes/projects/atlas/revisions/rev_9fc1590_1fa2d2a/rev_9fc1590-1fa2d2a/atlas-gradle-plugin/atlas-plugin/src/main/java/com/android/build/gradle/internal/TDependencyManager.java;<<<<<<< MINE
+=======
+            logger.info(">>>>>>> YOURS;<<<<<<< MINE
+=======
+            logger.info(">>>>>>> YOURS
+/home/taes/taes/projects/atlas/revisions/rev_b5c5655_002fa03/rev_b5c5655-002fa03/atlas-gradle-plugin/atlas-plugin/src/main/java/com/android/build/gradle/internal/TDependencyManager.java;<<<<<<< MINE
+=======
+            logger.info(">>>>>>> YOURS;<<<<<<< MINE
+=======
+            logger.info(">>>>>>> YOURS
+/home/taes/taes/projects/atlas/revisions/rev_c2e9822_9b24b0d/rev_c2e9822-9b24b0d/atlas-gradle-plugin/atlas-plugin/src/main/java/com/taobao/android/builder/tasks/app/manifest/PostProcessManifestTask.java;<<<<<<< MINE
+            postProcessManifestsTask.bunldeBaseInfoFile = new File(variantContext.getScope()
+                                                                       .getGlobalScope()
+                                                                       .getProject()
+                                                                       .getProjectDir(),
+=======
+            postProcessManifestsTask.bundleBaseInfoFile = new File(variantContext.getScope()
+                                                                           .getGlobalScope()
+                                                                           .getProject()
+                                                                           .getProjectDir(),
+>>>>>>> YOURS;<<<<<<< MINE
+            postProcessManifestsTask.bunldeBaseInfoFile = new File(variantContext.getScope()
+                                                                       .getGlobalScope()
+                                                                       .getProject()
+                                                                       .getProjectDir(),
+=======
+            postProcessManifestsTask.bundleBaseInfoFile = new File(variantContext.getScope()
+                                                                           .getGlobalScope()
+                                                                           .getProject()
+                                                                           .getProjectDir(),
+>>>>>>> YOURS
+/home/taes/taes/projects/elephant-bird/revisions/rev_c01b27b_cebd3d0/rev_c01b27b-cebd3d0/src/java/com/twitter/elephantbird/mapreduce/output/LzoProtobufB64LineOutputFormat.java;<<<<<<< MINE
+    Configuration conf = job.getConfiguration();
+    LzoCodec codec = new LzopCodec();
+		codec.setConf(conf);
+
+    Path file = getDefaultWorkFile(job, codec.getDefaultExtension());
+    FileSystem fs = file.getFileSystem(conf);
+    FSDataOutputStream fileOut = fs.create(file, false);
+
+    return new LzoProtobufB64LineRecordWriter<M, W>(typeRef_,
+        new DataOutputStream(codec.createOutputStream(fileOut)));
+=======
+    return new LzoBinaryB64LineRecordWriter<M, W>(new ProtobufConverter<M>(typeRef_), getOutputStream(job));
+>>>>>>> YOURS;<<<<<<< MINE
+    Configuration conf = job.getConfiguration();
+    LzoCodec codec = new LzopCodec();
+		codec.setConf(conf);
+
+    Path file = getDefaultWorkFile(job, codec.getDefaultExtension());
+    FileSystem fs = file.getFileSystem(conf);
+    FSDataOutputStream fileOut = fs.create(file, false);
+
+    return new LzoProtobufB64LineRecordWriter<M, W>(typeRef_,
+        new DataOutputStream(codec.createOutputStream(fileOut)));
+=======
+    return new LzoBinaryB64LineRecordWriter<M, W>(new ProtobufConverter<M>(typeRef_), getOutputStream(job));
+>>>>>>> YOURS
+/home/taes/taes/projects/elephant-bird/revisions/rev_c01b27b_cebd3d0/rev_c01b27b-cebd3d0/src/test/com/twitter/elephantbird/pig/piggybank/TestThriftToPig.java;<<<<<<< MINE
+        "1-0-35-27000-16777216-6000000000-3.141592653589793-JSON THIS! \"-"+ooe.zomg_unicode+"-0-base64-(1,2,3)-(1,2,3)-(1,2,3)",
+        proto.getPigTuple().toDelimitedString("-"));
+=======
+        "1-0-35-27000-16777216-6000000000-3.141592653589793-JSON THIS! \"-"+ooe.zomg_unicode+"-0--{(1),(2),(3)}--{(1L),(2L),(3L)}",
+        toTuple(mostly_ooe).toDelimitedString("-"));
+>>>>>>> YOURS;<<<<<<< MINE
+        "1-0-35-27000-16777216-6000000000-3.141592653589793-JSON THIS! \"-"+ooe.zomg_unicode+"-0-base64-(1,2,3)-(1,2,3)-(1,2,3)",
+        proto.getPigTuple().toDelimitedString("-"));
+=======
+        "1-0-35-27000-16777216-6000000000-3.141592653589793-JSON THIS! \"-"+ooe.zomg_unicode+"-0--{(1),(2),(3)}--{(1L),(2L),(3L)}",
+        toTuple(mostly_ooe).toDelimitedString("-"));
+>>>>>>> YOURS
+/home/taes/taes/projects/elephant-bird/revisions/rev_c01b27b_cebd3d0/rev_c01b27b-cebd3d0/src/test/com/twitter/elephantbird/pig/piggybank/TestThriftToPig.java;<<<<<<< MINE
+    n.write(proto);
+    assertEquals("(31337,I am a bonk... xor!)-(1,0,35,27000,16777216,6000000000,3.141592653589793,JSON THIS! \","+n.my_ooe.zomg_unicode+",0,base64,(1,2,3),(1,2,3),(1,2,3))",
+        proto.getPigTuple().toDelimitedString("-"));
+
+    hm.write(proto);
+    assertEquals("((1,0,34,27000,16777216,6000000000,3.141592653589793,JSON THIS! \"," + ooe.zomg_unicode +
+        ",0,base64,(1,2,3),(1,2,3),(1,2,3)),(1,0,35,27000,16777216,6000000000,3.141592653589793,JSON THIS! \"," +
+        ooe.zomg_unicode + ",0,base64,(1,2,3),(1,2,3),(1,2,3)))-{(),(then a one, two,three!,FOUR!!),(and a one,and a two)}-{zero=(), three=(), two=((1,Wait.),(2,What?))}",
+        (proto.getPigTuple().toDelimitedString("-")));
+=======
+    Nesting n2 = new Nesting(n);
+    n2.getMy_bonk().setMessage(null);
+    n2.setMy_ooe(mostly_ooe);
+    assertEquals("(31337,)-(1,0,35,27000,16777216,6000000000L,3.141592653589793,JSON THIS! \","+n.my_ooe.zomg_unicode+",0,,{(1),(2),(3)},,{(1L),(2L),(3L)})",
+        toTuple(n2).toDelimitedString("-"));
+
+    // test enum.
+    PhoneNumber ph = new PhoneNumber();
+    ph.setNumber("415-555-5555");
+    ph.setType(PhoneType.HOME);
+    assertEquals("415-555-5555,HOME", toTuple(ph).toDelimitedString(","));
+>>>>>>> YOURS;<<<<<<< MINE
+    n.write(proto);
+    assertEquals("(31337,I am a bonk... xor!)-(1,0,35,27000,16777216,6000000000,3.141592653589793,JSON THIS! \","+n.my_ooe.zomg_unicode+",0,base64,(1,2,3),(1,2,3),(1,2,3))",
+        proto.getPigTuple().toDelimitedString("-"));
+
+    hm.write(proto);
+    assertEquals("((1,0,34,27000,16777216,6000000000,3.141592653589793,JSON THIS! \"," + ooe.zomg_unicode +
+        ",0,base64,(1,2,3),(1,2,3),(1,2,3)),(1,0,35,27000,16777216,6000000000,3.141592653589793,JSON THIS! \"," +
+        ooe.zomg_unicode + ",0,base64,(1,2,3),(1,2,3),(1,2,3)))-{(),(then a one, two,three!,FOUR!!),(and a one,and a two)}-{zero=(), three=(), two=((1,Wait.),(2,What?))}",
+        (proto.getPigTuple().toDelimitedString("-")));
+=======
+    Nesting n2 = new Nesting(n);
+    n2.getMy_bonk().setMessage(null);
+    n2.setMy_ooe(mostly_ooe);
+    assertEquals("(31337,)-(1,0,35,27000,16777216,6000000000L,3.141592653589793,JSON THIS! \","+n.my_ooe.zomg_unicode+",0,,{(1),(2),(3)},,{(1L),(2L),(3L)})",
+        toTuple(n2).toDelimitedString("-"));
+
+    // test enum.
+    PhoneNumber ph = new PhoneNumber();
+    ph.setNumber("415-555-5555");
+    ph.setType(PhoneType.HOME);
+    assertEquals("415-555-5555,HOME", toTuple(ph).toDelimitedString(","));
+>>>>>>> YOURS
+/home/taes/taes/projects/elephant-bird/revisions/rev_b87762a_3125301/rev_b87762a-3125301/src/java/com/twitter/elephantbird/mapreduce/input/LzoThriftB64LineInputFormat.java;<<<<<<< MINE
+    if (typeRef_ == null) {
+      typeRef_ = ThriftUtils.getTypeRef(taskAttempt.getConfiguration(), LzoThriftB64LineInputFormat.class);
+    }
+    return new LzoThriftB64LineRecordReader<M>(typeRef_);
+=======
+
+    TypeRef<M> typeRef = ThriftUtils.getTypeRef(taskAttempt.getConfiguration(), LzoThriftB64LineInputFormat.class);
+    return new LzoThriftB64LineRecordReader<M>(typeRef);
+>>>>>>> YOURS;<<<<<<< MINE
+    if (typeRef_ == null) {
+      typeRef_ = ThriftUtils.getTypeRef(taskAttempt.getConfiguration(), LzoThriftB64LineInputFormat.class);
+    }
+    return new LzoThriftB64LineRecordReader<M>(typeRef_);
+=======
+
+    TypeRef<M> typeRef = ThriftUtils.getTypeRef(taskAttempt.getConfiguration(), LzoThriftB64LineInputFormat.class);
+    return new LzoThriftB64LineRecordReader<M>(typeRef);
+>>>>>>> YOURS
+/home/taes/taes/projects/curator/revisions/rev_8e9a54c_f78e498/rev_8e9a54c-f78e498/curator-test/src/main/java/com/netflix/curator/test/TestingZooKeeperMain.java;<<<<<<< MINE
+            Field                   cnxnFactoryField = ZooKeeperServerMain.class.getDeclaredField("cnxnFactory");
+            cnxnFactoryField.setAccessible(true);
+            NIOServerCnxn.Factory   cnxnFactory = (NIOServerCnxn.Factory)cnxnFactoryField.get(this);
+
+            ZooKeeperServer     zkServer = cnxnFactory.getZooKeeperServer();
+            if ( zkServer != null ) 
+=======
+            ServerCnxnFactory   cnxnFactory = getServerConnectionFactory();
+            if ( cnxnFactory != null )
+>>>>>>> YOURS;<<<<<<< MINE
+            Field                   cnxnFactoryField = ZooKeeperServerMain.class.getDeclaredField("cnxnFactory");
+            cnxnFactoryField.setAccessible(true);
+            NIOServerCnxn.Factory   cnxnFactory = (NIOServerCnxn.Factory)cnxnFactoryField.get(this);
+
+            ZooKeeperServer     zkServer = cnxnFactory.getZooKeeperServer();
+            if ( zkServer != null ) 
+=======
+            ServerCnxnFactory   cnxnFactory = getServerConnectionFactory();
+            if ( cnxnFactory != null )
+>>>>>>> YOURS
+/home/taes/taes/projects/atlas/revisions/rev_229ef67_32e19be/rev_229ef67-32e19be/atlas-core/src/main/java/android/taobao/atlas/framework/BundleInstaller.java;<<<<<<< MINE
+        BundleListing.BundleInfo info = AtlasBundleInfoManager.instance().getBundleInfo(location);
+        if(bundleFile.exists() && info.isInternal()){
+=======
+
+
+        if(!bundleFile.exists()){
+            bundleFile = new File(RuntimeVariables.androidApplication.getApplicationInfo().nativeLibraryDir,bundleFileName);
+        }
+        if(bundleFile.exists() && AtlasBundleInfoManager.instance().isInternalBundle(location)){
+>>>>>>> YOURS;<<<<<<< MINE
+        BundleListing.BundleInfo info = AtlasBundleInfoManager.instance().getBundleInfo(location);
+        if(bundleFile.exists() && info.isInternal()){
+=======
+
+
+        if(!bundleFile.exists()){
+            bundleFile = new File(RuntimeVariables.androidApplication.getApplicationInfo().nativeLibraryDir,bundleFileName);
+        }
+        if(bundleFile.exists() && AtlasBundleInfoManager.instance().isInternalBundle(location)){
+>>>>>>> YOURS
+/home/taes/taes/projects/elephant-bird/revisions/rev_27ceb0c_4353485/rev_27ceb0c-4353485/src/java/com/twitter/elephantbird/mapreduce/io/BinaryBlockWriter.java;<<<<<<< MINE
+    innerClass_ = protoClass;
+    binaryConverter_ = binaryConverter;
+
+=======
+    protobufClass_ = protoClass;
+    protoConverter_ = protoConverter;
+
+>>>>>>> YOURS;<<<<<<< MINE
+    innerClass_ = protoClass;
+    binaryConverter_ = binaryConverter;
+
+=======
+    protobufClass_ = protoClass;
+    protoConverter_ = protoConverter;
+
+>>>>>>> YOURS
+/home/taes/taes/projects/atlas/revisions/rev_694bb57_5daae8c/rev_694bb57-5daae8c/atlas-demo/AtlasDemo/app/src/main/java/com/taobao/update/Updater.java;<<<<<<< MINE
+        String versionName = null;
+        try {
+            versionName = context.getPackageManager().getPackageInfo(context.getPackageName(), 0).versionName;
+        }catch (Exception e){
+
+        }
+=======
+        String versionName = null;
+        try {
+            versionName = context.getPackageManager().getPackageInfo(context.getPackageName(), 0).versionName;
+        }catch(Throwable e){
+        }
+>>>>>>> YOURS;<<<<<<< MINE
+        String versionName = null;
+        try {
+            versionName = context.getPackageManager().getPackageInfo(context.getPackageName(), 0).versionName;
+        }catch (Exception e){
+
+        }
+=======
+        String versionName = null;
+        try {
+            versionName = context.getPackageManager().getPackageInfo(context.getPackageName(), 0).versionName;
+        }catch(Throwable e){
+        }
+>>>>>>> YOURS
+/home/taes/taes/projects/atlas/revisions/rev_5e0f66b_651bc9a/rev_5e0f66b-651bc9a/atlas-demo/AtlasDemo/buildSrc/src/main/java/com/taobao/android/builder/manager/AtlasAppTaskManager.java;<<<<<<< MINE
+                //if (appVariantContext.getVariantData().getScope().getInstantRunBuildContext().isInInstantRunMode()) {
+                //    throw new GradleException(
+                //        "atlas plgin is not compatible with instant runï¼ plese turn it off in your ideï¼");
+                //}
+
+                tAndroidBuilder.setBuildType(appVariantContext.getBuildType().getName());
+                new AwbProguradHook().hookProguardTask(appVariantContext);
+
+=======
+>>>>>>> YOURS;<<<<<<< MINE
+                //if (appVariantContext.getVariantData().getScope().getInstantRunBuildContext().isInInstantRunMode()) {
+                //    throw new GradleException(
+                //        "atlas plgin is not compatible with instant runï¼ plese turn it off in your ideï¼");
+                //}
+
+                tAndroidBuilder.setBuildType(appVariantContext.getBuildType().getName());
+                new AwbProguradHook().hookProguardTask(appVariantContext);
+
+=======
+>>>>>>> YOURS
+/home/taes/taes/projects/atlas/revisions/rev_5e0f66b_651bc9a/rev_5e0f66b-651bc9a/atlas-gradle-plugin/atlas-plugin/src/main/java/com/taobao/android/builder/manager/AtlasAppTaskManager.java;<<<<<<< MINE
+                //if (appVariantContext.getVariantData().getScope().getInstantRunBuildContext().isInInstantRunMode()) {
+                //    throw new GradleException(
+                //        "atlas plgin is not compatible with instant runï¼ plese turn it off in your ideï¼");
+                //}
+
+                tAndroidBuilder.setBuildType(appVariantContext.getBuildType().getName());
+                new AwbProguradHook().hookProguardTask(appVariantContext);
+
+=======
+>>>>>>> YOURS;<<<<<<< MINE
+                //if (appVariantContext.getVariantData().getScope().getInstantRunBuildContext().isInInstantRunMode()) {
+                //    throw new GradleException(
+                //        "atlas plgin is not compatible with instant runï¼ plese turn it off in your ideï¼");
+                //}
+
+                tAndroidBuilder.setBuildType(appVariantContext.getBuildType().getName());
+                new AwbProguradHook().hookProguardTask(appVariantContext);
+
+=======
+>>>>>>> YOURS
+/home/taes/taes/projects/atlas/revisions/rev_cd15c8a_59be063/rev_cd15c8a-59be063/atlas-demo/AtlasDemo/app/src/main/java/com/taobao/update/Updater.java;<<<<<<< MINE
+=======
+        String versionName = null;
+        try {
+            versionName = context.getPackageManager().getPackageInfo(context.getPackageName(), 0).versionName;
+        }catch(Throwable e){
+        }
+        File updateInfo = new File(context.getExternalCacheDir(), "update-"+versionName+".json");
+>>>>>>> YOURS;<<<<<<< MINE
+=======
+        String versionName = null;
+        try {
+            versionName = context.getPackageManager().getPackageInfo(context.getPackageName(), 0).versionName;
+        }catch(Throwable e){
+        }
+        File updateInfo = new File(context.getExternalCacheDir(), "update-"+versionName+".json");
+>>>>>>> YOURS
+/home/taes/taes/projects/atlas/revisions/rev_cd15c8a_59be063/rev_cd15c8a-59be063/atlas-demo/AtlasDemo/app/src/main/java/com/taobao/update/Updater.java;<<<<<<< MINE
+            if (!updateInfo.exists()) {
+                Log.e("update", "æ´æ°ä¿¡æ¯ä¸å­å¨ï¼è¯·å æ§è¡ buildTpatch.sh");
+                toast("æ´æ°ä¿¡æ¯ä¸å­å¨ï¼è¯·å æ§è¡ buildTpatch.sh", context);
+                return;
+            }
+
+            String jsonStr = new String(FileUtils.readFile(updateInfo));
+            UpdateInfo info = JSON.parseObject(jsonStr, UpdateInfo.class);
+=======
+        String jsonStr = new String(FileUtils.readFile(updateInfo));
+        UpdateInfo info = JSON.parseObject(jsonStr, UpdateInfo.class);
+        info.lowDisk = false;
+        File patchFile = new File(context.getExternalCacheDir(), "patch-" + info.updateVersion + "@" + info.baseVersion + ".tpatch");
+>>>>>>> YOURS;<<<<<<< MINE
+            if (!updateInfo.exists()) {
+                Log.e("update", "æ´æ°ä¿¡æ¯ä¸å­å¨ï¼è¯·å æ§è¡ buildTpatch.sh");
+                toast("æ´æ°ä¿¡æ¯ä¸å­å¨ï¼è¯·å æ§è¡ buildTpatch.sh", context);
+                return;
+            }
+
+            String jsonStr = new String(FileUtils.readFile(updateInfo));
+            UpdateInfo info = JSON.parseObject(jsonStr, UpdateInfo.class);
+=======
+        String jsonStr = new String(FileUtils.readFile(updateInfo));
+        UpdateInfo info = JSON.parseObject(jsonStr, UpdateInfo.class);
+        info.lowDisk = false;
+        File patchFile = new File(context.getExternalCacheDir(), "patch-" + info.updateVersion + "@" + info.baseVersion + ".tpatch");
+>>>>>>> YOURS
+/home/taes/taes/projects/elephant-bird/revisions/rev_50ad2a6_c42b56e/rev_50ad2a6-c42b56e/src/java/com/twitter/elephantbird/mapreduce/input/LzoInputFormat.java;<<<<<<< MINE
+    LOG.debug("Total lzo input paths to process : " + results.size());
+    // To help split the files at LZO boundaries, walk the list of lzo files and, if they
+    // have an associated index file, save that for later.
+    for (FileStatus result : results) {
+      LzoIndex index = LzoIndex.readIndex(result.getPath().getFileSystem(job.getConfiguration()), result.getPath());
+      indexes_.put(result.getPath(), index);
+    }
+
+=======
+>>>>>>> YOURS;<<<<<<< MINE
+    LOG.debug("Total lzo input paths to process : " + results.size());
+    // To help split the files at LZO boundaries, walk the list of lzo files and, if they
+    // have an associated index file, save that for later.
+    for (FileStatus result : results) {
+      LzoIndex index = LzoIndex.readIndex(result.getPath().getFileSystem(job.getConfiguration()), result.getPath());
+      indexes_.put(result.getPath(), index);
+    }
+
+=======
+>>>>>>> YOURS
+/home/taes/taes/projects/elephant-bird/revisions/rev_ad562ae_130cfc6/rev_ad562ae-130cfc6/src/java/com/twitter/elephantbird/mapreduce/input/LzoInputFormat.java;<<<<<<< MINE
+    /* This should ideally return 'false'
+     * and splitting should be handled completely in
+     * this.getSplit(). Right now, FileInputFormat splits across the
+     * blocks and this.getSplits() adjusts the positions.
+     */
+    try {
+      FileSystem fs = filename.getFileSystem( context.getConfiguration() );
+      return fs.exists( filename.suffix( LzoIndex.LZO_INDEX_SUFFIX ) );
+    } catch (IOException e) { // not expected
+      throw new RuntimeException(e);
+    }
+=======
+    return true;
+>>>>>>> YOURS;<<<<<<< MINE
+    /* This should ideally return 'false'
+     * and splitting should be handled completely in
+     * this.getSplit(). Right now, FileInputFormat splits across the
+     * blocks and this.getSplits() adjusts the positions.
+     */
+    try {
+      FileSystem fs = filename.getFileSystem( context.getConfiguration() );
+      return fs.exists( filename.suffix( LzoIndex.LZO_INDEX_SUFFIX ) );
+    } catch (IOException e) { // not expected
+      throw new RuntimeException(e);
+    }
+=======
+    return true;
+>>>>>>> YOURS
+/home/taes/taes/projects/elephant-bird/revisions/rev_ad562ae_130cfc6/rev_ad562ae-130cfc6/src/java/com/twitter/elephantbird/mapreduce/input/LzoInputFormat.java;<<<<<<< MINE
+
+      LzoIndex index; // reuse index for files with multiple blocks.
+      if ( file.equals(prevFile) ) {
+        index = prevIndex;
+      } else {
+        index = LzoIndex.readIndex(file.getFileSystem(job.getConfiguration()), file);
+        prevFile = file;
+        prevIndex = index;
+      }
+
+=======
+      LzoIndex index = LzoIndex.readIndex(file.getFileSystem(job.getConfiguration()), file);
+
+>>>>>>> YOURS;<<<<<<< MINE
+
+      LzoIndex index; // reuse index for files with multiple blocks.
+      if ( file.equals(prevFile) ) {
+        index = prevIndex;
+      } else {
+        index = LzoIndex.readIndex(file.getFileSystem(job.getConfiguration()), file);
+        prevFile = file;
+        prevIndex = index;
+      }
+
+=======
+      LzoIndex index = LzoIndex.readIndex(file.getFileSystem(job.getConfiguration()), file);
+
+>>>>>>> YOURS
+/home/taes/taes/projects/atlas/revisions/rev_799f8e4_9f4a697/rev_799f8e4-9f4a697/atlas-gradle-plugin/dexpatch/src/main/java/com/taobao/android/apatch/ApkPatch.java;<<<<<<< MINE
+        main.putValue(name + "-Prepare-Classes", Formater.dotStringList(prepareClasses));
+        main.putValue(name + "-Used-Methods", Formater.dotStringList(usedMethods));
+        main.putValue(name + "-Modified-Classes", Formater.dotStringList(modifiedClasses));
+        main.putValue(name + "-Used-Classes", Formater.dotStringList(usedClasses));
+        main.putValue(name + "-add-classes", Formater.dotStringList(addClasses));
+=======
+        main.putValue(name + "-add-classes", Formater.dotStringSet(addClasses));
+        main.putValue(name + "-Prepare-Classes",Formater.dotStringSet(prepareClasses));
+>>>>>>> YOURS;<<<<<<< MINE
+        main.putValue(name + "-Prepare-Classes", Formater.dotStringList(prepareClasses));
+        main.putValue(name + "-Used-Methods", Formater.dotStringList(usedMethods));
+        main.putValue(name + "-Modified-Classes", Formater.dotStringList(modifiedClasses));
+        main.putValue(name + "-Used-Classes", Formater.dotStringList(usedClasses));
+        main.putValue(name + "-add-classes", Formater.dotStringList(addClasses));
+=======
+        main.putValue(name + "-add-classes", Formater.dotStringSet(addClasses));
+        main.putValue(name + "-Prepare-Classes",Formater.dotStringSet(prepareClasses));
+>>>>>>> YOURS
+/home/taes/taes/projects/elephant-bird/revisions/rev_b784885_342f336/rev_b784885-342f336/src/java/com/twitter/elephantbird/pig/load/LzoThriftB64LinePigLoader.java;<<<<<<< MINE
+    if (tupleTemplate == null) {
+      tupleTemplate = new ProjectedThriftTuple<M>(typeRef_, requiredFieldList);
+    }
+
+=======
+    if (tupleTemplate == null) {
+      tupleTemplate = new ProjectedThriftTupleFactory<M>(typeRef_, requiredFieldList);
+    }
+
+>>>>>>> YOURS;<<<<<<< MINE
+    if (tupleTemplate == null) {
+      tupleTemplate = new ProjectedThriftTuple<M>(typeRef_, requiredFieldList);
+    }
+
+=======
+    if (tupleTemplate == null) {
+      tupleTemplate = new ProjectedThriftTupleFactory<M>(typeRef_, requiredFieldList);
+    }
+
+>>>>>>> YOURS
+/home/taes/taes/projects/elephant-bird/revisions/rev_b784885_342f336/rev_b784885-342f336/src/java/com/twitter/elephantbird/pig/load/LzoBaseLoadFunc.java;<<<<<<< MINE
+
+    String projectedFields = getUDFProperties().getProperty(
+                                   contextSignature + projectionSuffix);
+    if (projectedFields != null) {
+      requiredFieldList =
+        (RequiredFieldList) ObjectSerializer.deserialize(projectedFields);
+    }
+=======
+
+    String projectedFields = getUDFProperties().getProperty(projectionKey);
+    if (projectedFields != null) {
+      requiredFieldList =
+        (RequiredFieldList) ObjectSerializer.deserialize(projectedFields);
+    }
+>>>>>>> YOURS;<<<<<<< MINE
+
+    String projectedFields = getUDFProperties().getProperty(
+                                   contextSignature + projectionSuffix);
+    if (projectedFields != null) {
+      requiredFieldList =
+        (RequiredFieldList) ObjectSerializer.deserialize(projectedFields);
+    }
+=======
+
+    String projectedFields = getUDFProperties().getProperty(projectionKey);
+    if (projectedFields != null) {
+      requiredFieldList =
+        (RequiredFieldList) ObjectSerializer.deserialize(projectedFields);
+    }
+>>>>>>> YOURS
+/home/taes/taes/projects/elephant-bird/revisions/rev_b784885_342f336/rev_b784885-342f336/src/java/com/twitter/elephantbird/pig/load/LzoProtobufB64LinePigLoader.java;<<<<<<< MINE
+    if (tupleTemplate == null) {
+      tupleTemplate = new ProjectedProtoTuple<M>(typeRef_, requiredFieldList);
+    }
+
+    M value = getNextBinaryValue(typeRef_);
+=======
+    if (tupleTemplate == null) {
+      tupleTemplate = new ProjectedProtobufTupleFactory<M>(typeRef, requiredFieldList);
+    }
+
+    M value = getNextBinaryValue(typeRef);
+>>>>>>> YOURS;<<<<<<< MINE
+    if (tupleTemplate == null) {
+      tupleTemplate = new ProjectedProtoTuple<M>(typeRef_, requiredFieldList);
+    }
+
+    M value = getNextBinaryValue(typeRef_);
+=======
+    if (tupleTemplate == null) {
+      tupleTemplate = new ProjectedProtobufTupleFactory<M>(typeRef, requiredFieldList);
+    }
+
+    M value = getNextBinaryValue(typeRef);
+>>>>>>> YOURS
+/home/taes/taes/projects/elephant-bird/revisions/rev_b784885_342f336/rev_b784885-342f336/src/test/com/twitter/elephantbird/pig/piggybank/TestThriftToPig.java;<<<<<<< MINE
+
+    TypeRef<M> typeRef = new TypeRef<M>(obj.getClass()){};
+    ThriftToPig<M> thriftToPig = ThriftToPig.newInstance(typeRef);
+
+    Tuple t = thriftToPig.getPigTuple(obj);
+
+    // test projected tuple. project a subset of fields based on field name.
+
+    List<Field> tFields = thriftToPig.getTStructDescriptor().getFields();
+    List<Integer> idxList = Lists.newArrayList();
+    RequiredFieldList reqFieldList = new RequiredFieldList();
+    for (int i=0; i < tFields.size(); i++) {
+      String name = tFields.get(i).getName();
+      if (name.hashCode()%2 == 0) {
+        RequiredField rf = new RequiredField();
+        rf.setAlias(name);
+        rf.setIndex(i);
+        reqFieldList.add(rf);
+
+        idxList.add(i);
+      }
+    }
+
+    try {
+      Tuple pt = new ProjectedThriftTuple<M>(typeRef, reqFieldList).newTuple(obj);
+      int pidx=0;
+      for(int idx : idxList) {
+        assertEquals(t.get(idx).toString(), pt.get(pidx++).toString());
+      }
+    } catch (ExecException e) { // not expected
+      throw new TException(e);
+    }
+
+    // return the full tuple
+    return t;
+=======
+
+    TypeRef<M> typeRef = new TypeRef<M>(obj.getClass()){};
+    ThriftToPig<M> thriftToPig = ThriftToPig.newInstance(typeRef);
+
+    Tuple t = thriftToPig.getPigTuple(obj);
+
+    // test projected tuple. project a subset of fields based on field name.
+
+    List<Field> tFields = thriftToPig.getTStructDescriptor().getFields();
+    List<Integer> idxList = Lists.newArrayList();
+    RequiredFieldList reqFieldList = new RequiredFieldList();
+    for (int i=0; i < tFields.size(); i++) {
+      String name = tFields.get(i).getName();
+      if (name.hashCode()%2 == 0) {
+        RequiredField rf = new RequiredField();
+        rf.setAlias(name);
+        rf.setIndex(i);
+        reqFieldList.add(rf);
+
+        idxList.add(i);
+      }
+    }
+
+    try {
+      Tuple pt = new ProjectedThriftTupleFactory<M>(typeRef, reqFieldList).newTuple(obj);
+      int pidx=0;
+      for(int idx : idxList) {
+        assertEquals(t.get(idx).toString(), pt.get(pidx++).toString());
+      }
+    } catch (ExecException e) { // not expected
+      throw new TException(e);
+    }
+
+    // return the full tuple
+    return t;
+>>>>>>> YOURS;<<<<<<< MINE
+
+    TypeRef<M> typeRef = new TypeRef<M>(obj.getClass()){};
+    ThriftToPig<M> thriftToPig = ThriftToPig.newInstance(typeRef);
+
+    Tuple t = thriftToPig.getPigTuple(obj);
+
+    // test projected tuple. project a subset of fields based on field name.
+
+    List<Field> tFields = thriftToPig.getTStructDescriptor().getFields();
+    List<Integer> idxList = Lists.newArrayList();
+    RequiredFieldList reqFieldList = new RequiredFieldList();
+    for (int i=0; i < tFields.size(); i++) {
+      String name = tFields.get(i).getName();
+      if (name.hashCode()%2 == 0) {
+        RequiredField rf = new RequiredField();
+        rf.setAlias(name);
+        rf.setIndex(i);
+        reqFieldList.add(rf);
+
+        idxList.add(i);
+      }
+    }
+
+    try {
+      Tuple pt = new ProjectedThriftTuple<M>(typeRef, reqFieldList).newTuple(obj);
+      int pidx=0;
+      for(int idx : idxList) {
+        assertEquals(t.get(idx).toString(), pt.get(pidx++).toString());
+      }
+    } catch (ExecException e) { // not expected
+      throw new TException(e);
+    }
+
+    // return the full tuple
+    return t;
+=======
+
+    TypeRef<M> typeRef = new TypeRef<M>(obj.getClass()){};
+    ThriftToPig<M> thriftToPig = ThriftToPig.newInstance(typeRef);
+
+    Tuple t = thriftToPig.getPigTuple(obj);
+
+    // test projected tuple. project a subset of fields based on field name.
+
+    List<Field> tFields = thriftToPig.getTStructDescriptor().getFields();
+    List<Integer> idxList = Lists.newArrayList();
+    RequiredFieldList reqFieldList = new RequiredFieldList();
+    for (int i=0; i < tFields.size(); i++) {
+      String name = tFields.get(i).getName();
+      if (name.hashCode()%2 == 0) {
+        RequiredField rf = new RequiredField();
+        rf.setAlias(name);
+        rf.setIndex(i);
+        reqFieldList.add(rf);
+
+        idxList.add(i);
+      }
+    }
+
+    try {
+      Tuple pt = new ProjectedThriftTupleFactory<M>(typeRef, reqFieldList).newTuple(obj);
+      int pidx=0;
+      for(int idx : idxList) {
+        assertEquals(t.get(idx).toString(), pt.get(pidx++).toString());
+      }
+    } catch (ExecException e) { // not expected
+      throw new TException(e);
+    }
+
+    // return the full tuple
+    return t;
+>>>>>>> YOURS
+/home/taes/taes/projects/elephant-bird/revisions/rev_b784885_342f336/rev_b784885-342f336/src/test/com/twitter/elephantbird/pig/piggybank/TestProtoToPig.java;<<<<<<< MINE
+
+    TypeRef<Person> typeRef = PigUtil.getProtobufTypeRef(Person.class.getName());
+    Tuple projectedTuple =
+      new ProjectedProtoTuple<Person>(typeRef, evenFields(fieldDescs)).newTuple(personProto);
+
+    int idx = 0;
+=======
+
+    TypeRef<Person> typeRef = PigUtil.getProtobufTypeRef(Person.class.getName());
+    Tuple projectedTuple =
+      new ProjectedProtobufTupleFactory<Person>(typeRef, evenFields(fieldDescs)).newTuple(personProto);
+
+    int idx = 0;
+>>>>>>> YOURS;<<<<<<< MINE
+
+    TypeRef<Person> typeRef = PigUtil.getProtobufTypeRef(Person.class.getName());
+    Tuple projectedTuple =
+      new ProjectedProtoTuple<Person>(typeRef, evenFields(fieldDescs)).newTuple(personProto);
+
+    int idx = 0;
+=======
+
+    TypeRef<Person> typeRef = PigUtil.getProtobufTypeRef(Person.class.getName());
+    Tuple projectedTuple =
+      new ProjectedProtobufTupleFactory<Person>(typeRef, evenFields(fieldDescs)).newTuple(personProto);
+
+    int idx = 0;
+>>>>>>> YOURS
+/home/taes/taes/projects/ribbon/revisions/rev_d5ab163_c82d1ae/rev_d5ab163-c82d1ae/ribbon-transport/src/main/java/com/netflix/client/netty/http/NettyHttpClient.java;<<<<<<< MINE
+        requestIdHeaderName = getProperty(IClientConfigKey.CommonKeys.RequestIdHeaderName, null, null);
+        if (requestIdHeaderName != null) {
+            requestIdProvider = new HttpRequestIdProvider(requestIdHeaderName, RxContexts.DEFAULT_CORRELATOR);
+        }
+        listener = HttpClientListener.newHttpListener(getName());
+=======
+        requestIdHeaderName = getProperty(IClientConfigKey.Keys.RequestIdHeaderName, null, DefaultClientConfigImpl.DEFAULT_REQUEST_ID_HEADER_NAME);
+        requestIdProvider = new HttpRequestIdProvider(requestIdHeaderName, RxContexts.DEFAULT_CORRELATOR);
+>>>>>>> YOURS;<<<<<<< MINE
+        requestIdHeaderName = getProperty(IClientConfigKey.CommonKeys.RequestIdHeaderName, null, null);
+        if (requestIdHeaderName != null) {
+            requestIdProvider = new HttpRequestIdProvider(requestIdHeaderName, RxContexts.DEFAULT_CORRELATOR);
+        }
+        listener = HttpClientListener.newHttpListener(getName());
+=======
+        requestIdHeaderName = getProperty(IClientConfigKey.Keys.RequestIdHeaderName, null, DefaultClientConfigImpl.DEFAULT_REQUEST_ID_HEADER_NAME);
+        requestIdProvider = new HttpRequestIdProvider(requestIdHeaderName, RxContexts.DEFAULT_CORRELATOR);
+>>>>>>> YOURS
+/home/taes/taes/projects/ribbon/revisions/rev_d5ab163_c82d1ae/rev_d5ab163-c82d1ae/ribbon-transport/src/main/java/com/netflix/client/netty/http/NettyHttpClient.java;<<<<<<< MINE
+        HttpClientBuilder<I, O> clientBuilder;
+        if (requestIdProvider != null) {
+            clientBuilder = RxContexts.<I, O>newHttpClientBuilder(server.getHost(), server.getPort(), 
+                    requestIdProvider, RxContexts.DEFAULT_CORRELATOR, pipelineConfigurator);
+        } else {
+            clientBuilder = RxContexts.<I, O>newHttpClientBuilder(server.getHost(), server.getPort(), 
+                    RxContexts.DEFAULT_CORRELATOR, pipelineConfigurator);
+        }
+        Integer connectTimeout = getProperty(IClientConfigKey.CommonKeys.ConnectTimeout, null, DefaultClientConfigImpl.DEFAULT_CONNECT_TIMEOUT);
+        Integer readTimeout = getProperty(IClientConfigKey.CommonKeys.ReadTimeout, null, DefaultClientConfigImpl.DEFAULT_READ_TIMEOUT);
+        Boolean followRedirect = getProperty(IClientConfigKey.CommonKeys.FollowRedirects, null, null);
+=======
+        HttpClientBuilder<I, O> clientBuilder = RxContexts.<I, O>newHttpClientBuilder(server.getHost(), server.getPort(), 
+                requestIdHeaderName, RxContexts.DEFAULT_CORRELATOR)
+                .pipelineConfigurator(ContextPipelineConfigurators.httpClientConfigurator(requestIdProvider,
+                        RxContexts.DEFAULT_CORRELATOR,
+                        pipelineConfigurator));
+        Integer connectTimeout = getProperty(IClientConfigKey.Keys.ConnectTimeout, null, DefaultClientConfigImpl.DEFAULT_CONNECT_TIMEOUT);
+        Integer readTimeout = getProperty(IClientConfigKey.Keys.ReadTimeout, null, DefaultClientConfigImpl.DEFAULT_READ_TIMEOUT);
+        Boolean followRedirect = getProperty(IClientConfigKey.Keys.FollowRedirects, null, null);
+>>>>>>> YOURS;<<<<<<< MINE
+        HttpClientBuilder<I, O> clientBuilder;
+        if (requestIdProvider != null) {
+            clientBuilder = RxContexts.<I, O>newHttpClientBuilder(server.getHost(), server.getPort(), 
+                    requestIdProvider, RxContexts.DEFAULT_CORRELATOR, pipelineConfigurator);
+        } else {
+            clientBuilder = RxContexts.<I, O>newHttpClientBuilder(server.getHost(), server.getPort(), 
+                    RxContexts.DEFAULT_CORRELATOR, pipelineConfigurator);
+        }
+        Integer connectTimeout = getProperty(IClientConfigKey.CommonKeys.ConnectTimeout, null, DefaultClientConfigImpl.DEFAULT_CONNECT_TIMEOUT);
+        Integer readTimeout = getProperty(IClientConfigKey.CommonKeys.ReadTimeout, null, DefaultClientConfigImpl.DEFAULT_READ_TIMEOUT);
+        Boolean followRedirect = getProperty(IClientConfigKey.CommonKeys.FollowRedirects, null, null);
+=======
+        HttpClientBuilder<I, O> clientBuilder = RxContexts.<I, O>newHttpClientBuilder(server.getHost(), server.getPort(), 
+                requestIdHeaderName, RxContexts.DEFAULT_CORRELATOR)
+                .pipelineConfigurator(ContextPipelineConfigurators.httpClientConfigurator(requestIdProvider,
+                        RxContexts.DEFAULT_CORRELATOR,
+                        pipelineConfigurator));
+        Integer connectTimeout = getProperty(IClientConfigKey.Keys.ConnectTimeout, null, DefaultClientConfigImpl.DEFAULT_CONNECT_TIMEOUT);
+        Integer readTimeout = getProperty(IClientConfigKey.Keys.ReadTimeout, null, DefaultClientConfigImpl.DEFAULT_READ_TIMEOUT);
+        Boolean followRedirect = getProperty(IClientConfigKey.Keys.FollowRedirects, null, null);
+>>>>>>> YOURS
+/home/taes/taes/projects/ribbon/revisions/rev_786e464_200cffe/rev_786e464-200cffe/ribbon-transport/src/test/java/com/netflix/client/netty/http/NettyClientTest.java;<<<<<<< MINE
+        // LogManager.getRootLogger().setLevel(Level.DEBUG);
+=======
+        LogManager.getRootLogger().setLevel(Level.DEBUG);
+>>>>>>> YOURS;<<<<<<< MINE
+        // LogManager.getRootLogger().setLevel(Level.DEBUG);
+=======
+        LogManager.getRootLogger().setLevel(Level.DEBUG);
+>>>>>>> YOURS
+/home/taes/taes/projects/curator/revisions/rev_74434b8_8cd8347/rev_74434b8-8cd8347/curator-recipes/src/main/java/com/netflix/curator/framework/recipes/cache/PathChildrenCache.java;<<<<<<< MINE
+        executorService.submit
+        (
+            new Callable<Void>()
+            {
+                @Override
+                public Void call() throws Exception
+=======
+        mainLoopTask = executorService.submit
+            (
+                new Callable<Void>()
+>>>>>>> YOURS;<<<<<<< MINE
+        executorService.submit
+        (
+            new Callable<Void>()
+            {
+                @Override
+                public Void call() throws Exception
+=======
+        mainLoopTask = executorService.submit
+            (
+                new Callable<Void>()
+>>>>>>> YOURS
+/home/taes/taes/projects/retrofit/revisions/rev_2ef7ca0_941ae85/rev_2ef7ca0-941ae85/retrofit/src/main/java/retrofit/http/RestMethodInfo.java;<<<<<<< MINE
+          throw new RuntimeException("Failed to extract path from "
+              + annotationType.getSimpleName()
+              + " annotation on "
+              + method.getName()
+              + ".", e);
+        }
+        parsePath(path);
+        requestMethod = methodInfo.value();
+        requestHasBody = methodInfo.hasBody();
+=======
+          throw new RuntimeException("Failed to extract URI path.", e);
+        }
+        if (!path.startsWith("/")) {
+          throw new IllegalArgumentException("URL path must be prefixed with '/'.");
+        }
+        pathParams = parsePathParameters(path);
+        restMethod = methodInfo;
+      } else if (annotationType == Headers.class) {
+        String[] headersToParse = ((Headers) methodAnnotation).value();
+        if (headersToParse.length == 0) {
+          throw new IllegalStateException("Headers annotation was empty.");
+        }
+        headers = parseHeaders(headersToParse);
+      } else if (annotationType == QueryParams.class) {
+        if (pathQueryParams != null) {
+          throw new IllegalStateException(
+              "QueryParam and QueryParams annotations are mutually exclusive.");
+        }
+        pathQueryParams = ((QueryParams) methodAnnotation).value();
+        if (pathQueryParams.length == 0) {
+          throw new IllegalStateException("QueryParams annotation was empty.");
+        }
+      } else if (annotationType == QueryParam.class) {
+        if (pathQueryParams != null) {
+          throw new IllegalStateException(
+              "QueryParam and QueryParams annotations are mutually exclusive.");
+        }
+        pathQueryParams = new QueryParam[] { (QueryParam) methodAnnotation };
+>>>>>>> YOURS;<<<<<<< MINE
+          throw new RuntimeException("Failed to extract path from "
+              + annotationType.getSimpleName()
+              + " annotation on "
+              + method.getName()
+              + ".", e);
+        }
+        parsePath(path);
+        requestMethod = methodInfo.value();
+        requestHasBody = methodInfo.hasBody();
+=======
+          throw new RuntimeException("Failed to extract URI path.", e);
+        }
+        if (!path.startsWith("/")) {
+          throw new IllegalArgumentException("URL path must be prefixed with '/'.");
+        }
+        pathParams = parsePathParameters(path);
+        restMethod = methodInfo;
+      } else if (annotationType == Headers.class) {
+        String[] headersToParse = ((Headers) methodAnnotation).value();
+        if (headersToParse.length == 0) {
+          throw new IllegalStateException("Headers annotation was empty.");
+        }
+        headers = parseHeaders(headersToParse);
+      } else if (annotationType == QueryParams.class) {
+        if (pathQueryParams != null) {
+          throw new IllegalStateException(
+              "QueryParam and QueryParams annotations are mutually exclusive.");
+        }
+        pathQueryParams = ((QueryParams) methodAnnotation).value();
+        if (pathQueryParams.length == 0) {
+          throw new IllegalStateException("QueryParams annotation was empty.");
+        }
+      } else if (annotationType == QueryParam.class) {
+        if (pathQueryParams != null) {
+          throw new IllegalStateException(
+              "QueryParam and QueryParams annotations are mutually exclusive.");
+        }
+        pathQueryParams = new QueryParam[] { (QueryParam) methodAnnotation };
+>>>>>>> YOURS
+/home/taes/taes/projects/retrofit/revisions/rev_2ef7ca0_941ae85/rev_2ef7ca0-941ae85/retrofit/src/main/java/retrofit/http/RestMethodInfo.java;<<<<<<< MINE
+    String[] urlParam = new String[count];
+    String[] queryName = new String[count];
+    String[] formValue = new String[count];
+    String[] multipartPart = new String[count];
+    boolean gotPair = false;
+    boolean gotPart = false;
+
+=======
+    String[] namedParams = new String[count];
+    String[] headerParams = new String[count];
+>>>>>>> YOURS;<<<<<<< MINE
+    String[] urlParam = new String[count];
+    String[] queryName = new String[count];
+    String[] formValue = new String[count];
+    String[] multipartPart = new String[count];
+    boolean gotPair = false;
+    boolean gotPart = false;
+
+=======
+    String[] namedParams = new String[count];
+    String[] headerParams = new String[count];
+>>>>>>> YOURS
+/home/taes/taes/projects/retrofit/revisions/rev_2ef7ca0_941ae85/rev_2ef7ca0-941ae85/retrofit/src/main/java/retrofit/http/RestMethodInfo.java;<<<<<<< MINE
+
+    requestUrlParam = urlParam;
+    requestQueryName = queryName;
+    requestFormPair = formValue;
+    requestMultipartPart = multipartPart;
+=======
+    this.namedParams = namedParams;
+    this.headerParams = headerParams;
+>>>>>>> YOURS;<<<<<<< MINE
+
+    requestUrlParam = urlParam;
+    requestQueryName = queryName;
+    requestFormPair = formValue;
+    requestMultipartPart = multipartPart;
+=======
+    this.namedParams = namedParams;
+    this.headerParams = headerParams;
+>>>>>>> YOURS
+/home/taes/taes/projects/retrofit/revisions/rev_2ef7ca0_941ae85/rev_2ef7ca0-941ae85/retrofit/src/main/java/retrofit/http/RestAdapter.java;<<<<<<< MINE
+      if (requestHeaders == null) {
+        requestHeaders = RequestHeaders.NONE;
+=======
+      if (headers == null) {
+        headers = HeaderPairs.NONE;
+>>>>>>> YOURS;<<<<<<< MINE
+      if (requestHeaders == null) {
+        requestHeaders = RequestHeaders.NONE;
+=======
+      if (headers == null) {
+        headers = HeaderPairs.NONE;
+>>>>>>> YOURS
+/home/taes/taes/projects/retrofit/revisions/rev_2ef7ca0_941ae85/rev_2ef7ca0-941ae85/retrofit/src/test/java/retrofit/http/RequestBuilderTest.java;<<<<<<< MINE
+      methodInfo.requestMethod = this.method;
+      methodInfo.requestHasBody = hasBody;
+      methodInfo.requestType = requestType;
+      methodInfo.requestUrl = path;
+      methodInfo.requestUrlParamNames = RestMethodInfo.parsePathParameters(path);
+      methodInfo.requestQuery = query;
+      methodInfo.hasQueryParams = hasQueryParams;
+      methodInfo.requestUrlParam = pathParams.toArray(new String[pathParams.size()]);
+      methodInfo.requestQueryName = queryParams.toArray(new String[queryParams.size()]);
+      methodInfo.requestFormPair = pairParams.toArray(new String[pairParams.size()]);
+      methodInfo.requestMultipartPart = partParams.toArray(new String[partParams.size()]);
+      methodInfo.bodyIndex = bodyIndex;
+=======
+      methodInfo.restMethod = restMethod;
+      methodInfo.path = path;
+      methodInfo.pathParams = pathParams;
+      methodInfo.pathQueryParams = queryParams.toArray(new QueryParam[queryParams.size()]);
+      methodInfo.headers = methodHeaders;
+      methodInfo.headerParams = headerParams.toArray(new String[headerParams.size()]);
+      methodInfo.namedParams = namedParams.toArray(new String[namedParams.size()]);
+      methodInfo.singleEntityArgumentIndex = singleEntityArgumentIndex;
+      methodInfo.isMultipart = isMultipart;
+>>>>>>> YOURS;<<<<<<< MINE
+      methodInfo.requestMethod = this.method;
+      methodInfo.requestHasBody = hasBody;
+      methodInfo.requestType = requestType;
+      methodInfo.requestUrl = path;
+      methodInfo.requestUrlParamNames = RestMethodInfo.parsePathParameters(path);
+      methodInfo.requestQuery = query;
+      methodInfo.hasQueryParams = hasQueryParams;
+      methodInfo.requestUrlParam = pathParams.toArray(new String[pathParams.size()]);
+      methodInfo.requestQueryName = queryParams.toArray(new String[queryParams.size()]);
+      methodInfo.requestFormPair = pairParams.toArray(new String[pairParams.size()]);
+      methodInfo.requestMultipartPart = partParams.toArray(new String[partParams.size()]);
+      methodInfo.bodyIndex = bodyIndex;
+=======
+      methodInfo.restMethod = restMethod;
+      methodInfo.path = path;
+      methodInfo.pathParams = pathParams;
+      methodInfo.pathQueryParams = queryParams.toArray(new QueryParam[queryParams.size()]);
+      methodInfo.headers = methodHeaders;
+      methodInfo.headerParams = headerParams.toArray(new String[headerParams.size()]);
+      methodInfo.namedParams = namedParams.toArray(new String[namedParams.size()]);
+      methodInfo.singleEntityArgumentIndex = singleEntityArgumentIndex;
+      methodInfo.isMultipart = isMultipart;
+>>>>>>> YOURS
+/home/taes/taes/projects/elephant-bird/revisions/rev_6d28c12_2c0f0fe/rev_6d28c12-2c0f0fe/rcfile/src/main/java/com/twitter/elephantbird/mapreduce/input/RCFileProtobufInputFormat.java;<<<<<<< MINE
+      msgInstance = msgBuilder.getDefaultInstanceForType();
+=======
+      protoWritable = ProtobufWritable.newInstance(typeRef.getRawClass());
+>>>>>>> YOURS;<<<<<<< MINE
+      msgInstance = msgBuilder.getDefaultInstanceForType();
+=======
+      protoWritable = ProtobufWritable.newInstance(typeRef.getRawClass());
+>>>>>>> YOURS
+/home/taes/taes/projects/retrofit/revisions/rev_adb8851_9097b29/rev_adb8851-9097b29/retrofit/src/test/java/retrofit/RestAdapterTest.java;<<<<<<< MINE
+        .thenReturn(
+            new Response("http://example.com/", 200, "OK", TWO_HEADERS, new TypedString("{}")));
+=======
+        .thenReturn(new Response("http://example.com/", 200, "OK", TWO_HEADERS, new TypedString("Hi")));
+>>>>>>> YOURS;<<<<<<< MINE
+        .thenReturn(
+            new Response("http://example.com/", 200, "OK", TWO_HEADERS, new TypedString("{}")));
+=======
+        .thenReturn(new Response("http://example.com/", 200, "OK", TWO_HEADERS, new TypedString("Hi")));
+>>>>>>> YOURS

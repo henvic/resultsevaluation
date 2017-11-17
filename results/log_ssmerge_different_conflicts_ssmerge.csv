@@ -1,0 +1,2977 @@
+file;ssmergeConf
+/home/taes/taes/projects/elephant-bird/revisions/rev_dd64dd0_8ff804b/rev_dd64dd0-8ff804b/src/java/com/twitter/elephantbird/pig/load/HBaseSlice.java;<<<<<<< MINE
+public HBaseSlice(byte[] tableName, byte[] startRow, byte[] endRow,
+      byte[][] inputColumns, boolean loadRowKey, final String location) {
+    tableName_ = tableName;
+    startRow_ = startRow;
+    endRow_ = endRow;
+    inputColumns_ = inputColumns;
+    regionLocation_ = location;
+    loadRowKey_ = loadRowKey;
+
+    // We have to deal with different byte lengths of keys producing very different
+    // BigIntegers (bigendianness is great this way). The code is mostly cribbed
+    // from HBase's Bytes class.
+    byte [] startPadded;
+    byte [] endPadded;
+    if (startRow.length < endRow.length) {
+      startPadded = Bytes.padTail(startRow, endRow.length - startRow.length);
+      endPadded = endRow;
+    } else if (endRow.length < startRow.length) {
+      startPadded = startRow;
+      endPadded = Bytes.padTail(endRow, startRow.length - endRow.length);
+    } else {
+      startPadded = startRow;
+      endPadded = endRow;
+    }
+    byte [] prependHeader = {1, 0};
+    bigStart_ = new BigInteger(Bytes.add(prependHeader, startPadded));
+    bigEnd_ = new BigInteger(Bytes.add(prependHeader, endPadded));
+    bigRange_ = new BigDecimal(bigEnd_.subtract(bigStart_));
+  }
+=======
+>>>>>>> YOURS
+/home/taes/taes/projects/elephant-bird/revisions/rev_dd64dd0_8ff804b/rev_dd64dd0-8ff804b/src/java/com/twitter/elephantbird/pig/load/HBaseSlice.java;<<<<<<< MINE
+@Override
+  public float getProgress() throws IOException {
+
+    // No way to know max.. just return 0. Sorry, reporting on the last slice is janky.
+    // So is reporting on the first slice, by the way -- it will start out too high, possibly at 100%.
+    if (endRow_.length==0) return 0;
+    byte[] lastPadded = m_lastRow_;
+    if (m_lastRow_.length < endRow_.length) {
+      lastPadded = Bytes.padTail(m_lastRow_, endRow_.length - m_lastRow_.length);
+    }
+    if (m_lastRow_.length < startRow_.length) {
+      lastPadded = Bytes.padTail(m_lastRow_, startRow_.length - m_lastRow_.length);
+    }
+    byte [] prependHeader = {1, 0};
+    BigInteger bigLastRow = new BigInteger(Bytes.add(prependHeader, lastPadded));
+    BigDecimal processed = new BigDecimal(bigLastRow.subtract(bigStart_));
+    try {
+      BigDecimal progress = processed.setScale(3).divide(bigRange_, BigDecimal.ROUND_HALF_DOWN);
+      return progress.floatValue();
+    } catch (java.lang.ArithmeticException e) {
+      return 0;
+    }
+  }
+=======
+>>>>>>> YOURS
+/home/taes/taes/projects/elephant-bird/revisions/rev_c01b27b_cebd3d0/rev_c01b27b-cebd3d0/src/java/com/twitter/elephantbird/pig/util/PigCounterHelper.java;<<<<<<< MINE
+=======
+public void incrCounter(String group, String counter, long incr) {
+    if (getReporter() != null) { // common case
+      getReporter().incrCounter(group, counter, incr);
+      if (counterStringMap_.size() > 0) {
+        for (Map.Entry<Pair<String, String>, Long> entry : counterStringMap_.entrySet()) {
+          getReporter().incrCounter(entry.getKey().first, entry.getKey().second, entry.getValue());
+        }
+        counterStringMap_.clear();
+      }
+    } else { // buffer the increments.
+      Pair<String, String> key = new Pair<String, String>(group, counter);
+      Long currentValue = counterStringMap_.get(key);
+      counterStringMap_.put(key, (currentValue == null ? 0 : currentValue) + incr);
+    }
+  }
+>>>>>>> YOURS
+/home/taes/taes/projects/elephant-bird/revisions/rev_c01b27b_cebd3d0/rev_c01b27b-cebd3d0/src/java/com/twitter/elephantbird/pig/util/PigCounterHelper.java;<<<<<<< MINE
+=======
+public void incrCounter(Enum<?> key, long incr) {
+    if (getReporter() != null) {
+      getReporter().incrCounter(key, incr);
+      if (counterEnumMap_.size() > 0) {
+        for (Map.Entry<Enum<?>, Long> entry : counterEnumMap_.entrySet()) {
+          getReporter().incrCounter(entry.getKey(), entry.getValue());
+        }
+        counterEnumMap_.clear();
+      }
+    } else { // buffer the increments
+      Long currentValue = counterEnumMap_.get(key);
+      counterEnumMap_.put(key, (currentValue == null ? 0 : currentValue) + incr);
+    }
+  }
+>>>>>>> YOURS
+/home/taes/taes/projects/elephant-bird/revisions/rev_c01b27b_cebd3d0/rev_c01b27b-cebd3d0/src/java/com/twitter/elephantbird/pig/load/LzoProtobufBlockPigLoader.java;<<<<<<< MINE
+=======
+public void setTypeRef(TypeRef<M> typeRef) {
+    typeRef_ = typeRef;
+    value_ = new ProtobufWritable<M>(typeRef_);
+    String group = "LzoBlocks of " + typeRef_.getRawClass().getName();
+    protobufsRead = new Pair<String, String>(group, "Protobufs Read");
+    protobufErrors = new Pair<String, String>(group, "Errors");
+  }
+>>>>>>> YOURS
+/home/taes/taes/projects/elephant-bird/revisions/rev_c01b27b_cebd3d0/rev_c01b27b-cebd3d0/src/java/com/twitter/elephantbird/pig/load/LzoProtobufBlockPigLoader.java;<<<<<<< MINE
+=======
+public Tuple getNext() throws IOException {
+    if (!verifyStream()) {
+      return null;
+    }
+
+    // If we are past the end of the file split, tell the reader not to read any more new blocks.
+    // Then continue reading until the last of the reader's already-parsed values are used up.
+    // The next split will start at the next sync point and no records will be missed.
+    if (is_.getPosition() > end_) {
+      reader_.markNoMoreNewBlocks();
+    }
+
+    Tuple t = null;
+    if (reader_.readProtobuf(value_)) {
+      if (value_.get() == null) {
+        incrCounter(protobufErrors, 1);
+      }
+      t = new ProtobufTuple(value_.get());
+      incrCounter(protobufsRead, 1L);
+    }
+    return t;
+  }
+>>>>>>> YOURS
+/home/taes/taes/projects/elephant-bird/revisions/rev_c01b27b_cebd3d0/rev_c01b27b-cebd3d0/src/java/com/twitter/elephantbird/pig/load/LzoProtobufB64LinePigLoader.java;<<<<<<< MINE
+=======
+public void setTypeRef(TypeRef<M> typeRef) {
+    typeRef_ = typeRef;
+    protoConverter_ = Protobufs.getProtoConverter(typeRef.getRawClass());
+    String group = "LzoB64Lines of " + typeRef_.getRawClass().getName();
+    linesRead = new Pair<String, String>(group, "Lines Read");
+    protobufsRead = new Pair<String, String>(group, "Protobufs Read");
+    protobufErrors = new Pair<String, String>(group, "Errors");
+  }
+>>>>>>> YOURS
+/home/taes/taes/projects/elephant-bird/revisions/rev_c01b27b_cebd3d0/rev_c01b27b-cebd3d0/src/java/com/twitter/elephantbird/pig/load/LzoProtobufB64LinePigLoader.java;<<<<<<< MINE
+=======
+public Tuple getNext() throws IOException {
+    if (!verifyStream()) {
+      return null;
+    }
+
+    String line;
+    Tuple t = null;
+    while ((line = is_.readLine(UTF8, RECORD_DELIMITER)) != null) {
+      incrCounter(linesRead, 1L);
+      M protoValue = protoConverter_.apply(base64_.decode(line.getBytes("UTF-8")));
+      if (protoValue != null) {
+        t = new ProtobufTuple(protoValue);
+        incrCounter(protobufsRead, 1L);
+        break;
+      } else {
+        incrCounter(protobufErrors, 1L);
+      }
+    }
+
+    return t;
+  }
+>>>>>>> YOURS
+/home/taes/taes/projects/elephant-bird/revisions/rev_c01b27b_cebd3d0/rev_c01b27b-cebd3d0/src/java/com/twitter/elephantbird/pig/piggybank/BytesToThriftTuple.java;<<<<<<< MINE
+=======
+public void setTypeRef(TypeRef<T> typeRef) {
+    typeRef_ = typeRef;
+    thriftToTuple_ = ThriftToPig.newInstance(typeRef);
+  }
+>>>>>>> YOURS
+/home/taes/taes/projects/elephant-bird/revisions/rev_c01b27b_cebd3d0/rev_c01b27b-cebd3d0/src/java/com/twitter/elephantbird/pig/piggybank/BytesToThriftTuple.java;<<<<<<< MINE
+=======
+@Override
+  public Tuple exec(org.apache.pig.data.Tuple input) throws IOException {
+    if (input == null || input.size() < 1) return null;
+    try {
+      T tObj = typeRef_.safeNewInstance();
+      DataByteArray dbarr = (DataByteArray) input.get(0);
+      deserializer_.deserialize(tObj, dbarr.get());
+      return thriftToTuple_.getPigTuple(tObj);
+    } catch (IOException e) {
+      log.warn("Caught exception "+e.getMessage());
+      return null;
+    } catch (TException e) {
+      log.warn("Unable to deserialize Thrift object: "+e);
+      return null;
+    }
+  }
+>>>>>>> YOURS
+/home/taes/taes/projects/elephant-bird/revisions/rev_d5876bb_b813096/rev_d5876bb-b813096/src/java/com/twitter/elephantbird/mapreduce/output/LzoProtobufBlockOutputFormat.java;<<<<<<< MINE
+@Override
+  public RecordWriter<NullWritable, W> getRecordWriter(TaskAttemptContext job)
+=======
+public RecordWriter<NullWritable, ProtobufWritable<M>> getRecordWriter(TaskAttemptContext job)
+>>>>>>> YOURS
+/home/taes/taes/projects/elephant-bird/revisions/rev_d5876bb_b813096/rev_d5876bb-b813096/src/java/com/twitter/elephantbird/mapreduce/output/LzoProtobufB64LineOutputFormat.java;<<<<<<< MINE
+@Override
+  public RecordWriter<NullWritable, W> getRecordWriter(TaskAttemptContext job)
+=======
+public RecordWriter<NullWritable, ProtobufWritable<M>> getRecordWriter(TaskAttemptContext job)
+>>>>>>> YOURS
+/home/taes/taes/projects/elephant-bird/revisions/rev_d5876bb_b813096/rev_d5876bb-b813096/src/java/com/twitter/elephantbird/pig/load/LzoProtobufB64LinePigLoader.java;<<<<<<< MINE
+=======
+public void setTypeRef(TypeRef<M> typeRef) {
+    typeRef_ = typeRef;
+    protoConverter_ = ProtobufConverter.newInstance(typeRef);
+    String group = "LzoB64Lines of " + typeRef_.getRawClass().getName();
+    linesRead = new Pair<String, String>(group, "Lines Read");
+    protobufsRead = new Pair<String, String>(group, "Protobufs Read");
+    protobufErrors = new Pair<String, String>(group, "Errors");
+  }
+>>>>>>> YOURS
+/home/taes/taes/projects/elephant-bird/revisions/rev_d5876bb_b813096/rev_d5876bb-b813096/src/java/com/twitter/elephantbird/pig/load/LzoProtobufB64LinePigLoader.java;<<<<<<< MINE
+=======
+public Tuple getNext() throws IOException {
+    if (!verifyStream()) {
+      return null;
+    }
+
+    String line;
+    Tuple t = null;
+    while ((line = is_.readLine(UTF8, RECORD_DELIMITER)) != null) {
+      incrCounter(linesRead, 1L);
+      M protoValue = protoConverter_.fromBytes(base64_.decode(line.getBytes("UTF-8")));
+      if (protoValue != null) {
+        t = new ProtobufTuple(protoValue);
+        incrCounter(protobufsRead, 1L);
+        break;
+      } else {
+        incrCounter(protobufErrors, 1L);
+      }
+    }
+
+    return t;
+  }
+>>>>>>> YOURS
+/home/taes/taes/projects/elephant-bird/revisions/rev_d5876bb_b813096/rev_d5876bb-b813096/src/java/com/twitter/elephantbird/pig/piggybank/ProtobufBytesToTuple.java;<<<<<<< MINE
+=======
+public void setTypeRef(TypeRef<M> typeRef) {
+    typeRef_ = typeRef;
+    protoConverter_ = ProtobufConverter.newInstance(typeRef);
+  }
+>>>>>>> YOURS
+/home/taes/taes/projects/elephant-bird/revisions/rev_d5876bb_b813096/rev_d5876bb-b813096/src/java/com/twitter/elephantbird/pig/piggybank/ProtobufBytesToTuple.java;<<<<<<< MINE
+=======
+@Override
+  public Tuple exec(Tuple input) throws IOException {
+    if (input == null || input.size() < 1) return null;
+    try {
+      DataByteArray bytes = (DataByteArray) input.get(0);
+      M value_ = protoConverter_.fromBytes(bytes.get());
+      return new ProtobufTuple(value_);
+    } catch (IOException e) {
+      return null;
+    }
+  }
+>>>>>>> YOURS
+/home/taes/taes/projects/elephant-bird/revisions/rev_6c5529a_64bb16e/rev_6c5529a-64bb16e/src/java/com/twitter/elephantbird/pig/piggybank/ThriftToPig.java;<<<<<<< MINE
+@Override
+    public void writeStructBegin(TStruct struct) throws TException {
+      structDesc = struct;
+      throw new TException("expected");
+    }
+=======
+>>>>>>> YOURS
+/home/taes/taes/projects/elephant-bird/revisions/rev_b87762a_3125301/rev_b87762a-3125301/src/java/com/twitter/elephantbird/pig/load/HBaseSlice.java;<<<<<<< MINE
+=======
+public List<byte[][]> getInputColumns() {
+    return this.inputColumns_;
+  }
+>>>>>>> YOURS
+/home/taes/taes/projects/elephant-bird/revisions/rev_b87762a_3125301/rev_b87762a-3125301/src/java/com/twitter/elephantbird/pig/load/HBaseSlice.java;<<<<<<< MINE
+=======
+@Override
+  public void init(DataStorage store) throws IOException {
+    Configuration conf = HBaseConfiguration.create();
+    // connect to the given table
+    m_table = new HTable(conf, tableName_);
+    // init the scanner
+    initScanner();
+  }
+>>>>>>> YOURS
+/home/taes/taes/projects/elephant-bird/revisions/rev_b87762a_3125301/rev_b87762a-3125301/src/java/com/twitter/elephantbird/pig/load/HBaseSlice.java;<<<<<<< MINE
+=======
+private void restart(byte[] startRow) throws IOException {
+    Scan scan;
+    if ((endRow_ != null) && (endRow_.length > 0)) {
+      scan = new Scan(startRow, endRow_);
+    } else {
+      scan = new Scan(startRow);
+    }
+
+    // Set filters, if any.
+    FilterList scanFilter = null;
+    if (!innerFilters_.isEmpty()) {
+      scanFilter = new FilterList();
+      for (Map.Entry<CompareFilter.CompareOp, String>entry  : innerFilters_.entrySet()) {
+        scanFilter.addFilter(new RowFilter(entry.getKey(), new BinaryComparator(Bytes.toBytesBinary(entry.getValue()) )));
+      }
+      scan.setFilter(scanFilter);
+    }
+
+    for (byte[][] col : inputColumns_) {
+      scan.addColumn(col[0], col[1]);
+    }
+    this.m_scanner = this.m_table.getScanner(scan);
+  }
+>>>>>>> YOURS
+/home/taes/taes/projects/elephant-bird/revisions/rev_b87762a_3125301/rev_b87762a-3125301/src/java/com/twitter/elephantbird/pig/load/HBaseSlice.java;<<<<<<< MINE
+=======
+private void convertResultToTuple(Result result, Tuple tuple) {
+    if (mProtoTuple == null)
+      mProtoTuple = new ArrayList<Object>(inputColumns_.size() + (loadRowKey_ ? 1 : 0));
+
+    if (loadRowKey_) {
+      mProtoTuple.add(new DataByteArray(result.getRow()));
+    }
+
+    for (byte[][] column : inputColumns_) {
+      byte[] value = result.getValue(column[0], column[1]);
+      if (value == null) {
+        mProtoTuple.add(null);
+      } else {
+        mProtoTuple.add(new DataByteArray(value));
+      }
+    }
+
+    Tuple newT = TupleFactory.getInstance().newTuple(mProtoTuple);
+    mProtoTuple.clear();
+    tuple.reference(newT);
+  }
+>>>>>>> YOURS
+/home/taes/taes/projects/elephant-bird/revisions/rev_b87762a_3125301/rev_b87762a-3125301/src/java/com/twitter/elephantbird/pig/load/HBaseLoader.java;<<<<<<< MINE
+=======
+private static void populateValidOptions() {
+    validOptions_.addOption("loadKey", false, "Load Key");
+    validOptions_.addOption("gt", true, "Records must be greater than this value (binary, double-slash-escaped)");
+    validOptions_.addOption("lt", true, "Records must be less than this value (binary, double-slash-escaped)");
+    validOptions_.addOption("gte", true, "Records must be greater than or equal to this value");
+    validOptions_.addOption("lte", true, "Records must be less than or equal to this value");
+    validOptions_.addOption("caching", true, "Number of rows scanners should cache");
+    validOptions_.addOption("limit", true, "Per-region limit");
+  }
+>>>>>>> YOURS
+/home/taes/taes/projects/elephant-bird/revisions/rev_b87762a_3125301/rev_b87762a-3125301/src/java/com/twitter/elephantbird/pig/load/HBaseLoader.java;<<<<<<< MINE
+=======
+public HBaseLoader(String columnList, String optString) throws ParseException {
+    populateValidOptions();
+    String[] colNames = columnList.split(" ");
+    String[] optsArr = optString.split(" ");
+    try {
+      configuredOptions_ = parser_.parse(validOptions_, optsArr);
+    } catch (ParseException e) {
+      HelpFormatter formatter = new HelpFormatter();
+      formatter.printHelp( "", validOptions_ );
+      throw e;
+    }
+    loadRowKey_ = configuredOptions_.hasOption("loadKey");
+    cols_ = Lists.newArrayListWithExpectedSize(colNames.length);
+    for (int i = 0; i < colNames.length; i++) {
+      cols_.add(Bytes.toByteArrays(colNames[i].split(":")));
+    }
+
+    conf_ = HBaseConfiguration.create();
+  }
+>>>>>>> YOURS
+/home/taes/taes/projects/elephant-bird/revisions/rev_b87762a_3125301/rev_b87762a-3125301/src/java/com/twitter/elephantbird/pig/load/HBaseLoader.java;<<<<<<< MINE
+=======
+@Override
+  public Slice[] slice(DataStorage store, String tablename)
+  throws IOException {
+    validate(store, tablename);
+    if (configuredOptions_.hasOption("caching")) {
+      table_.setScannerCaching(Integer.valueOf(configuredOptions_.getOptionValue("caching")));
+    }
+
+    byte[][] startKeys = table_.getStartKeys();
+    if (startKeys == null || startKeys.length == 0) {
+      throw new IOException("Expecting at least one region");
+    }
+    if (cols_ == null || cols_.size() == 0) {
+      throw new IOException("Expecting at least one column");
+    }
+
+    // one region one slice
+    List<HBaseSlice> slices = Lists.newArrayList();
+    for (int i = 0; i < startKeys.length; i++) {
+
+      byte[] endKey = ((i + 1) < startKeys.length) ? startKeys[i + 1] : HConstants.LAST_ROW;
+
+      // skip if the region doesn't satisfy configured options
+      if ((skipRegion(CompareOp.LESS, startKeys[i], configuredOptions_.getOptionValue("lt"))) ||
+          (skipRegion(CompareOp.GREATER, endKey, configuredOptions_.getOptionValue("gt"))) ||
+          (skipRegion(CompareOp.GREATER, endKey, configuredOptions_.getOptionValue("gte"))) ||
+          (skipRegion(CompareOp.LESS_OR_EQUAL, startKeys[i], configuredOptions_.getOptionValue("lte")))) {
+        continue;
+      }
+      String regionLocation = table_.getRegionLocation(startKeys[i]).getServerAddress().getHostname();
+      HBaseSlice slice = new HBaseSlice(table_.getTableName(), startKeys[i],
+          endKey, cols_, loadRowKey_, regionLocation);
+
+      if (configuredOptions_.hasOption("limit")) slice.setLimit(configuredOptions_.getOptionValue("limit"));
+      if (configuredOptions_.hasOption("gt")) slice.addFilter(CompareOp.GREATER, slashisize(configuredOptions_.getOptionValue("gt")));
+      if (configuredOptions_.hasOption("lt")) slice.addFilter(CompareOp.LESS, slashisize(configuredOptions_.getOptionValue("lt")));
+      if (configuredOptions_.hasOption("gte")) slice.addFilter(CompareOp.GREATER_OR_EQUAL, slashisize(configuredOptions_.getOptionValue("gte")));
+      if (configuredOptions_.hasOption("lte")) slice.addFilter(CompareOp.LESS_OR_EQUAL, slashisize(configuredOptions_.getOptionValue("lte")));
+      slices.add(slice);
+    }
+
+    return slices.toArray(new HBaseSlice[] {});
+  }
+>>>>>>> YOURS
+/home/taes/taes/projects/elephant-bird/revisions/rev_b87762a_3125301/rev_b87762a-3125301/src/java/com/twitter/elephantbird/pig/load/HBaseLoader.java;<<<<<<< MINE
+=======
+private void ensureTable(String tablename) throws IOException {
+    LOG.info("tablename: " + tablename);
+
+    // We're looking for the right scheme here (actually, we don't
+    // care what the scheme is as long as it is one and it's
+    // different from hdfs and file. If the user specified to use
+    // the multiquery feature and did not specify a scheme we will
+    // have transformed it to an absolute path. In that case we'll
+    // take the last component and guess that's what was
+    // meant. We'll print a warning in that case.
+    int index;
+    if(-1 != (index = tablename.indexOf("://"))) {
+      if (tablename.startsWith("hdfs:")
+          || tablename.startsWith("file:")) {
+        index = tablename.lastIndexOf("/");
+        if (-1 == index) {
+          index = tablename.lastIndexOf("\\");
+        }
+
+        if (-1 == index) {
+          throw new IOException("Got tablename: "+tablename
+              +". Either turn off multiquery (-no_multiquery)"
+              +" or specify load path as \"hbase://<tablename>\".");
+        } else {
+          String in = tablename;
+          tablename = tablename.substring(index+1);
+          LOG.warn("Got tablename: "+in+" Assuming you meant table: "
+              +tablename+". Either turn off multiquery (-no_multiquery) "
+              +"or specify load path as \"hbase://<tablename>\" "
+              +"to avoid this warning.");
+        }
+      } else {
+        tablename = tablename.substring(index+3);
+      }
+    }
+
+    if (table_ == null) {
+      table_ = new HTable(conf_, tablename);
+    }
+  }
+>>>>>>> YOURS
+/home/taes/taes/projects/elephant-bird/revisions/rev_b87762a_3125301/rev_b87762a-3125301/src/java/com/twitter/elephantbird/pig/load/HBaseLoader.java;<<<<<<< MINE
+=======
+@Override
+  public String bytesToCharArray(byte[] b) throws IOException {
+    return Bytes.toString(b);
+  }
+>>>>>>> YOURS
+/home/taes/taes/projects/elephant-bird/revisions/rev_b87762a_3125301/rev_b87762a-3125301/src/java/com/twitter/elephantbird/pig/load/HBaseLoader.java;<<<<<<< MINE
+=======
+@Override
+  public Double bytesToDouble(byte[] b) throws IOException {
+    if (Bytes.SIZEOF_DOUBLE > b.length){
+      return Bytes.toDouble(Bytes.padHead(b, Bytes.SIZEOF_DOUBLE - b.length));
+    } else {
+      return Bytes.toDouble(Bytes.head(b, Bytes.SIZEOF_DOUBLE));
+    }
+  }
+>>>>>>> YOURS
+/home/taes/taes/projects/elephant-bird/revisions/rev_b87762a_3125301/rev_b87762a-3125301/src/java/com/twitter/elephantbird/pig/load/HBaseLoader.java;<<<<<<< MINE
+=======
+@Override
+  public Float bytesToFloat(byte[] b) throws IOException {
+    if (Bytes.SIZEOF_FLOAT > b.length){
+      return Bytes.toFloat(Bytes.padHead(b, Bytes.SIZEOF_FLOAT - b.length));
+    } else {
+      return Bytes.toFloat(Bytes.head(b, Bytes.SIZEOF_FLOAT));
+    }
+  }
+>>>>>>> YOURS
+/home/taes/taes/projects/elephant-bird/revisions/rev_b87762a_3125301/rev_b87762a-3125301/src/java/com/twitter/elephantbird/pig/load/HBaseLoader.java;<<<<<<< MINE
+=======
+@Override
+  public Integer bytesToInteger(byte[] b) throws IOException {
+    if (Bytes.SIZEOF_INT > b.length){
+      return Bytes.toInt(Bytes.padHead(b, Bytes.SIZEOF_INT - b.length));
+    } else {
+      return Bytes.toInt(Bytes.head(b, Bytes.SIZEOF_INT));
+    }
+  }
+>>>>>>> YOURS
+/home/taes/taes/projects/elephant-bird/revisions/rev_b87762a_3125301/rev_b87762a-3125301/src/java/com/twitter/elephantbird/pig/load/HBaseLoader.java;<<<<<<< MINE
+=======
+@Override
+  public Long bytesToLong(byte[] b) throws IOException {
+    if (Bytes.SIZEOF_LONG > b.length){
+      return Bytes.toLong(Bytes.padHead(b, Bytes.SIZEOF_LONG - b.length));
+    } else {
+      return Bytes.toLong(Bytes.head(b, Bytes.SIZEOF_LONG));
+    }
+  }
+>>>>>>> YOURS
+/home/taes/taes/projects/curator/revisions/rev_b5a2a9f_0ca5859/rev_b5a2a9f-0ca5859/curator-framework/src/main/java/com/netflix/curator/framework/imps/CuratorTransactionImpl.java;<<<<<<< MINE
+=======
+@Override
+    public TransactionCreateBuilder create()
+    {
+        Preconditions.checkState(!isCommitted, "transaction already committed");
+
+        return new CreateBuilderImpl(client).asTransactionCreateBuilder(this, transaction);
+    }
+>>>>>>> YOURS
+/home/taes/taes/projects/curator/revisions/rev_b5a2a9f_0ca5859/rev_b5a2a9f-0ca5859/curator-framework/src/main/java/com/netflix/curator/framework/imps/CuratorTransactionImpl.java;<<<<<<< MINE
+=======
+@Override
+    public TransactionDeleteBuilder delete()
+    {
+        Preconditions.checkState(!isCommitted, "transaction already committed");
+
+        return new DeleteBuilderImpl(client).asTransactionDeleteBuilder(this, transaction);
+    }
+>>>>>>> YOURS
+/home/taes/taes/projects/curator/revisions/rev_b5a2a9f_0ca5859/rev_b5a2a9f-0ca5859/curator-framework/src/main/java/com/netflix/curator/framework/imps/CuratorTransactionImpl.java;<<<<<<< MINE
+=======
+@Override
+    public TransactionSetDataBuilder setData()
+    {
+        Preconditions.checkState(!isCommitted, "transaction already committed");
+
+        return new SetDataBuilderImpl(client).asTransactionSetDataBuilder(this, transaction);
+    }
+>>>>>>> YOURS
+/home/taes/taes/projects/curator/revisions/rev_b5a2a9f_0ca5859/rev_b5a2a9f-0ca5859/curator-framework/src/main/java/com/netflix/curator/framework/imps/CuratorTransactionImpl.java;<<<<<<< MINE
+=======
+@Override
+    public TransactionCheckBuilder check()
+    {
+        Preconditions.checkState(!isCommitted, "transaction already committed");
+
+        return new TransactionCheckBuilder()
+        {
+            private int         version = -1;
+
+            @Override
+            public CuratorTransactionBridge forPath(String path) throws Exception
+            {
+                String      fixedPath = client.fixForNamespace(path);
+                transaction.add(Op.check(fixedPath, version), OperationType.CHECK, path);
+
+                return CuratorTransactionImpl.this;
+            }
+
+            @Override
+            public Pathable<CuratorTransactionBridge> withVersion(int version)
+            {
+                this.version = version;
+                return this;
+            }
+        };
+    }
+>>>>>>> YOURS
+/home/taes/taes/projects/curator/revisions/rev_b5a2a9f_0ca5859/rev_b5a2a9f-0ca5859/curator-framework/src/main/java/com/netflix/curator/framework/imps/CuratorTransactionImpl.java;<<<<<<< MINE
+=======
+@Override
+    public Collection<CuratorTransactionResult> commit() throws Exception
+    {
+        Preconditions.checkState(!isCommitted, "transaction already committed");
+        isCommitted = true;
+
+        final AtomicBoolean firstTime = new AtomicBoolean(true);
+        List<OpResult>      resultList = RetryLoop.callWithRetry
+        (
+            client.getZookeeperClient(),
+            new Callable<List<OpResult>>()
+            {
+                @Override
+                public List<OpResult> call() throws Exception
+                {
+                    return doOperation(firstTime);
+                }
+            }
+        );
+        
+        if ( resultList.size() != transaction.metadataSize() )
+        {
+            throw new IllegalStateException(String.format("Result size (%d) doesn't match input size (%d)", resultList.size(), transaction.metadataSize()));
+        }
+
+        ImmutableList.Builder<CuratorTransactionResult>     builder = ImmutableList.builder();
+        for ( int i = 0; i < resultList.size(); ++i )
+        {
+            OpResult                                    opResult = resultList.get(i);
+            CuratorMultiTransactionRecord.TypeAndPath   metadata = transaction.getMetadata(i);
+            CuratorTransactionResult                    curatorResult = makeCuratorResult(opResult, metadata);
+            builder.add(curatorResult);
+        }
+
+        return builder.build();
+    }
+>>>>>>> YOURS
+/home/taes/taes/projects/curator/revisions/rev_b5a2a9f_0ca5859/rev_b5a2a9f-0ca5859/curator-framework/src/main/java/com/netflix/curator/framework/imps/CuratorFrameworkImpl.java;<<<<<<< MINE
+=======
+@Override
+    public CuratorTransaction inTransaction()
+    {
+        Preconditions.checkState(state.get() == State.STARTED, "instance must be started before calling this method");
+
+        return new CuratorTransactionImpl(this);
+    }
+>>>>>>> YOURS
+/home/taes/taes/projects/elephant-bird/revisions/rev_110e154_738e6ce/rev_110e154-738e6ce/src/java/com/twitter/elephantbird/pig/store/LzoProtobufB64LinePigStorage.java;<<<<<<< MINE
+=======
+protected void setTypeRef(TypeRef<M> typeRef) {
+    typeRef_ = typeRef;
+    builder_ =  Protobufs.getMessageBuilder(typeRef_.getRawClass());
+  }
+>>>>>>> YOURS
+/home/taes/taes/projects/elephant-bird/revisions/rev_110e154_738e6ce/rev_110e154-738e6ce/src/java/com/twitter/elephantbird/pig/store/LzoProtobufB64LinePigStorage.java;<<<<<<< MINE
+=======
+public void putNext(Tuple f) throws IOException {
+    if (f == null) return;
+    os_.write(base64_.encode(PigToProtobuf.tupleToMessage(builder_, f).toByteArray()));
+    os_.write("\n".getBytes("UTF-8"));
+  }
+>>>>>>> YOURS
+/home/taes/taes/projects/elephant-bird/revisions/rev_110e154_738e6ce/rev_110e154-738e6ce/src/java/com/twitter/elephantbird/pig/store/LzoProtobufBlockPigStorage.java;<<<<<<< MINE
+=======
+@Override
+  public void bindTo(OutputStream os) throws IOException {
+		super.bindTo(os);
+		writer_ = new ProtobufBlockWriter<M>(os_, typeRef_.getRawClass(), numRecordsPerBlock_);
+  }
+>>>>>>> YOURS
+/home/taes/taes/projects/elephant-bird/revisions/rev_110e154_738e6ce/rev_110e154-738e6ce/src/java/com/twitter/elephantbird/pig/store/LzoProtobufBlockPigStorage.java;<<<<<<< MINE
+=======
+protected void setTypeRef(TypeRef<M> typeRef) {
+    typeRef_ = typeRef;
+    builder_ = Protobufs.getMessageBuilder(typeRef_.getRawClass());
+  }
+>>>>>>> YOURS
+/home/taes/taes/projects/elephant-bird/revisions/rev_110e154_738e6ce/rev_110e154-738e6ce/src/java/com/twitter/elephantbird/pig/store/LzoProtobufBlockPigStorage.java;<<<<<<< MINE
+=======
+@SuppressWarnings("unchecked")
+  public void putNext(Tuple f) throws IOException {
+    if (f == null) return;
+	  writer_.write((M)PigToProtobuf.tupleToMessage(builder_, f));
+  }
+>>>>>>> YOURS
+/home/taes/taes/projects/elephant-bird/revisions/rev_110e154_738e6ce/rev_110e154-738e6ce/src/java/com/twitter/elephantbird/pig/util/PigToProtobuf.java;<<<<<<< MINE
+=======
+public static Message tupleToMessage(Builder builder, Tuple tuple) {
+    List<FieldDescriptor> fieldDescriptors = builder.getDescriptorForType().getFields();
+
+    if (tuple == null) {
+      return  builder.build();
+    }
+
+    for (int i = 0; i < fieldDescriptors.size() && i < tuple.size(); i++) {
+      Object tupleField = null;
+      FieldDescriptor fieldDescriptor = fieldDescriptors.get(i);
+
+      try {
+        tupleField = tuple.get(i);
+      } catch (ExecException e) {
+        LOG.warn("Could not convert tuple field " + tupleField + " to field with descriptor " + fieldDescriptor);
+        continue;
+      }
+
+      if (tupleField != null) {
+        if (fieldDescriptor.isRepeated()) {
+          // Repeated fields are set with Lists containing objects of the fields' Java type.
+          builder.setField(fieldDescriptor, dataBagToRepeatedField(builder, fieldDescriptor, (DataBag)tupleField));
+        } else {
+          if (fieldDescriptor.getType() == FieldDescriptor.Type.MESSAGE) {
+            Builder nestedMessageBuilder = builder.newBuilderForField(fieldDescriptor);
+            builder.setField(fieldDescriptor, tupleToMessage((Builder)nestedMessageBuilder, (Tuple)tupleField));
+          } else {
+            builder.setField(fieldDescriptor, tupleFieldToSingleField(fieldDescriptor, tupleField));
+          }
+        }
+      }
+    }
+
+    return builder.build();
+  }
+>>>>>>> YOURS
+/home/taes/taes/projects/elephant-bird/revisions/rev_110e154_738e6ce/rev_110e154-738e6ce/src/java/com/twitter/elephantbird/pig/util/PigToProtobuf.java;<<<<<<< MINE
+=======
+private static List<Object> dataBagToRepeatedField(Builder containingMessageBuilder, FieldDescriptor fieldDescriptor, DataBag bag) {
+    ArrayList<Object> bagContents = new ArrayList<Object>((int)bag.size());
+    Iterator<Tuple> bagIter = bag.iterator();
+
+    while (bagIter.hasNext()) {
+      Tuple tuple = bagIter.next();
+      if (fieldDescriptor.getType() == FieldDescriptor.Type.MESSAGE) {
+        Builder nestedMessageBuilder = containingMessageBuilder.newBuilderForField(fieldDescriptor);
+        bagContents.add(tupleToMessage((Builder)nestedMessageBuilder, tuple));
+      } else {
+        try {
+          bagContents.add(tupleFieldToSingleField(fieldDescriptor, tuple.get(0)));
+        } catch (ExecException e) {
+          LOG.warn("Could not add a value for repeated field with descriptor " + fieldDescriptor);
+        }
+      }
+    }
+
+    return bagContents;
+  }
+>>>>>>> YOURS
+/home/taes/taes/projects/elephant-bird/revisions/rev_110e154_738e6ce/rev_110e154-738e6ce/src/java/com/twitter/elephantbird/pig/util/PigToProtobuf.java;<<<<<<< MINE
+=======
+private static Object tupleFieldToSingleField(FieldDescriptor fieldDescriptor, Object tupleField) {
+    // type convertion should match with ProtobufToPig.getPigScriptDataType
+    switch (fieldDescriptor.getType()) {
+    case ENUM:
+      // Convert tupleField to the enum value.
+      return fieldDescriptor.getEnumType().findValueByName((String)tupleField);
+    case BOOL:
+      return Boolean.valueOf((Integer)tupleField != 0);
+    case BYTES:
+      return ByteString.copyFrom(((DataByteArray)tupleField).get());
+    default:
+      return tupleField;
+    }
+  }
+>>>>>>> YOURS
+/home/taes/taes/projects/elephant-bird/revisions/rev_110e154_738e6ce/rev_110e154-738e6ce/src/java/com/twitter/elephantbird/pig/piggybank/ThriftToPig.java;<<<<<<< MINE
+@Override
+    public Object getContents() { return t; }
+=======
+>>>>>>> YOURS
+/home/taes/taes/projects/elephant-bird/revisions/rev_110e154_738e6ce/rev_110e154-738e6ce/src/java/com/twitter/elephantbird/pig/piggybank/ThriftToPig.java;<<<<<<< MINE
+@Override
+    public void add(Object o) throws TException {
+      if (curFieldDesc == null) {
+        throw new TException("Internal Error. curFieldDesc is not set");
+      }
+      if (curFieldDesc.enumMap != null && // map enum to string
+          (o = curFieldDesc.enumMap.get(o)) == null) {
+        throw new TException("cound not find Enum string");
+      }
+      try {
+        t.set(curFieldDesc.tupleIdx, o);
+       } catch (ExecException e) {
+          throw new TException(e);
+       }
+    }
+=======
+>>>>>>> YOURS
+/home/taes/taes/projects/elephant-bird/revisions/rev_110e154_738e6ce/rev_110e154-738e6ce/src/test/com/twitter/elephantbird/pig/piggybank/TestThriftToPig.java;<<<<<<< MINE
+  public void testThriftToPig() throws TException, ExecException {
+    OneOfEach ooe = Fixtures.oneOfEach;
+    Nesting n = Fixtures.nesting;
+
+    HolyMoley hm = Fixtures.holyMoley;
+
+    assertEquals(
+        "1-0-35-27000-16777216-6000000000-3.141592653589793-JSON THIS! \"-"+ooe.zomg_unicode+"-0-base64-{(1),(2),(3)}-{(1),(2),(3)}-{(1),(2),(3)}",
+        toTuple(ooe).toDelimitedString("-"));
+
+    assertEquals("(31337,I am a bonk... xor!)-(1,0,35,27000,16777216,6000000000,3.141592653589793,JSON THIS! \","+n.my_ooe.zomg_unicode+",0,base64,{(1),(2),(3)},{(1),(2),(3)},{(1),(2),(3)})",
+        toTuple(n).toDelimitedString("-"));
+
+    assertEquals("{(1,0,34,27000,16777216,6000000000,3.141592653589793,JSON THIS! \"," + ooe.zomg_unicode +
+        ",0,base64,{(1),(2),(3)},{(1),(2),(3)},{(1),(2),(3)}),(1,0,35,27000,16777216,6000000000,3.141592653589793,JSON THIS! \"," +
+        ooe.zomg_unicode + ",0,base64,{(1),(2),(3)},{(1),(2),(3)},{(1),(2),(3)})}-{({}),({(then a one, two),(three!),(FOUR!!)}),({(and a one),(and a two)})}-{zero={}, three={}, two={(1,Wait.),(2,What?)}}",
+        (toTuple(hm).toDelimitedString("-")));
+
+    // Test null fields :
+    OneOfEach mostly_ooe = new OneOfEach(ooe);
+    mostly_ooe.setBase64((ByteBuffer)null);
+    mostly_ooe.setI16_list(null);
+    assertEquals(
+        "1-0-35-27000-16777216-6000000000-3.141592653589793-JSON THIS! \"-"+ooe.zomg_unicode+"-0--{(1),(2),(3)}--{(1),(2),(3)}",
+        toTuple(mostly_ooe).toDelimitedString("-"));
+
+    Nesting n2 = new Nesting(n);
+    n2.getMy_bonk().setMessage(null);
+    n2.setMy_ooe(mostly_ooe);
+    assertEquals("(31337,)-(1,0,35,27000,16777216,6000000000,3.141592653589793,JSON THIS! \","+n.my_ooe.zomg_unicode+",0,,{(1),(2),(3)},,{(1),(2),(3)})",
+        toTuple(n2).toDelimitedString("-"));
+
+    // test enum.
+    PhoneNumber ph = new PhoneNumber();
+    ph.setNumber("415-555-5555");
+    ph.setType(PhoneType.HOME);
+    assertEquals("415-555-5555,HOME", toTuple(ph).toDelimitedString(","));
+
+    Person person = new Person(new Name("bob", "jenkins"), 42, "foo@bar.com", Lists.newArrayList(ph));
+    assertEquals("(bob,jenkins),42,foo@bar.com,{(415-555-5555,HOME)}", toTuple(person).toDelimitedString(","));
+
+
+=======
+  public void testThriftToPig() throws Exception {
+    tupleTest(TestType.THRIFT_TO_PIG);
+>>>>>>> YOURS
+/home/taes/taes/projects/elephant-bird/revisions/rev_27ceb0c_4353485/rev_27ceb0c-4353485/src/java/com/twitter/elephantbird/pig/store/LzoProtobufB64LinePigStorage.java;<<<<<<< MINE
+=======
+public LzoProtobufB64LinePigStorage(String protoClassName) {
+    TypeRef<M> typeRef = PigUtil.getProtobufTypeRef(protoClassName);
+    setTypeRef(typeRef);
+  }
+>>>>>>> YOURS
+/home/taes/taes/projects/elephant-bird/revisions/rev_27ceb0c_4353485/rev_27ceb0c-4353485/src/java/com/twitter/elephantbird/pig/store/LzoProtobufB64LinePigStorage.java;<<<<<<< MINE
+=======
+protected void setTypeRef(TypeRef<M> typeRef) {
+    typeRef_ = typeRef;
+    msgObj =  Protobufs.getMessageBuilder(typeRef_.getRawClass()).build();
+  }
+>>>>>>> YOURS
+/home/taes/taes/projects/elephant-bird/revisions/rev_27ceb0c_4353485/rev_27ceb0c-4353485/src/java/com/twitter/elephantbird/pig/store/LzoProtobufB64LinePigStorage.java;<<<<<<< MINE
+=======
+public void putNext(Tuple f) throws IOException {
+    if (f == null) return;
+    Message message = PigToProtobuf.tupleToMessage(msgObj.newBuilderForType(), f);
+    os_.write(base64_.encode(message.toByteArray()));
+    os_.write(Protobufs.NEWLINE_UTF8_BYTE);
+  }
+>>>>>>> YOURS
+/home/taes/taes/projects/elephant-bird/revisions/rev_27ceb0c_4353485/rev_27ceb0c-4353485/src/java/com/twitter/elephantbird/pig/store/LzoProtobufBlockPigStorage.java;<<<<<<< MINE
+=======
+public LzoProtobufBlockPigStorage(String protoClassName) {
+    TypeRef<M> typeRef = PigUtil.getProtobufTypeRef(protoClassName);
+    setTypeRef(typeRef);
+  }
+>>>>>>> YOURS
+/home/taes/taes/projects/elephant-bird/revisions/rev_27ceb0c_4353485/rev_27ceb0c-4353485/src/java/com/twitter/elephantbird/pig/store/LzoProtobufBlockPigStorage.java;<<<<<<< MINE
+=======
+protected void setTypeRef(TypeRef<M> typeRef) {
+    typeRef_ = typeRef;
+    msgObj = Protobufs.getMessageBuilder(typeRef_.getRawClass()).build();
+  }
+>>>>>>> YOURS
+/home/taes/taes/projects/elephant-bird/revisions/rev_27ceb0c_4353485/rev_27ceb0c-4353485/src/java/com/twitter/elephantbird/pig/store/LzoProtobufBlockPigStorage.java;<<<<<<< MINE
+=======
+@SuppressWarnings("unchecked")
+  public void putNext(Tuple f) throws IOException {
+    if (f == null) return;
+	  writer_.write((M)PigToProtobuf.tupleToMessage(msgObj.newBuilderForType(), f));
+  }
+>>>>>>> YOURS
+/home/taes/taes/projects/elephant-bird/revisions/rev_27ceb0c_4353485/rev_27ceb0c-4353485/src/java/com/twitter/elephantbird/pig/util/ThriftToPig.java;<<<<<<< MINE
+=======
+public ThriftToPig(Class<M> tClass) {
+    structDesc = TStructDescriptor.getInstance(tClass);
+  }
+>>>>>>> YOURS
+/home/taes/taes/projects/elephant-bird/revisions/rev_27ceb0c_4353485/rev_27ceb0c-4353485/src/java/com/twitter/elephantbird/pig/util/ThriftToPig.java;<<<<<<< MINE
+=======
+public Tuple getPigTuple(M thriftObj) {
+    return toTuple(structDesc, thriftObj);
+  }
+>>>>>>> YOURS
+/home/taes/taes/projects/elephant-bird/revisions/rev_27ceb0c_4353485/rev_27ceb0c-4353485/src/java/com/twitter/elephantbird/pig/util/ThriftToPig.java;<<<<<<< MINE
+=======
+public static Schema toSchema(Class<? extends TBase<?, ?>> tClass) {
+    return toSchema(TStructDescriptor.getInstance(tClass));
+  }
+>>>>>>> YOURS
+/home/taes/taes/projects/elephant-bird/revisions/rev_27ceb0c_4353485/rev_27ceb0c-4353485/src/java/com/twitter/elephantbird/pig/util/ThriftToPig.java;<<<<<<< MINE
+=======
+public static String toPigScript(Class<? extends TBase<?, ?>> thriftClass,
+                                   Class<? extends LoadFunc> pigLoader) {
+    StringBuilder sb = new StringBuilder();
+    /* we are commenting out explicit schema specification. The schema is
+     * included mainly to help the readers of the pig script. Pig learns the
+     * schema directly from the loader.
+     * If explicit schema is not commented, we might have surprising results
+     * when a Thrift class (possibly in control of another team) changes,
+     * but the Pig script is not updated. Commenting it out avoids this.
+     */
+    StringBuilder prefix = new StringBuilder("       --  ");
+    sb.append("raw_data = load '$INPUT_FILES' using ")
+      .append(pigLoader.getName())
+      .append("('")
+      .append(thriftClass.getName())
+      .append("');\n")
+      .append(prefix)
+      .append("as ");
+    prefix.append("   ");
+
+    try {
+      stringifySchema(sb, toSchema(thriftClass), DataType.TUPLE, prefix);
+    } catch (FrontendException e) {
+      throw new RuntimeException(e);
+    }
+
+    sb.append("\n");
+    return sb.toString();
+  }
+>>>>>>> YOURS
+/home/taes/taes/projects/elephant-bird/revisions/rev_27ceb0c_4353485/rev_27ceb0c-4353485/src/java/com/twitter/elephantbird/pig/util/ProtobufTuple.java;<<<<<<< MINE
+=======
+public ProtobufTuple(Message msg) {
+    msg_ = msg;
+    descriptor_ = msg.getDescriptorForType();
+    fieldDescriptors_ = descriptor_.getFields();
+    protoSize_ = fieldDescriptors_.size();
+    protoConv_ = new ProtobufToPig();
+    initRealTuple(protoSize_);
+  }
+>>>>>>> YOURS
+/home/taes/taes/projects/elephant-bird/revisions/rev_27ceb0c_4353485/rev_27ceb0c-4353485/src/java/com/twitter/elephantbird/pig/util/ProtobufTuple.java;<<<<<<< MINE
+=======
+@Override
+  public long getMemorySize() {
+    // The protobuf estimate is obviously inaccurate.
+    return msg_.getSerializedSize() + realTuple.getMemorySize();
+  }
+>>>>>>> YOURS
+/home/taes/taes/projects/elephant-bird/revisions/rev_27ceb0c_4353485/rev_27ceb0c-4353485/src/java/com/twitter/elephantbird/pig/util/ProtobufToPig.java;<<<<<<< MINE
+=======
+@SuppressWarnings("unchecked")
+  protected Object singleFieldToTuple(FieldDescriptor fieldDescriptor, Object fieldValue) {
+    assert fieldDescriptor.getType() != FieldDescriptor.Type.MESSAGE : "messageToFieldSchema called with field of type " + fieldDescriptor.getType();
+
+    if (fieldDescriptor.isRepeated()) {
+      // The protobuf contract is that if the field is repeated, then the object returned is actually a List
+      // of the underlying datatype, which in this case is a "primitive" like int, float, String, etc.
+      // We have to make a single-item tuple out of it to put it in the bag.
+      DataBag bag = bagFactory_.newDefaultBag();
+      List<Object> fieldValueList = (List<Object>) (fieldValue != null ? fieldValue : Lists.newArrayList());
+      for (Object singleFieldValue : fieldValueList) {
+        Object nonEnumFieldValue = coerceToPigTypes(fieldDescriptor, singleFieldValue);
+        Tuple innerTuple = tupleFactory_.newTuple(1);
+        try {
+          innerTuple.set(0, nonEnumFieldValue);
+        } catch (ExecException e) { // not expected
+          throw new RuntimeException(e);
+        }
+        bag.add(innerTuple);
+      }
+      return bag;
+    } else {
+      return coerceToPigTypes(fieldDescriptor, fieldValue);
+    }
+  }
+>>>>>>> YOURS
+/home/taes/taes/projects/elephant-bird/revisions/rev_27ceb0c_4353485/rev_27ceb0c-4353485/src/java/com/twitter/elephantbird/pig/util/PigCounterHelper.java;<<<<<<< MINE
+=======
+public void incrCounter(Enum<?> key, long incr) {
+    Reporter reporter = getReporter();
+    if (reporter != null) {
+      reporter.incrCounter(key, incr);
+      if (counterEnumMap_.size() > 0) {
+        for (Map.Entry<Enum<?>, Long> entry : counterEnumMap_.entrySet()) {
+          getReporter().incrCounter(entry.getKey(), entry.getValue());
+        }
+        counterEnumMap_.clear();
+      }
+    } else { // buffer the increments
+      Long currentValue = counterEnumMap_.get(key);
+      counterEnumMap_.put(key, (currentValue == null ? 0 : currentValue) + incr);
+    }
+  }
+>>>>>>> YOURS
+/home/taes/taes/projects/elephant-bird/revisions/rev_27ceb0c_4353485/rev_27ceb0c-4353485/src/java/com/twitter/elephantbird/pig/util/PigCounterHelper.java;<<<<<<< MINE
+=======
+private Reporter getReporter() {
+    if (pigLogger_ == null) {
+      pigLogger_ = PigHadoopLogger.getInstance();
+    }
+    return pigLogger_.getReporter();
+  }
+>>>>>>> YOURS
+/home/taes/taes/projects/elephant-bird/revisions/rev_27ceb0c_4353485/rev_27ceb0c-4353485/src/java/com/twitter/elephantbird/pig/load/LzoThriftB64LinePigLoader.java;<<<<<<< MINE
+=======
+public LzoThriftB64LinePigLoader(String thriftClassName) {
+    typeRef_ = PigUtil.getThriftTypeRef(thriftClassName);
+    converter_ = ThriftConverter.newInstance(typeRef_);
+    thriftToPig_ =  ThriftToPig.newInstance(typeRef_);
+
+    BinaryConverter<Tuple> tupleConverter = new BinaryConverter<Tuple>() {
+      public Tuple fromBytes(byte[] messageBuffer) {
+        M value = converter_.fromBytes(messageBuffer);
+        if (value != null) {
+          return thriftToPig_.getLazyTuple(value);
+        }
+        return null;
+      }
+
+      public byte[] toBytes(Tuple message) {
+        throw new RuntimeException("not implemented");
+      }
+    };
+
+    init(thriftClassName, tupleConverter);
+    setLoaderSpec(getClass(), new String[]{thriftClassName});
+  }
+>>>>>>> YOURS
+/home/taes/taes/projects/elephant-bird/revisions/rev_27ceb0c_4353485/rev_27ceb0c-4353485/src/java/com/twitter/elephantbird/pig/load/LzoThriftBlockPigLoader.java;<<<<<<< MINE
+=======
+public LzoThriftBlockPigLoader(String thriftClassName) {
+    typeRef_ = PigUtil.getThriftTypeRef(thriftClassName);
+    thriftToPig_ =  ThriftToPig.newInstance(typeRef_);
+
+    String group = "LzoBlocks of " + typeRef_.getRawClass().getName();
+    thriftStructsRead = new Pair<String, String>(group, "Thrift Structs Read");
+
+    setLoaderSpec(getClass(), new String[]{thriftClassName});
+  }
+>>>>>>> YOURS
+/home/taes/taes/projects/elephant-bird/revisions/rev_27ceb0c_4353485/rev_27ceb0c-4353485/src/java/com/twitter/elephantbird/pig/load/LzoThriftBlockPigLoader.java;<<<<<<< MINE
+=======
+public Tuple getNext() throws IOException {
+    if (!verifyStream()) {
+      return null;
+    }
+
+    // If we are past the end of the file split, tell the reader not to read any more new blocks.
+    // Then continue reading until the last of the reader's already-parsed values are used up.
+    // The next split will start at the next sync point and no records will be missed.
+    if (is_.getPosition() > end_) {
+      reader_.markNoMoreNewBlocks();
+    }
+
+    M value;
+    while ((value = reader_.readNext()) != null) {
+      incrCounter(thriftStructsRead, 1L);
+      return thriftToPig_.getLazyTuple(value);
+    }
+    return null;
+  }
+>>>>>>> YOURS
+/home/taes/taes/projects/elephant-bird/revisions/rev_27ceb0c_4353485/rev_27ceb0c-4353485/src/java/com/twitter/elephantbird/pig/load/LzoProtobufBlockPigLoader.java;<<<<<<< MINE
+=======
+public LzoProtobufBlockPigLoader(String protoClassName) {
+    TypeRef<M> typeRef = PigUtil.getProtobufTypeRef(protoClassName);
+    setTypeRef(typeRef);
+    setLoaderSpec(getClass(), new String[]{protoClassName});
+  }
+>>>>>>> YOURS
+/home/taes/taes/projects/elephant-bird/revisions/rev_27ceb0c_4353485/rev_27ceb0c-4353485/src/java/com/twitter/elephantbird/pig/load/LzoProtobufB64LinePigLoader.java;<<<<<<< MINE
+=======
+public LzoProtobufB64LinePigLoader(String protoClassName) {
+    TypeRef<M> typeRef = PigUtil.getProtobufTypeRef(protoClassName);
+    setTypeRef(typeRef);
+    setLoaderSpec(getClass(), new String[]{protoClassName});
+  }
+>>>>>>> YOURS
+/home/taes/taes/projects/elephant-bird/revisions/rev_27ceb0c_4353485/rev_27ceb0c-4353485/src/java/com/twitter/elephantbird/pig/load/LzoProtobufB64LinePigLoader.java;<<<<<<< MINE
+=======
+public void setTypeRef(TypeRef<M> typeRef) {
+    typeRef_ = typeRef;
+    protoConverter_ = ProtobufConverter.newInstance(typeRef);
+    BinaryConverter<Tuple> converter = new BinaryConverter<Tuple>() {
+      public Tuple fromBytes(byte[] messageBuffer) {
+        Message message = protoConverter_.fromBytes(messageBuffer);
+        if (message != null) {
+          return new ProtobufTuple(message);
+        }
+        return null;
+      }
+
+      public byte[] toBytes(Tuple message) {
+        throw new RuntimeException("not implemented");
+      }
+    };
+
+    init(typeRef_.getRawClass().getName(), converter);
+  }
+>>>>>>> YOURS
+/home/taes/taes/projects/elephant-bird/revisions/rev_27ceb0c_4353485/rev_27ceb0c-4353485/src/java/com/twitter/elephantbird/pig/load/LzoProtobufB64LinePigLoader.java;<<<<<<< MINE
+=======
+@Override
+  public Schema determineSchema(String filename, ExecType execType, DataStorage store) throws IOException {
+    return new ProtobufToPig().toSchema(Protobufs.getMessageDescriptor(typeRef_.getRawClass()));
+  }
+>>>>>>> YOURS
+/home/taes/taes/projects/elephant-bird/revisions/rev_27ceb0c_4353485/rev_27ceb0c-4353485/src/java/com/twitter/elephantbird/pig/piggybank/ProtobufBytesToTuple.java;<<<<<<< MINE
+=======
+public ProtobufBytesToTuple(String protoClassName) {
+    TypeRef<M> typeRef = PigUtil.getProtobufTypeRef(protoClassName);
+    setTypeRef(typeRef);
+  }
+>>>>>>> YOURS
+/home/taes/taes/projects/elephant-bird/revisions/rev_d48ed68_da570d2/rev_d48ed68-da570d2/src/java/com/twitter/elephantbird/pig/util/ThriftToPig.java;<<<<<<< MINE
+=======
+private static Schema singleFieldToTupleSchema(String fieldName, Field field) throws FrontendException {
+
+    FieldSchema fieldSchema = null;
+
+    switch (field.getType()) {
+      case TType.STRUCT:
+        // wrapping STRUCT in a FieldSchema makes it impossible to
+        // access fields in PIG script (causes runtime error).
+        return toSchema(field.gettStructDescriptor());
+      case TType.LIST:
+        fieldSchema = singleFieldToFieldSchema(fieldName, field.getListElemField());
+        break;
+      case TType.SET:
+        fieldSchema = singleFieldToFieldSchema(fieldName, field.getSetElemField());
+        break;
+      default:
+        fieldSchema = new FieldSchema(fieldName, null, getPigDataType(field));
+    }
+
+    Schema schema = new Schema();
+    schema.add(fieldSchema);
+    return schema;
+  }
+>>>>>>> YOURS
+/home/taes/taes/projects/atlas/revisions/rev_06b2d1f_53cd9d2/rev_06b2d1f-53cd9d2/atlas-demo/AtlasDemo/buildSrc/src/main/java/com/taobao/android/builder/tools/diff/DiffResExtractor.java;<<<<<<< MINE
+=======
+public static void extractDiff(Set<String> diffResFiles, File currentApk, File baseApk, File fullResDir,
+                                   File destDir) throws IOException {
+
+        if (!currentApk.exists() || !baseApk.exists() || !fullResDir.exists()) {
+            return;
+        }
+
+        FileUtils.deleteDirectory(destDir);
+        destDir.mkdirs();
+
+        File tmpFolder = new File(destDir.getParentFile(), "tmp-diffRes");
+        FileUtils.deleteDirectory(tmpFolder);
+        tmpFolder.mkdirs();
+
+        File apkDir = new File(tmpFolder, "newApkDir");
+        File baseApkDir = new File(tmpFolder, "baseApkDir");
+
+        ZipUtils.unzip(currentApk, apkDir.getAbsolutePath());
+        ZipUtils.unzip(baseApk, baseApkDir.getAbsolutePath());
+
+        //compare res and assets
+        Collection<File> files = FileUtils.listFiles(apkDir, TrueFileFilter.INSTANCE, TrueFileFilter.INSTANCE);
+
+        int basePathLength = apkDir.getAbsolutePath().length();
+
+        //List<String> diffResPath = new ArrayList<String>();
+
+        //è®¡ç®assets
+        for (File file : files) {
+
+            String relativePath = file.getAbsolutePath().substring(basePathLength);
+
+            if (!relativePath.startsWith("/assets/")) {
+                continue;
+            }
+
+            File baseFile = new File(baseApkDir, relativePath);
+            if (!baseFile.exists() || !MD5Util.getFileMD5(file).equals(MD5Util.getFileMD5(baseFile))) {
+                FileUtils.copyFile(file, new File(destDir, relativePath));
+            }
+
+        }
+
+        //è®¡ç®res
+        for (String diffFile : diffResFiles) {
+
+            File baseFile = new File(baseApkDir, diffFile);
+            File currentFile = new File(apkDir, diffFile);
+
+            if (baseFile.exists() && currentFile.exists() && MD5Util.getFileMD5(baseFile).equals(
+                MD5Util.getFileMD5(currentFile))) {
+                continue;
+            }
+
+            //copy file
+            File rawFile = new File(fullResDir, diffFile);
+            if (rawFile.exists()) {
+                FileUtils.copyFile(rawFile, new File(destDir, diffFile));
+            }
+
+        }
+
+        //å¿é¡»çæresource.arsc
+        File resDir = new File(destDir, "res");
+        if (!resDir.exists()) {
+            File valuesDir = new File(resDir, "values");
+            FileUtils.forceMkdir(valuesDir);
+            File stringsFile = new File(valuesDir, "strings.xml");
+            UUID uuid = UUID.randomUUID();
+            FileUtils.writeStringToFile(stringsFile, String.format(
+                "<?xml version=\"1.0\" encoding=\"utf-8\"?>\n<resources>\n    <string "
+                    + "name=\"%s\">%s</string>\n</resources>\n",
+                uuid, uuid), "UTF-8", false);
+
+        }
+
+        //final Pattern densityOnlyPattern = Pattern.compile("[a-zA-Z]+-[a-zA-Z]+dpi");
+        //if (resDir.exists()) {
+        //    File[] resDirs = resDir.listFiles();
+        //    if (resDirs != null) {
+        //        for (File file : resDirs) {
+        //            Matcher m = densityOnlyPattern.matcher(file.getName());
+        //            if (m.matches()) {
+        //                FileUtils.moveDirectory(file, new File(file.getAbsolutePath() + "-v4"));
+        //            }
+        //        }
+        //    }
+        //}
+
+    }
+>>>>>>> YOURS
+/home/taes/taes/projects/elephant-bird/revisions/rev_f06548b_513c57a/rev_f06548b-513c57a/src/java/com/twitter/elephantbird/pig/load/LzoSlice.java;<<<<<<< MINE
+public void init(DataStorage store) throws IOException {
+
+    LOG.info("LzoSlice::LzoSlice, file = " + filename_ + ", start = " + start_ + ", length = " + length_);
+
+    fsis_ = store.asElement(store.getActiveContainer(), filename_).sopen();
+
+    CompressionCodecFactory compressionCodecs = new CompressionCodecFactory(new Configuration());
+    final CompressionCodec codec = compressionCodecs.getCodec(new Path(filename_));
+    is_ = codec.createInputStream(fsis_, codec.createDecompressor());
+    // At this point, is_ will already be a nonzero number of bytes into the file, because
+    // the Lzop codec reads the header upon opening the stream.
+    boolean beginsAtHeader = false;
+    if (start_ != 0) {
+      // If start_ is nonzero, seek there to begin reading, using SEEK_SET per above.
+      fsis_.seek(start_, FLAGS.SEEK_SET);
+    } else {
+      // If start_ is zero, then it's actually at the header offset. Adjust based on this.
+      start_ = fsis_.tell();
+      length_ -= start_;
+      beginsAtHeader = true;
+    }
+
+    LOG.info("Creating constructor for class " + loadFuncSpec_);
+    // Use instantiateFuncFromSpec to maintain the arguments passed in from the Pig script.
+    loader_ = (LzoBaseLoadFunc) PigContext.instantiateFuncFromSpec(loadFuncSpec_);
+    loader_.setBeginsAtHeader(beginsAtHeader);
+    // Wrap Pig's BufferedPositionedInputStream with our own, which gives positions based on the number
+    // of compressed bytes read rather than the number of uncompressed bytes read.
+    loader_.bindTo(filename_, new LzoBufferedPositionedInputStream(is_, start_), start_, start_ + length_);
+  }
+=======
+>>>>>>> YOURS
+/home/taes/taes/projects/elephant-bird/revisions/rev_f06548b_513c57a/rev_f06548b-513c57a/src/java/com/twitter/elephantbird/pig/load/LzoJsonLoader.java;<<<<<<< MINE
+public LzoJsonLoader() {
+    LOG.debug("LzoJsonLoader creation");
+  }
+=======
+public LzoJsonLoader() {}
+>>>>>>> YOURS
+/home/taes/taes/projects/ribbon/revisions/rev_7620032_42c3e4c/rev_7620032-42c3e4c/ribbon-core/src/main/java/com/netflix/client/LoadBalancerContext.java;<<<<<<< MINE
+=======
+@SuppressWarnings("unchecked")
+    protected T computeFinalUriWithLoadBalancer(T original) throws ClientException{
+        URI theUrl = original.getUri();
+
+        if (theUrl == null){
+            throw new ClientException(ClientException.ErrorType.GENERAL, "NULL URL passed in");
+        }
+
+        String host = theUrl.getHost();
+        Pair<String, Integer> schemeAndPort = deriveSchemeAndPortFromPartialUri(original);
+        String scheme = schemeAndPort.first();
+        int port = schemeAndPort.second();
+        // Various Supported Cases
+        // The loadbalancer to use and the instances it has is based on how it was registered
+        // In each of these cases, the client might come in using Full Url or Partial URL
+        ILoadBalancer lb = getLoadBalancer();
+        Object loadBalancerKey = original.getLoadBalancerKey();
+        if (host == null){
+            // Partial URL Case
+            // well we have to just get the right instances from lb - or we fall back
+            if (lb != null){
+                Server svc = lb.chooseServer(loadBalancerKey);
+                if (svc == null){
+                    throw new ClientException(ClientException.ErrorType.GENERAL,
+                            "LoadBalancer returned null Server for :"
+                            + clientName);
+                }
+                host = svc.getHost();
+                port = svc.getPort();
+
+                if (host == null){
+                    throw new ClientException(ClientException.ErrorType.GENERAL,
+                            "Invalid Server for :" + svc);
+                }
+                if (logger.isDebugEnabled()){
+                    logger.debug(clientName + " using LB returned Server:" + svc + "for request:" + theUrl);
+                }
+            } else {
+                // No Full URL - and we dont have a LoadBalancer registered to
+                // obtain a server
+                // if we have a vipAddress that came with the registration, we
+                // can use that else we
+                // bail out
+                if (vipAddresses != null && vipAddresses.contains(",")) {
+                    throw new ClientException(
+                            ClientException.ErrorType.GENERAL,
+                            this.clientName
+                                    + "Partial URI of ("
+                                    + theUrl
+                                    + ") has been sent in to RestClient (with no LB) to be executed."
+                                    + " Also, there are multiple vipAddresses and hence RestClient cant pick"
+                                    + "one vipAddress to complete this partial uri");
+                } else if (vipAddresses != null) {
+                    try {
+                        Pair<String,Integer> hostAndPort = deriveHostAndPortFromVipAddress(vipAddresses);
+                        host = hostAndPort.first();
+                        port = hostAndPort.second();
+                    } catch (URISyntaxException e) {
+                        throw new ClientException(
+                                ClientException.ErrorType.GENERAL,
+                                this.clientName
+                                        + "Partial URI of ("
+                                        + theUrl
+                                        + ") has been sent in to RestClient (with no LB) to be executed."
+                                        + " Also, the configured/registered vipAddress is unparseable (to determine host and port)");
+                    }
+                }else{
+                    throw new ClientException(
+                            ClientException.ErrorType.GENERAL,
+                            this.clientName
+                                    + " has no LoadBalancer registered and passed in a partial URL request (with no host:port)."
+                                    + " Also has no vipAddress registered");
+                }
+            }
+        } else {
+            // Full URL Case
+            // This could either be a vipAddress or a hostAndPort or a real DNS
+            // if vipAddress or hostAndPort, we just have to consult the loadbalancer
+            // but if it does not return a server, we should just proceed anyways
+            // and assume its a DNS
+            // For restClients registered using a vipAddress AND executing a request
+            // by passing in the full URL (including host and port), we should only
+            // consult lb IFF the URL passed is registered as vipAddress in Discovery
+            boolean shouldInterpretAsVip = false;
+
+            if (lb != null) {
+                shouldInterpretAsVip = isVipRecognized(original.getUri().getAuthority());
+            }
+            if (shouldInterpretAsVip) {
+                Server svc = lb.chooseServer(loadBalancerKey);
+                if (svc != null){
+                    host = svc.getHost();
+                    port = svc.getPort();
+                    if (host == null){
+                        throw new ClientException(ClientException.ErrorType.GENERAL,
+                                "Invalid Server for :" + svc);
+                    }
+                    if (logger.isDebugEnabled()){
+                        logger.debug("using LB returned Server:" + svc + "for request:" + theUrl);
+                    }
+                }else{
+                    // just fall back as real DNS
+                    if (logger.isDebugEnabled()){
+                        logger.debug(host + ":" + port + " assumed to be a valid VIP address or exists in the DNS");
+                    }
+                }
+            } else {
+             // consult LB to obtain vipAddress backed instance given full URL
+                //Full URL execute request - where url!=vipAddress
+               if (logger.isDebugEnabled()){
+                   logger.debug("Using full URL passed in by caller (not using LB/Discovery):" + theUrl);
+               }
+            }
+        }
+        // end of creating final URL
+        if (host == null){
+            throw new ClientException(ClientException.ErrorType.GENERAL,"Request contains no HOST to talk to");
+        }
+        // just verify that at this point we have a full URL
+
+        try {
+            StringBuilder sb = new StringBuilder();
+            sb.append(scheme).append("://");
+            if (!Strings.isNullOrEmpty(theUrl.getRawUserInfo())) {
+                sb.append(theUrl.getRawUserInfo()).append("@");
+            }
+            sb.append(host);
+            if (port >= 0) {
+                sb.append(":").append(port);
+            }
+            sb.append(theUrl.getRawPath());
+            if (!Strings.isNullOrEmpty(theUrl.getRawQuery())) {
+                sb.append("?").append(theUrl.getRawQuery());
+            }
+            if (!Strings.isNullOrEmpty(theUrl.getRawFragment())) {
+                sb.append("#").append(theUrl.getRawFragment());
+            }
+            URI newURI = new URI(sb.toString());
+            return (T) original.replaceUri(newURI);            
+        } catch (URISyntaxException e) {
+            throw new ClientException(ClientException.ErrorType.GENERAL, e.getMessage());
+        }
+    }
+>>>>>>> YOURS
+/home/taes/taes/projects/ribbon/revisions/rev_7620032_42c3e4c/rev_7620032-42c3e4c/ribbon-core/src/main/java/com/netflix/loadbalancer/BaseLoadBalancer.java;<<<<<<< MINE
+=======
+public void setServersList(List lsrv) {
+        Lock writeLock = allServerLock.writeLock();
+        if (logger.isDebugEnabled()) {
+            logger.debug("LoadBalancer:  clearing server list (SET op)");
+        }
+        ArrayList<Server> newServers = new ArrayList<Server>();
+        writeLock.lock();
+        try {
+            ArrayList<Server> allServers = new ArrayList<Server>();
+            for (Object server : lsrv) {
+                if (server == null) {
+                    continue;
+                }
+
+                if (server instanceof String) {
+                    server = new Server((String) server);
+                }
+
+                if (server instanceof Server) {
+                    if (logger.isDebugEnabled()) {
+                        logger.debug("LoadBalancer:  addServer ["
+                                + ((Server) server).getId() + "]");
+                    }
+                    allServers.add((Server) server);
+                } else {
+                    throw new IllegalArgumentException(
+                            "Type String or Server expected, instead found:"
+                                    + server.getClass());
+                }
+
+            }
+            boolean listChanged = false;
+            if (!allServerList.equals(allServers)) {
+                listChanged = true;
+                if (changeListeners != null && changeListeners.size() > 0) {
+                   List<Server> oldList = ImmutableList.copyOf(allServerList);
+                   List<Server> newList = ImmutableList.copyOf(allServers);                   
+                   for (ServerListChangeListener l: changeListeners) {
+                       try {
+                           l.serverListChanged(oldList, newList);
+                       } catch (Throwable e) {
+                           logger.error("Error invoking server list change listener", e);
+                       }
+                   }
+                }
+            }
+            if (isEnablePrimingConnections()) {
+                for (Server server : allServers) {
+                    if (!allServerList.contains(server)) {
+                        server.setReadyToServe(false);
+                        newServers.add((Server) server);
+                    }
+                }
+                if (primeConnections != null) {
+                    primeConnections.primeConnectionsAsync(newServers, this);
+                }
+            }
+            // This will reset readyToServe flag to true on all servers
+            // regardless whether
+            // previous priming connections are success or not
+            allServerList = allServers;
+            if (canSkipPing()) {
+                for (Server s : allServerList) {
+                    s.setAlive(true);
+                }
+                upServerList = allServerList;
+            } else if (listChanged) {
+                forceQuickPing();
+            }
+        } finally {
+            writeLock.unlock();
+        }
+    }
+>>>>>>> YOURS
+/home/taes/taes/projects/ribbon/revisions/rev_7620032_42c3e4c/rev_7620032-42c3e4c/ribbon-core/src/main/java/com/netflix/loadbalancer/DynamicServerListLoadBalancer.java;<<<<<<< MINE
+=======
+public void enableAndInitLearnNewServersFeature() {
+        keepServerListUpdated();
+        serverRefreshEnabled = true;
+    }
+>>>>>>> YOURS
+/home/taes/taes/projects/ribbon/revisions/rev_7620032_42c3e4c/rev_7620032-42c3e4c/ribbon-core/src/main/java/com/netflix/loadbalancer/DynamicServerListLoadBalancer.java;<<<<<<< MINE
+=======
+private void keepServerListUpdated() {
+        scheduledFuture = _serverListRefreshExecutor.scheduleAtFixedRate(
+                new ServerListRefreshExecutorThread(),
+                LISTOFSERVERS_CACHE_UPDATE_DELAY, refeshIntervalMills,
+                TimeUnit.MILLISECONDS);
+    }
+>>>>>>> YOURS
+/home/taes/taes/projects/ribbon/revisions/rev_7620032_42c3e4c/rev_7620032-42c3e4c/ribbon-core/src/main/java/com/netflix/loadbalancer/DynamicServerListLoadBalancer.java;<<<<<<< MINE
+=======
+private static void shutdownExecutorPool() {
+        if (_serverListRefreshExecutor != null) {
+            _serverListRefreshExecutor.shutdown();
+
+            if (_shutdownThread != null) {
+                try {
+                    Runtime.getRuntime().removeShutdownHook(_shutdownThread);
+                } catch (IllegalStateException ise) { // NOPMD
+                    // this can happen if we're in the middle of a real
+                    // shutdown,
+                    // and that's 'ok'
+                }
+            }
+
+        }
+    }
+>>>>>>> YOURS
+/home/taes/taes/projects/ribbon/revisions/rev_7620032_42c3e4c/rev_7620032-42c3e4c/ribbon-core/src/main/java/com/netflix/loadbalancer/DynamicServerListLoadBalancer.java;<<<<<<< MINE
+=======
+public void run() {
+            if (!serverRefreshEnabled) {
+                return;
+            }
+            try {
+                updateListOfServers();
+
+            } catch (Throwable e) {
+                LOGGER.error(
+                        "Exception while updating List of Servers obtained from Discovery client",
+                        e);
+                // e.printStackTrace();
+            }
+        }
+>>>>>>> YOURS
+/home/taes/taes/projects/atlas/revisions/rev_4e151bd_ffb0907/rev_4e151bd-ffb0907/atlas-gradle-plugin/atlas-plugin/src/main/java/com/taobao/android/builder/tools/diff/DiffResExtractor.java;<<<<<<< MINE
+public static void extractDiff(AppVariantContext appVariantContext, Set<String> diffResFiles, File currentApk,
+                                   File baseApk, File fullResDir, File destDir, boolean fullValues) throws IOException {
+
+        if (!currentApk.exists() || !baseApk.exists() || !fullResDir.exists()) {
+            return;
+        }
+
+        FileUtils.deleteDirectory(destDir);
+        destDir.mkdirs();
+
+        File tmpFolder = new File(destDir.getParentFile(), "tmp-diffRes");
+        FileUtils.deleteDirectory(tmpFolder);
+        tmpFolder.mkdirs();
+
+        File apkDir = new File(tmpFolder, "newApkDir");
+        File baseApkDir = new File(tmpFolder, "baseApkDir");
+
+        ZipUtils.unzip(currentApk, apkDir.getAbsolutePath());
+        ZipUtils.unzip(baseApk, baseApkDir.getAbsolutePath());
+
+        //compare res and assets
+        Collection<File> files = FileUtils.listFiles(apkDir, TrueFileFilter.INSTANCE, TrueFileFilter.INSTANCE);
+
+        int basePathLength = apkDir.getAbsolutePath().length();
+
+        //List<String> diffResPath = new ArrayList<String>();
+
+        //è®¡ç®assets
+        for (File file : files) {
+
+            String relativePath = file.getAbsolutePath().substring(basePathLength);
+
+            if (!relativePath.startsWith("/assets/")) {
+                continue;
+            }
+
+            File baseFile = new File(baseApkDir, relativePath);
+            if (!baseFile.exists() || !MD5Util.getFileMD5(file).equals(MD5Util.getFileMD5(baseFile))) {
+                FileUtils.copyFile(file, new File(destDir, relativePath));
+            }
+        }
+
+        //è®¡ç®res
+        for (String diffFile : diffResFiles) {
+
+            File baseFile = new File(baseApkDir, diffFile);
+            File currentFile = new File(apkDir, diffFile);
+
+            if (baseFile.exists() && currentFile.exists() && MD5Util.getFileMD5(baseFile).equals(MD5Util.getFileMD5(
+                currentFile))) {
+                continue;
+            }
+
+            //copy file
+            File rawFile = new File(fullResDir, diffFile);
+            if (rawFile.exists()) {
+                FileUtils.copyFile(rawFile, new File(destDir, diffFile));
+            }
+        }
+
+        // //å¿é¡»çæresource.arsc
+        File resDir = new File(destDir, "res");
+        File valuesDir = new File(resDir, "values");
+        FileUtils.forceMkdir(valuesDir);
+        if (fullValues) {
+            appVariantContext.getProject().copy(new Closure(DiffResExtractor.class) {
+                public Object doCall(CopySpec cs) {
+                    cs.from(fullResDir);
+                    cs.into(destDir);
+                    cs.include("res/values*/**");
+
+                    return cs;
+                }
+            });
+
+            // FileUtils.copyFile(new File(fullResDir, "res/values/values.xml"),
+            //                    new File(destDir, "res/values/values.xml"));
+        } else {
+            if (!resDir.exists()) {
+                File stringsFile = new File(valuesDir, "strings.xml");
+                UUID uuid = UUID.randomUUID();
+                FileUtils.writeStringToFile(stringsFile,
+                                            String.format(
+                                                "<?xml version=\"1.0\" encoding=\"utf-8\"?>\n<resources>\n    <string "
+                                                    + "name=\"%s\">%s</string>\n</resources>\n",
+                                                uuid,
+                                                uuid),
+                                            "UTF-8",
+                                            false);
+            }
+        }
+
+        //è®¾ç½®values.xml
+        File valuesXml = new File(resDir, "values/values.xml");
+        try {
+            removeStringValue(valuesXml, "ttid");
+        } catch (Exception e) {
+            throw new RuntimeException(e);
+        }
+        AtlasBuildContext.sBuilderAdapter.apkInjectInfoCreator.injectTpatchValuesRes(appVariantContext, valuesXml);
+
+        final Pattern densityOnlyPattern = Pattern.compile("[a-zA-Z]+-[a-zA-Z]+dpi");
+        if (resDir.exists()) {
+            File[] resDirs = resDir.listFiles();
+            if (resDirs != null) {
+                for (File file : resDirs) {
+                    Matcher m = densityOnlyPattern.matcher(file.getName());
+                    if (m.matches()) {
+                        FileUtils.moveDirectory(file, new File(file.getAbsolutePath() + "-v3"));
+                    }
+                }
+            }
+        }
+    }
+=======
+public static void extractDiff(AppVariantContext appVariantContext, Set<String> diffResFiles, File currentApk,
+                                   File baseApk, File fullResDir, File destDir, boolean fullValues) throws IOException {
+
+        if (!currentApk.exists() || !baseApk.exists() || !fullResDir.exists()) {
+            return;
+        }
+
+        FileUtils.deleteDirectory(destDir);
+        destDir.mkdirs();
+
+        File tmpFolder = new File(destDir.getParentFile(), "tmp-diffRes");
+        FileUtils.deleteDirectory(tmpFolder);
+        tmpFolder.mkdirs();
+
+        File apkDir = new File(tmpFolder, "newApkDir");
+        File baseApkDir = new File(tmpFolder, "baseApkDir");
+
+        ZipUtils.unzip(currentApk, apkDir.getAbsolutePath());
+        ZipUtils.unzip(baseApk, baseApkDir.getAbsolutePath());
+
+        //compare res and assets
+        Collection<File> files = FileUtils.listFiles(apkDir, TrueFileFilter.INSTANCE, TrueFileFilter.INSTANCE);
+
+        int basePathLength = apkDir.getAbsolutePath().length();
+
+        //List<String> diffResPath = new ArrayList<String>();
+
+        //è®¡ç®assets
+        for (File file : files) {
+
+            String relativePath = file.getAbsolutePath().substring(basePathLength);
+
+            if (!relativePath.startsWith("/assets/")) {
+                continue;
+            }
+
+            File baseFile = new File(baseApkDir, relativePath);
+            if (!baseFile.exists() || !MD5Util.getFileMD5(file).equals(MD5Util.getFileMD5(baseFile))) {
+                FileUtils.copyFile(file, new File(destDir, relativePath));
+            }
+        }
+
+        //è®¡ç®res
+        for (String diffFile : diffResFiles) {
+
+            File baseFile = new File(baseApkDir, diffFile);
+            File currentFile = new File(apkDir, diffFile);
+
+            if (baseFile.exists() && currentFile.exists() && MD5Util.getFileMD5(baseFile).equals(MD5Util.getFileMD5(
+                currentFile))) {
+                continue;
+            }
+
+            //copy file
+            File rawFile = new File(fullResDir, diffFile);
+            if (rawFile.exists()) {
+                FileUtils.copyFile(rawFile, new File(destDir, diffFile));
+            }
+        }
+
+        // //å¿é¡»çæresource.arsc
+        File resDir = new File(destDir, "res");
+        File valuesDir = new File(resDir, "values");
+        FileUtils.forceMkdir(valuesDir);
+        if (fullValues) {
+            appVariantContext.getProject().copy(new Closure(DiffResExtractor.class) {
+                public Object doCall(CopySpec cs) {
+                    cs.from(fullResDir);
+                    cs.into(destDir);
+                    cs.include("res/values*/**");
+
+                    return cs;
+                }
+            });
+
+            // FileUtils.copyFile(new File(fullResDir, "res/values/values.xml"),
+            //                    new File(destDir, "res/values/values.xml"));
+        } else {
+            if (!resDir.exists()) {
+                File stringsFile = new File(valuesDir, "strings.xml");
+                UUID uuid = UUID.randomUUID();
+                FileUtils.writeStringToFile(stringsFile,
+                                            String.format(
+                                                "<?xml version=\"1.0\" encoding=\"utf-8\"?>\n<resources>\n    <string "
+                                                    + "name=\"%s\">%s</string>\n</resources>\n",
+                                                uuid,
+                                                uuid),
+                                            "UTF-8",
+                                            false);
+            }
+        }
+
+        //è®¾ç½®values.xml
+        File valuesXml = new File(resDir, "values/values.xml");
+        AtlasBuildContext.sBuilderAdapter.apkInjectInfoCreator.injectTpatchValuesRes(appVariantContext, valuesXml);
+        try {
+            removeStringValue(valuesXml, "config_channel");
+            removeStringValue(valuesXml, "ttid");
+            removeStringValue(valuesXml, "config_channel");
+        } catch (Exception e) {
+            throw new RuntimeException(e);
+        }
+
+        final Pattern densityOnlyPattern = Pattern.compile("[a-zA-Z]+-[a-zA-Z]+dpi");
+        if (resDir.exists()) {
+            File[] resDirs = resDir.listFiles();
+            if (resDirs != null) {
+                for (File file : resDirs) {
+                    Matcher m = densityOnlyPattern.matcher(file.getName());
+                    if (m.matches()) {
+                        FileUtils.moveDirectory(file, new File(file.getAbsolutePath() + "-v3"));
+                    }
+                }
+            }
+        }
+    }
+>>>>>>> YOURS
+/home/taes/taes/projects/ribbon/revisions/rev_b33a5ed_42c3e4c/rev_b33a5ed-42c3e4c/ribbon-core/src/main/java/com/netflix/client/AbstractLoadBalancerAwareClient.java;<<<<<<< MINE
+protected Throwable getDeepestCause(Throwable e) {
+        if(e != null) {
+            int infiniteLoopPreventionCounter = 10;
+            while (e.getCause() != null && infiniteLoopPreventionCounter > 0) {
+                infiniteLoopPreventionCounter--;
+                e = e.getCause();
+            }
+        }
+        return e;
+    }
+=======
+>>>>>>> YOURS
+/home/taes/taes/projects/ribbon/revisions/rev_b33a5ed_42c3e4c/rev_b33a5ed-42c3e4c/ribbon-core/src/main/java/com/netflix/client/AbstractLoadBalancerAwareClient.java;<<<<<<< MINE
+protected int handleRetry(String uri, int retries, int numRetries,
+            Exception e) throws ClientException {
+        retries++;
+
+        if (retries > numRetries) {
+            throw new ClientException(ClientException.ErrorType.NUMBEROF_RETRIES_EXEEDED,
+                    "NUMBEROFRETRIESEXEEDED :" + numRetries + " retries, while making a RestClient call for:" + uri,
+                    e !=null? e: new RuntimeException());
+        }
+        logger.error("Exception while executing request which is deemed retry-able, retrying ..., SAME Server Retry Attempt#:" +
+                retries +
+                ", URI:" +
+                uri);
+        try {
+            Thread.sleep((int) Math.pow(2.0, retries) * 100); 
+        } catch (InterruptedException ex) {
+        }
+        return retries;
+    }
+=======
+>>>>>>> YOURS
+/home/taes/taes/projects/ribbon/revisions/rev_b33a5ed_42c3e4c/rev_b33a5ed-42c3e4c/ribbon-core/src/main/java/com/netflix/client/LoadBalancerContext.java;<<<<<<< MINE
+public LoadBalancerContext() {
+        // TODO Auto-generated constructor stub
+    }
+=======
+public LoadBalancerContext() {
+    }
+>>>>>>> YOURS
+/home/taes/taes/projects/ribbon/revisions/rev_b33a5ed_42c3e4c/rev_b33a5ed-42c3e4c/ribbon-core/src/main/java/com/netflix/client/LoadBalancerContext.java;<<<<<<< MINE
+@Override
+    public void initWithNiwsConfig(IClientConfig clientConfig) {
+        if (clientConfig == null) {
+            return;    
+        }
+        clientName = clientConfig.getClientName();
+        if (clientName == null) {
+            clientName = "default";
+        }
+        vipAddresses = clientConfig.resolveDeploymentContextbasedVipAddresses();
+        maxAutoRetries = clientConfig.getPropertyAsInteger(CommonClientConfigKey.MaxAutoRetries, DefaultClientConfigImpl.DEFAULT_MAX_AUTO_RETRIES);
+        maxAutoRetriesNextServer = clientConfig.getPropertyAsInteger(CommonClientConfigKey.MaxAutoRetriesNextServer,maxAutoRetriesNextServer);
+        
+       okToRetryOnAllOperations = clientConfig.getPropertyAsBoolean(CommonClientConfigKey.OkToRetryOnAllOperations, okToRetryOnAllOperations);
+    }
+=======
+@Override
+    public void initWithNiwsConfig(IClientConfig clientConfig) {
+        if (clientConfig == null) {
+            return;    
+        }
+        clientName = clientConfig.getClientName();
+        if (clientName == null) {
+            clientName = "default";
+        }
+        vipAddresses = clientConfig.resolveDeploymentContextbasedVipAddresses();
+        maxAutoRetries = clientConfig.getPropertyAsInteger(CommonClientConfigKey.MaxAutoRetries, DefaultClientConfigImpl.DEFAULT_MAX_AUTO_RETRIES);
+        maxAutoRetriesNextServer = clientConfig.getPropertyAsInteger(CommonClientConfigKey.MaxAutoRetriesNextServer,maxAutoRetriesNextServer);
+        
+       okToRetryOnAllOperations = clientConfig.getPropertyAsBoolean(CommonClientConfigKey.OkToRetryOnAllOperations, okToRetryOnAllOperations);
+       tracer = getExecuteTracer();
+
+       Monitors.registerObject("Client_" + clientName, this);
+    }
+>>>>>>> YOURS
+/home/taes/taes/projects/ribbon/revisions/rev_b33a5ed_42c3e4c/rev_b33a5ed-42c3e4c/ribbon-core/src/main/java/com/netflix/client/LoadBalancerContext.java;<<<<<<< MINE
+public final String getClientName() {
+        return clientName;
+    }
+=======
+public String getClientName() {
+        return clientName;
+    }
+>>>>>>> YOURS
+/home/taes/taes/projects/ribbon/revisions/rev_b33a5ed_42c3e4c/rev_b33a5ed-42c3e4c/ribbon-core/src/main/java/com/netflix/client/LoadBalancerContext.java;<<<<<<< MINE
+public final int getMaxAutoRetriesNextServer() {
+        return maxAutoRetriesNextServer;
+    }
+=======
+public int getMaxAutoRetriesNextServer() {
+        return maxAutoRetriesNextServer;
+    }
+>>>>>>> YOURS
+/home/taes/taes/projects/ribbon/revisions/rev_b33a5ed_42c3e4c/rev_b33a5ed-42c3e4c/ribbon-core/src/main/java/com/netflix/client/LoadBalancerContext.java;<<<<<<< MINE
+public final void setMaxAutoRetriesNextServer(int maxAutoRetriesNextServer) {
+        this.maxAutoRetriesNextServer = maxAutoRetriesNextServer;
+    }
+=======
+public void setMaxAutoRetriesNextServer(int maxAutoRetriesNextServer) {
+        this.maxAutoRetriesNextServer = maxAutoRetriesNextServer;
+    }
+>>>>>>> YOURS
+/home/taes/taes/projects/ribbon/revisions/rev_b33a5ed_42c3e4c/rev_b33a5ed-42c3e4c/ribbon-core/src/main/java/com/netflix/client/LoadBalancerContext.java;<<<<<<< MINE
+public final int getMaxAutoRetries() {
+        return maxAutoRetries;
+    }
+=======
+public int getMaxAutoRetries() {
+        return maxAutoRetries;
+    }
+>>>>>>> YOURS
+/home/taes/taes/projects/ribbon/revisions/rev_b33a5ed_42c3e4c/rev_b33a5ed-42c3e4c/ribbon-core/src/main/java/com/netflix/client/LoadBalancerContext.java;<<<<<<< MINE
+public final void setMaxAutoRetries(int maxAutoRetries) {
+        this.maxAutoRetries = maxAutoRetries;
+    }
+=======
+public void setMaxAutoRetries(int maxAutoRetries) {
+        this.maxAutoRetries = maxAutoRetries;
+    }
+>>>>>>> YOURS
+/home/taes/taes/projects/ribbon/revisions/rev_b33a5ed_42c3e4c/rev_b33a5ed-42c3e4c/ribbon-core/src/main/java/com/netflix/client/LoadBalancerContext.java;<<<<<<< MINE
+private Throwable isPresentAsCauseHelper(Throwable throwableToSearchIn,
+            Class<? extends Throwable> throwableToSearchFor) {
+        int infiniteLoopPreventionCounter = 10;
+        while (throwableToSearchIn != null && infiniteLoopPreventionCounter > 0) {
+            infiniteLoopPreventionCounter--;
+            if (throwableToSearchIn.getClass().isAssignableFrom(
+                    throwableToSearchFor)) {
+                return throwableToSearchIn;
+            } else {
+                throwableToSearchIn = throwableToSearchIn.getCause();
+            }
+        }
+        return null;
+    }
+=======
+static Throwable isPresentAsCauseHelper(Throwable throwableToSearchIn,
+            Class<? extends Throwable> throwableToSearchFor) {
+        int infiniteLoopPreventionCounter = 10;
+        while (throwableToSearchIn != null && infiniteLoopPreventionCounter > 0) {
+            infiniteLoopPreventionCounter--;
+            if (throwableToSearchIn.getClass().isAssignableFrom(
+                    throwableToSearchFor)) {
+                return throwableToSearchIn;
+            } else {
+                throwableToSearchIn = throwableToSearchIn.getCause();
+            }
+        }
+        return null;
+    }
+>>>>>>> YOURS
+/home/taes/taes/projects/ribbon/revisions/rev_b33a5ed_42c3e4c/rev_b33a5ed-42c3e4c/ribbon-core/src/main/java/com/netflix/client/LoadBalancerContext.java;<<<<<<< MINE
+protected <T extends ClientRequest> Pair<String, Integer> deriveSchemeAndPortFromPartialUri(T request) {
+        URI theUrl = request.getUri();
+        boolean isSecure = false;
+        String scheme = theUrl.getScheme();
+        if (scheme != null) {
+            isSecure =  scheme.equalsIgnoreCase("https");
+        }
+        int port = theUrl.getPort();
+        if (port < 0 && !isSecure){
+            port = 80;
+        } else if (port < 0 && isSecure){
+            port = 443;
+        }
+        if (scheme == null){
+            if (isSecure) {
+                scheme = "https";
+            } else {
+                scheme = "http";
+            }
+        }
+        return new Pair<String, Integer>(scheme, port);
+    }
+=======
+protected Pair<String, Integer> deriveSchemeAndPortFromPartialUri(T request) {
+        URI theUrl = request.getUri();
+        boolean isSecure = false;
+        String scheme = theUrl.getScheme();
+        if (scheme != null) {
+            isSecure =  scheme.equalsIgnoreCase("https");
+        }
+        int port = theUrl.getPort();
+        if (port < 0 && !isSecure){
+            port = 80;
+        } else if (port < 0 && isSecure){
+            port = 443;
+        }
+        if (scheme == null){
+            if (isSecure) {
+                scheme = "https";
+            } else {
+                scheme = "http";
+            }
+        }
+        return new Pair<String, Integer>(scheme, port);
+    }
+>>>>>>> YOURS
+/home/taes/taes/projects/ribbon/revisions/rev_b33a5ed_42c3e4c/rev_b33a5ed-42c3e4c/ribbon-core/src/main/java/com/netflix/client/LoadBalancerContext.java;<<<<<<< MINE
+@SuppressWarnings("unchecked")
+    protected <T extends ClientRequest> T computeFinalUriWithLoadBalancer(T original) throws ClientException{
+        URI newURI;
+        URI theUrl = original.getUri();
+
+        if (theUrl == null){
+            throw new ClientException(ClientException.ErrorType.GENERAL, "NULL URL passed in");
+        }
+
+        String host = theUrl.getHost();
+        Pair<String, Integer> schemeAndPort = deriveSchemeAndPortFromPartialUri(original);
+        String scheme = schemeAndPort.first();
+        int port = schemeAndPort.second();
+        // Various Supported Cases
+        // The loadbalancer to use and the instances it has is based on how it was registered
+        // In each of these cases, the client might come in using Full Url or Partial URL
+        ILoadBalancer lb = getLoadBalancer();
+        Object loadBalancerKey = original.getLoadBalancerKey();
+        if (host == null){
+            // Partial URL Case
+            // well we have to just get the right instances from lb - or we fall back
+            if (lb != null){
+                Server svc = lb.chooseServer(loadBalancerKey);
+                if (svc == null){
+                    throw new ClientException(ClientException.ErrorType.GENERAL,
+                            "LoadBalancer returned null Server for :"
+                            + clientName);
+                }
+                host = svc.getHost();
+                port = svc.getPort();
+                if (host == null){
+                    throw new ClientException(ClientException.ErrorType.GENERAL,
+                            "Invalid Server for :" + svc);
+                }
+                if (logger.isDebugEnabled()){
+                    logger.debug(clientName + " using LB returned Server:" + svc + "for request:" + theUrl);
+                }
+            } else {
+                // No Full URL - and we dont have a LoadBalancer registered to
+                // obtain a server
+                // if we have a vipAddress that came with the registration, we
+                // can use that else we
+                // bail out
+                if (vipAddresses != null && vipAddresses.contains(",")) {
+                    throw new ClientException(
+                            ClientException.ErrorType.GENERAL,
+                            this.clientName
+                                    + "Partial URI of ("
+                                    + theUrl
+                                    + ") has been sent in to RestClient (with no LB) to be executed."
+                                    + " Also, there are multiple vipAddresses and hence RestClient cant pick"
+                                    + "one vipAddress to complete this partial uri");
+                } else if (vipAddresses != null) {
+                    try {
+                        Pair<String,Integer> hostAndPort = deriveHostAndPortFromVipAddress(vipAddresses);
+                        host = hostAndPort.first();
+                        port = hostAndPort.second();
+                    } catch (URISyntaxException e) {
+                        throw new ClientException(
+                                ClientException.ErrorType.GENERAL,
+                                this.clientName
+                                        + "Partial URI of ("
+                                        + theUrl
+                                        + ") has been sent in to RestClient (with no LB) to be executed."
+                                        + " Also, the configured/registered vipAddress is unparseable (to determine host and port)");
+                    }
+                }else{
+                    throw new ClientException(
+                            ClientException.ErrorType.GENERAL,
+                            this.clientName
+                                    + " has no LoadBalancer registered and passed in a partial URL request (with no host:port)."
+                                    + " Also has no vipAddress registered");
+                }
+            }
+        } else {
+            // Full URL Case
+            // This could either be a vipAddress or a hostAndPort or a real DNS
+            // if vipAddress or hostAndPort, we just have to consult the loadbalancer
+            // but if it does not return a server, we should just proceed anyways
+            // and assume its a DNS
+            // For restClients registered using a vipAddress AND executing a request
+            // by passing in the full URL (including host and port), we should only
+            // consult lb IFF the URL passed is registered as vipAddress in Discovery
+            boolean shouldInterpretAsVip = false;
+
+            if (lb != null) {
+                shouldInterpretAsVip = isVipRecognized(original.getUri().getAuthority());
+            }
+            if (shouldInterpretAsVip) {
+                Server svc = lb.chooseServer(loadBalancerKey);
+                if (svc != null){
+                    host = svc.getHost();
+                    port = svc.getPort();
+                    if (host == null){
+                        throw new ClientException(ClientException.ErrorType.GENERAL,
+                                "Invalid Server for :" + svc);
+                    }
+                    if (logger.isDebugEnabled()){
+                        logger.debug("using LB returned Server:" + svc + "for request:" + theUrl);
+                    }
+                }else{
+                    // just fall back as real DNS
+                    if (logger.isDebugEnabled()){
+                        logger.debug(host + ":" + port + " assumed to be a valid VIP address or exists in the DNS");
+                    }
+                }
+            } else {
+             // consult LB to obtain vipAddress backed instance given full URL
+                //Full URL execute request - where url!=vipAddress
+               if (logger.isDebugEnabled()){
+                   logger.debug("Using full URL passed in by caller (not using LB/Discovery):" + theUrl);
+               }
+            }
+        }
+        // end of creating final URL
+        if (host == null){
+            throw new ClientException(ClientException.ErrorType.GENERAL,"Request contains no HOST to talk to");
+        }
+        // just verify that at this point we have a full URL
+
+        try {
+            String urlPath = "";
+            if (theUrl.getRawPath() != null && theUrl.getRawPath().startsWith("/")) {
+                urlPath = theUrl.getRawPath();
+            } else {
+                urlPath = "/" + theUrl.getRawPath();
+            }
+            
+            newURI = new URI(scheme, theUrl.getUserInfo(), host, port, urlPath, theUrl.getQuery(), theUrl.getFragment());
+            return (T) original.replaceUri(newURI);            
+        } catch (URISyntaxException e) {
+            throw new ClientException(ClientException.ErrorType.GENERAL, e.getMessage());
+        }
+    }
+=======
+@SuppressWarnings("unchecked")
+    protected T computeFinalUriWithLoadBalancer(T original) throws ClientException{
+        URI theUrl = original.getUri();
+
+        if (theUrl == null){
+            throw new ClientException(ClientException.ErrorType.GENERAL, "NULL URL passed in");
+        }
+
+        String host = theUrl.getHost();
+        Pair<String, Integer> schemeAndPort = deriveSchemeAndPortFromPartialUri(original);
+        String scheme = schemeAndPort.first();
+        int port = schemeAndPort.second();
+        // Various Supported Cases
+        // The loadbalancer to use and the instances it has is based on how it was registered
+        // In each of these cases, the client might come in using Full Url or Partial URL
+        ILoadBalancer lb = getLoadBalancer();
+        Object loadBalancerKey = original.getLoadBalancerKey();
+        if (host == null){
+            // Partial URL Case
+            // well we have to just get the right instances from lb - or we fall back
+            if (lb != null){
+                Server svc = lb.chooseServer(loadBalancerKey);
+                if (svc == null){
+                    throw new ClientException(ClientException.ErrorType.GENERAL,
+                            "LoadBalancer returned null Server for :"
+                            + clientName);
+                }
+                host = svc.getHost();
+                port = svc.getPort();
+
+                if (host == null){
+                    throw new ClientException(ClientException.ErrorType.GENERAL,
+                            "Invalid Server for :" + svc);
+                }
+                if (logger.isDebugEnabled()){
+                    logger.debug(clientName + " using LB returned Server:" + svc + "for request:" + theUrl);
+                }
+            } else {
+                // No Full URL - and we dont have a LoadBalancer registered to
+                // obtain a server
+                // if we have a vipAddress that came with the registration, we
+                // can use that else we
+                // bail out
+                if (vipAddresses != null && vipAddresses.contains(",")) {
+                    throw new ClientException(
+                            ClientException.ErrorType.GENERAL,
+                            this.clientName
+                                    + "Partial URI of ("
+                                    + theUrl
+                                    + ") has been sent in to RestClient (with no LB) to be executed."
+                                    + " Also, there are multiple vipAddresses and hence RestClient cant pick"
+                                    + "one vipAddress to complete this partial uri");
+                } else if (vipAddresses != null) {
+                    try {
+                        Pair<String,Integer> hostAndPort = deriveHostAndPortFromVipAddress(vipAddresses);
+                        host = hostAndPort.first();
+                        port = hostAndPort.second();
+                    } catch (URISyntaxException e) {
+                        throw new ClientException(
+                                ClientException.ErrorType.GENERAL,
+                                this.clientName
+                                        + "Partial URI of ("
+                                        + theUrl
+                                        + ") has been sent in to RestClient (with no LB) to be executed."
+                                        + " Also, the configured/registered vipAddress is unparseable (to determine host and port)");
+                    }
+                }else{
+                    throw new ClientException(
+                            ClientException.ErrorType.GENERAL,
+                            this.clientName
+                                    + " has no LoadBalancer registered and passed in a partial URL request (with no host:port)."
+                                    + " Also has no vipAddress registered");
+                }
+            }
+        } else {
+            // Full URL Case
+            // This could either be a vipAddress or a hostAndPort or a real DNS
+            // if vipAddress or hostAndPort, we just have to consult the loadbalancer
+            // but if it does not return a server, we should just proceed anyways
+            // and assume its a DNS
+            // For restClients registered using a vipAddress AND executing a request
+            // by passing in the full URL (including host and port), we should only
+            // consult lb IFF the URL passed is registered as vipAddress in Discovery
+            boolean shouldInterpretAsVip = false;
+
+            if (lb != null) {
+                shouldInterpretAsVip = isVipRecognized(original.getUri().getAuthority());
+            }
+            if (shouldInterpretAsVip) {
+                Server svc = lb.chooseServer(loadBalancerKey);
+                if (svc != null){
+                    host = svc.getHost();
+                    port = svc.getPort();
+                    if (host == null){
+                        throw new ClientException(ClientException.ErrorType.GENERAL,
+                                "Invalid Server for :" + svc);
+                    }
+                    if (logger.isDebugEnabled()){
+                        logger.debug("using LB returned Server:" + svc + "for request:" + theUrl);
+                    }
+                }else{
+                    // just fall back as real DNS
+                    if (logger.isDebugEnabled()){
+                        logger.debug(host + ":" + port + " assumed to be a valid VIP address or exists in the DNS");
+                    }
+                }
+            } else {
+             // consult LB to obtain vipAddress backed instance given full URL
+                //Full URL execute request - where url!=vipAddress
+               if (logger.isDebugEnabled()){
+                   logger.debug("Using full URL passed in by caller (not using LB/Discovery):" + theUrl);
+               }
+            }
+        }
+        // end of creating final URL
+        if (host == null){
+            throw new ClientException(ClientException.ErrorType.GENERAL,"Request contains no HOST to talk to");
+        }
+        // just verify that at this point we have a full URL
+
+        try {
+            StringBuilder sb = new StringBuilder();
+            sb.append(scheme).append("://");
+            if (!Strings.isNullOrEmpty(theUrl.getRawUserInfo())) {
+                sb.append(theUrl.getRawUserInfo()).append("@");
+            }
+            sb.append(host);
+            if (port >= 0) {
+                sb.append(":").append(port);
+            }
+            sb.append(theUrl.getRawPath());
+            if (!Strings.isNullOrEmpty(theUrl.getRawQuery())) {
+                sb.append("?").append(theUrl.getRawQuery());
+            }
+            if (!Strings.isNullOrEmpty(theUrl.getRawFragment())) {
+                sb.append("#").append(theUrl.getRawFragment());
+            }
+            URI newURI = new URI(sb.toString());
+            return (T) original.replaceUri(newURI);            
+        } catch (URISyntaxException e) {
+            throw new ClientException(ClientException.ErrorType.GENERAL, e.getMessage());
+        }
+    }
+>>>>>>> YOURS
+/home/taes/taes/projects/ribbon/revisions/rev_b33a5ed_42c3e4c/rev_b33a5ed-42c3e4c/ribbon-core/src/main/java/com/netflix/client/LoadBalancerContext.java;<<<<<<< MINE
+public final int getNumberRetriesOnSameServer(IClientConfig overriddenClientConfig) {
+        int numRetries =  maxAutoRetries;
+        if (overriddenClientConfig!=null){
+            try {
+                numRetries = Integer.parseInt(""+overriddenClientConfig.getProperty(CommonClientConfigKey.MaxAutoRetries,maxAutoRetries));
+            } catch (Exception e) {
+                logger.warn("Invalid maxRetries requested for RestClient:" + this.clientName);
+            }
+        }
+        return numRetries;
+    }
+=======
+protected int getNumberRetriesOnSameServer(IClientConfig overriddenClientConfig) {
+        int numRetries =  maxAutoRetries;
+        if (overriddenClientConfig!=null){
+            try {
+                numRetries = overriddenClientConfig.getPropertyAsInteger(CommonClientConfigKey.MaxAutoRetries, maxAutoRetries);
+            } catch (Exception e) {
+                logger.warn("Invalid maxRetries requested for RestClient:" + this.clientName);
+            }
+        }
+        return numRetries;
+    }
+>>>>>>> YOURS
+/home/taes/taes/projects/ribbon/revisions/rev_b33a5ed_42c3e4c/rev_b33a5ed-42c3e4c/ribbon-core/src/test/java/com/netflix/serialization/JacksonSerializerTest.java;<<<<<<< MINE
+@Test
+    public void testSerializeList() throws Exception {
+        List<Person> people = Lists.newArrayList();
+        for (int i = 0; i < 3; i++) {
+            people.add(new Person("person " + i, i));
+        }
+        JacksonSerializationFactory factory = new JacksonSerializationFactory();
+        ContentTypeBasedSerializerKey key = new ContentTypeBasedSerializerKey("application/json", new TypeToken<List<Person>>(){});
+        Serializer serializer = factory.getSerializer(key).get();
+        String content = new String(serializer.serialize(people), "UTF-8");
+        Deserializer deserializer = factory.getDeserializer(key).get();
+        List<Person> list = deserializer.deserialize(content.getBytes("UTF-8"), new TypeToken<List<Person>>(){});
+        assertEquals(people, list);
+        Person person = new Person("ribbon", 1);
+        byte[] bytes = serializer.serialize(person);
+        Person deserialized = deserializer.deserialize(bytes, TypeToken.of(Person.class));
+        assertEquals(person, deserialized);
+        deserialized = deserializer.deserialize(bytes, Person.class);
+        assertEquals(person, deserialized);
+    }
+=======
+@SuppressWarnings("serial")
+    @Test
+    public void testSerializeList() throws Exception {
+        List<Person> people = Lists.newArrayList();
+        for (int i = 0; i < 3; i++) {
+            people.add(new Person("person " + i, i));
+        }
+        JacksonSerializationFactory factory = new JacksonSerializationFactory();
+        ContentTypeBasedSerializerKey key = new ContentTypeBasedSerializerKey("application/json", new TypeToken<List<Person>>(){});
+        Serializer serializer = factory.getSerializer(key).get();
+        String content = new String(serializeToBytes(people, serializer), "UTF-8");
+        Deserializer deserializer = factory.getDeserializer(key).get();
+        List<Person> list = deserializer.deserialize(new ByteArrayInputStream(content.getBytes("UTF-8")), new TypeToken<List<Person>>(){});
+        assertEquals(people, list);
+        Person person = new Person("ribbon", 1);
+        byte[] bytes = serializeToBytes(person, serializer);
+        Person deserialized = deserializer.deserialize(new ByteArrayInputStream(bytes), TypeToken.of(Person.class));
+        assertEquals(person, deserialized);
+        deserialized = deserializer.deserialize(new ByteArrayInputStream(bytes), TypeToken.of(Person.class));
+        assertEquals(person, deserialized);
+        
+        ObjectMapper mapper = new ObjectMapper();
+        deserialized = (Person) mapper.readValue(bytes, TypeToken.of(Person.class).getRawType());
+        assertEquals(person, deserialized);
+    }
+>>>>>>> YOURS
+/home/taes/taes/projects/ribbon/revisions/rev_b33a5ed_42c3e4c/rev_b33a5ed-42c3e4c/ribbon-httpclient/src/main/java/com/netflix/niws/client/http/RestClient.java;<<<<<<< MINE
+@Override
+    protected boolean isRetriableException(Throwable e) {
+        boolean shouldRetry = isConnectException(e) || isSocketException(e);
+        if (e instanceof ClientException
+                && ((ClientException)e).getErrorType() == ClientException.ErrorType.SERVER_THROTTLED){
+            shouldRetry = true;
+        }
+        return shouldRetry;
+    }
+=======
+@Override
+    protected boolean isRetriableException(Throwable e) {
+        if (e instanceof ClientException
+                && ((ClientException)e).getErrorType() == ClientException.ErrorType.SERVER_THROTTLED){
+            return false;
+        }
+        boolean shouldRetry = isConnectException(e) || isSocketException(e);
+        return shouldRetry;
+    }
+>>>>>>> YOURS
+/home/taes/taes/projects/ribbon/revisions/rev_b33a5ed_42c3e4c/rev_b33a5ed-42c3e4c/ribbon-httpclient/src/main/java/com/netflix/niws/client/http/RestClient.java;<<<<<<< MINE
+@Override
+    protected boolean isCircuitBreakerException(Throwable e) {
+        return isConnectException(e) || isSocketException(e);
+    }
+=======
+@Override
+    protected boolean isCircuitBreakerException(Throwable e) {
+        if (e instanceof ClientException) {
+            ClientException clientException = (ClientException) e;
+            if (clientException.getErrorType() == ClientException.ErrorType.SERVER_THROTTLED) {
+                return true;
+            }
+        }
+        return isConnectException(e) || isSocketException(e);
+    }
+>>>>>>> YOURS
+/home/taes/taes/projects/atlas/revisions/rev_799f8e4_9f4a697/rev_799f8e4-9f4a697/atlas-gradle-plugin/dexpatch/src/main/java/com/taobao/android/apatch/ApkPatch.java;<<<<<<< MINE
+            File smaliDir2 = new File(aptchFolder, "smali2");
+            if (!smaliDir2.exists()) {
+                smaliDir2.mkdirs();
+            }
+            try {
+                FileUtils.cleanDirectory(smaliDir2);
+            } catch (IOException e) {
+                throw new RuntimeException(e);
+            }
+            prepareClasses = buildPrepareClass(smaliDir2, newFiles, info);
+=======
+            List filterClasses = null;
+            if (dexDiffer.getFilter()!= null){
+                filterClasses = dexDiffer.getFilter().getFilteredClasses();
+            }
+
+            List finalFilterClasses = filterClasses;
+            Collections.sort(classes, new Comparator<String>() {
+                @Override
+                public int compare(String o1, String o2) {
+                    if (dexDiffer.getFilter() == null){
+                        return 0;
+                    }else {
+                        return finalFilterClasses.indexOf(o1) - finalFilterClasses.indexOf(o2);
+                    }
+                }
+            });
+
+
+
+//            //æ¯å¦ä¿®æ¹dex
+//            if (APatchTool.debug) {
+//                PatchMethodTool.modifyMethod(dexFile.getAbsolutePath(), dexFile.getAbsolutePath(), true);
+//            }
+//
+            File smaliDir2 = new File(aptchFolder, "smali2");
+            if (!smaliDir2.exists()) {
+                smaliDir2.mkdirs();
+            }
+            try {
+                FileUtils.cleanDirectory(smaliDir2);
+            } catch (IOException e) {
+                throw new RuntimeException(e);
+            }
+           prepareClasses = buildPrepareClass(smaliDir2, newFiles, info);
+>>>>>>> YOURS
+/home/taes/taes/projects/ribbon/revisions/rev_4be8bde_47e5ff8/rev_4be8bde-47e5ff8/ribbon-core/src/main/java/com/netflix/client/PrimeConnections.java;<<<<<<< MINE
+=======
+public void shutdown() {
+        executorService.shutdown();
+        Monitors.unregisterObject(name + "_PrimeConnection", this);
+    }
+>>>>>>> YOURS
+/home/taes/taes/projects/ribbon/revisions/rev_4be8bde_47e5ff8/rev_4be8bde-47e5ff8/ribbon-core/src/main/java/com/netflix/loadbalancer/DynamicServerListLoadBalancer.java;<<<<<<< MINE
+=======
+public void run() {
+            if (!serverRefreshEnabled) {
+                if (scheduledFuture != null) {
+                    scheduledFuture.cancel(true);
+                }
+                return;
+            }
+            try {
+                updateListOfServers();
+
+            } catch (Throwable e) {
+                LOGGER.error(
+                        "Exception while updating List of Servers obtained from Discovery client",
+                        e);
+                // e.printStackTrace();
+            }
+        }
+>>>>>>> YOURS
+/home/taes/taes/projects/ribbon/revisions/rev_4be8bde_47e5ff8/rev_4be8bde-47e5ff8/ribbon-core/src/main/java/com/netflix/loadbalancer/DynamicServerListLoadBalancer.java;<<<<<<< MINE
+=======
+@Override
+    public String toString() {
+        StringBuilder sb = new StringBuilder("DynamicServerListLoadBalancer:");
+        sb.append(super.toString());
+        sb.append("ServerList:" + String.valueOf(serverListImpl));
+        return sb.toString();
+    }
+>>>>>>> YOURS
+/home/taes/taes/projects/ribbon/revisions/rev_aebc2c4_89ee7d8/rev_aebc2c4-89ee7d8/ribbon-client-extensions/src/main/java/com/netflix/ribbonclientextensions/Ribbon.java;<<<<<<< MINE
+public static <I, O, T> T from(Class<T> contract, HttpClient<I, O> transportClient) {
+        return RibbonDynamicProxy.newInstance(contract, transportClient);
+    }
+=======
+>>>>>>> YOURS
+/home/taes/taes/projects/elephant-bird/revisions/rev_b784885_342f336/rev_b784885-342f336/src/java/com/twitter/elephantbird/pig/load/LzoBaseLoadFunc.java;<<<<<<< MINE
+protected RequiredFieldResponse pushProjectionHelper(
+                                          RequiredFieldList requiredFieldList)
+                                          throws FrontendException {
+    try {
+      getUDFProperties().setProperty(
+                          contextSignature + projectionSuffix,
+                          ObjectSerializer.serialize(requiredFieldList));
+    } catch (IOException e) { // not expected
+      throw new FrontendException(e);
+    }
+
+    return new RequiredFieldResponse(true);
+  }
+=======
+protected RequiredFieldResponse pushProjectionHelper(
+                                          RequiredFieldList requiredFieldList)
+                                          throws FrontendException {
+    try {
+      getUDFProperties().setProperty(projectionKey,
+                                     ObjectSerializer.serialize(requiredFieldList));
+    } catch (IOException e) { // not expected
+      throw new FrontendException(e);
+    }
+
+    return new RequiredFieldResponse(true);
+  }
+>>>>>>> YOURS
+/home/taes/taes/projects/elephant-bird/revisions/rev_13f2963_3a82539/rev_13f2963-3a82539/src/java/com/twitter/elephantbird/mapred/output/DeprecatedLzoTextOutputFormat.java;<<<<<<< MINE
+@Override
+  public RecordWriter<K, V> getRecordWriter(FileSystem ignored, JobConf job,
+      String name, Progressable progress) throws IOException {
+
+    Path file = getPathForCustomFile(job,  "part");
+    file = file.suffix(LzopCodec.DEFAULT_LZO_EXTENSION);
+
+    return new LineRecordWriter<K, V>(
+                  LzoUtils.getIndexedLzoOutputStream(job, file),
+                  job.get("mapred.textoutputformat.separator", "\t"));
+  }
+=======
+@Override
+  public RecordWriter<NullWritable, Text> getRecordWriter(FileSystem ignored,
+      JobConf job, String name, Progressable progress) throws IOException {
+
+    final DataOutputStream out = getOutputStream(job);
+
+    return new RecordWriter<NullWritable, Text>() {
+
+      public void close(Reporter reporter) throws IOException {
+        out.close();
+      }
+
+      public void write(NullWritable key, Text value) throws IOException {
+        out.write(value.getBytes(), 0, value.getLength());
+        out.write('\n');
+      }
+    };
+  }
+>>>>>>> YOURS
+/home/taes/taes/projects/retrofit/revisions/rev_2ef7ca0_941ae85/rev_2ef7ca0-941ae85/retrofit/src/main/java/retrofit/http/RestMethodInfo.java;<<<<<<< MINE
+=======
+        } else if (annotationType == Header.class) {
+          String header = ((Header) parameterAnnotation).value();
+          headerParams[i] = header;
+          if (parameterType != String.class) {
+            throw new IllegalStateException(
+                "Expected @Header parameter type to be String: " + header);
+          }
+        } else if (annotationType == SingleEntity.class) {
+          if (isMultipart) {
+            throw new IllegalStateException("SingleEntity cannot be used with multipart request.");
+          }
+          if (singleEntityArgumentIndex != NO_SINGLE_ENTITY) {
+            throw new IllegalStateException(
+                "Method annotated with multiple SingleEntity method annotations: " + method);
+          }
+          singleEntityArgumentIndex = i;
+        } else {
+          throw new IllegalStateException(
+              "Argument " + i + " has invalid annotation " + annotationType + ": " + method);
+>>>>>>> YOURS
+/home/taes/taes/projects/retrofit/revisions/rev_2ef7ca0_941ae85/rev_2ef7ca0-941ae85/retrofit/src/main/java/retrofit/http/RequestBuilder.java;<<<<<<< MINE
+=======
+private List<Parameter> createParamList() {
+    List<Parameter> params = new ArrayList<Parameter>();
+
+    // Add arguments as parameters.
+    String[] pathNamedParams = methodInfo.namedParams;
+    int singleEntityArgumentIndex = methodInfo.singleEntityArgumentIndex;
+    for (int i = 0; i < pathNamedParams.length; i++) {
+      Object arg = args[i];
+      if (arg == null || pathNamedParams[i] == null) continue;
+      if (i != singleEntityArgumentIndex) {
+        params.add(new Parameter(pathNamedParams[i], arg, arg.getClass()));
+      }
+    }
+
+    return params;
+  }
+>>>>>>> YOURS
+/home/taes/taes/projects/retrofit/revisions/rev_2ef7ca0_941ae85/rev_2ef7ca0-941ae85/retrofit/src/main/java/retrofit/http/RequestBuilder.java;<<<<<<< MINE
+    return new Request(methodInfo.requestMethod, url.toString(), headers, buildBody());
+=======
+    List<HeaderPair> headers = new ArrayList<HeaderPair>();
+    if (this.headers != null) {
+      headers.addAll(this.headers);
+    }
+    if (methodInfo.headers != null) {
+      headers.addAll(methodInfo.headers);
+    }
+    // RFC 2616: Field names are case-insensitive
+    List<String> lcHeadersToRemove = new ArrayList<String>();
+    if (methodInfo.headerParams != null) {
+      for (int i = 0; i < methodInfo.headerParams.length; i++) {
+        String name = methodInfo.headerParams[i];
+        if (name == null) continue;
+        Object arg = args[i];
+        if (arg != null) {
+          headers.add(new HeaderPair(name, arg.toString()));
+        } else {
+          lcHeadersToRemove.add(name.toLowerCase());
+        }
+      }
+    }
+    for (Iterator<HeaderPair> header = headers.iterator(); header.hasNext();) {
+      // RFC 2616: Field names are case-insensitive
+      if (lcHeadersToRemove.contains(header.next().getName().toLowerCase()))
+        header.remove();
+    }
+    return new Request(methodInfo.restMethod.value(), url.toString(), headers, body);
+>>>>>>> YOURS
+/home/taes/taes/projects/elephant-bird/revisions/rev_2e05eec_21dbeee/rev_2e05eec-21dbeee/src/java/com/twitter/elephantbird/util/ThriftUtils.java;<<<<<<< MINE
+public static Class<?> getFiedlType(Class<?> containingClass, String fieldName) {
+    try {
+      java.lang.reflect.Field field = containingClass.getDeclaredField(fieldName);
+      return field.getType();
+    } catch (NoSuchFieldException e) {
+      throw new RuntimeException("while trying to find " + fieldName + " in "
+                                 + containingClass, e);
+    }
+  }
+=======
+>>>>>>> YOURS
+/home/taes/taes/projects/retrofit/revisions/rev_d665e56_bf94f53/rev_d665e56-bf94f53/retrofit/src/main/java/retrofit/http/RequestBuilder.java;<<<<<<< MINE
+private TypedOutput buildBody() {
+    switch (methodInfo.requestType) {
+      case SIMPLE: {
+        int bodyIndex = methodInfo.bodyIndex;
+        if (bodyIndex == NO_BODY) {
+          return null;
+        }
+        Object body = args[bodyIndex];
+        if (body instanceof TypedOutput) {
+          return (TypedOutput) body;
+        } else {
+          return converter.toBody(body);
+        }
+      }
+
+      case FORM_URL_ENCODED: {
+        FormUrlEncodedTypedOutput body = new FormUrlEncodedTypedOutput();
+        String[] requestFormPair = methodInfo.requestFormPair;
+        for (int i = 0; i < requestFormPair.length; i++) {
+          String name = requestFormPair[i];
+          if (name != null) {
+            body.addField(name, String.valueOf(args[i]));
+          }
+        }
+        return body;
+      }
+
+      case MULTIPART: {
+        MultipartTypedOutput body = new MultipartTypedOutput();
+        String[] requestMultipartPart = methodInfo.requestMultipartPart;
+        for (int i = 0; i < requestMultipartPart.length; i++) {
+          String name = requestMultipartPart[i];
+          if (name != null) {
+            Object value = args[i];
+            if (value instanceof TypedOutput) {
+              body.addPart(name, (TypedOutput) value);
+            } else {
+              body.addPart(name, converter.toBody(value));
+            }
+          }
+        }
+        return body;
+      }
+
+      default:
+        throw new IllegalArgumentException("Unknown request type " + methodInfo.requestType);
+    }
+  }
+=======
+>>>>>>> YOURS
+/home/taes/taes/projects/retrofit/revisions/rev_d665e56_bf94f53/rev_d665e56-bf94f53/retrofit/src/test/java/retrofit/http/mime/FormUrlEncodingTypedOutputTest.java;<<<<<<< MINE
+@Test public void urlEncoding() throws Exception {
+    FormUrlEncodedTypedOutput fe = new FormUrlEncodedTypedOutput();
+    fe.addField("a&b", "c=d");
+    fe.addField("space, the", "final frontier");
+
+    ByteArrayOutputStream out = new ByteArrayOutputStream();
+    fe.writeTo(out);
+    String actual = new String(out.toByteArray(), "UTF-8");
+    assertThat(actual).isEqualTo("a%26b=c%3Dd&space%2C+the=final+frontier");
+  }
+=======
+>>>>>>> YOURS
+/home/taes/taes/projects/retrofit/revisions/rev_d665e56_bf94f53/rev_d665e56-bf94f53/retrofit/src/test/java/retrofit/http/mime/FormUrlEncodingTypedOutputTest.java;<<<<<<< MINE
+@Test public void utf8encoding() throws Exception {
+    FormUrlEncodedTypedOutput fe = new FormUrlEncodedTypedOutput();
+    fe.addField("ooÉ", "É¹Éq");
+
+    ByteArrayOutputStream out = new ByteArrayOutputStream();
+    fe.writeTo(out);
+    String actual = new String(out.toByteArray(), "UTF-8");
+    assertThat(actual).isEqualTo("oo%C9%9F=%C9%B9%C9%90q");
+  }
+=======
+>>>>>>> YOURS
+/home/taes/taes/projects/retrofit/revisions/rev_d665e56_bf94f53/rev_d665e56-bf94f53/retrofit/src/test/java/retrofit/http/mime/FormUrlEncodingTypedOutputTest.java;<<<<<<< MINE
+@Test public void encodedPairs() throws Exception {
+    FormUrlEncodedTypedOutput fe = new FormUrlEncodedTypedOutput();
+    fe.addField("sim", "ple");
+
+    ByteArrayOutputStream out1 = new ByteArrayOutputStream();
+    fe.writeTo(out1);
+    String actual1 = new String(out1.toByteArray(), "UTF-8");
+    assertThat(actual1).isEqualTo("sim=ple");
+
+    fe.addField("hey", "there");
+    fe.addField("help", "me");
+
+    ByteArrayOutputStream out2 = new ByteArrayOutputStream();
+    fe.writeTo(out2);
+    String actual2 = new String(out2.toByteArray(), "UTF-8");
+    assertThat(actual2).isEqualTo("sim=ple&hey=there&help=me");
+  }
+=======
+>>>>>>> YOURS
+/home/taes/taes/projects/elephant-bird/revisions/rev_a7db88d_d84d866/rev_a7db88d-d84d866/src/java/com/twitter/elephantbird/mapred/input/DeprecatedInputFormatWrapper.java;<<<<<<< MINE
+public static void setInputFormat(Class<?> realInputFormatClass,
+                                    JobConf jobConf) {
+    jobConf.setInputFormat(DeprecatedInputFormatWrapper.class);
+    HadoopUtils.setInputFormatClass(jobConf, CLASS_CONF_KEY, realInputFormatClass);
+  }
+=======
+public static void setInputFormat(Class<?> realInputFormatClass, JobConf jobConf) {
+    jobConf.setInputFormat(DeprecatedInputFormatWrapper.class);
+    HadoopUtils.setInputFormatClass(jobConf, CLASS_CONF_KEY, realInputFormatClass);
+  }
+>>>>>>> YOURS
+/home/taes/taes/projects/ribbon/revisions/rev_879cae7_4bd4aa3/rev_879cae7-4bd4aa3/ribbon/src/main/java/com/netflix/ribbon/http/HttpResourceGroup.java;<<<<<<< MINE
+public void withClientOptions(ClientOptions options) {
+
+        }
+=======
+public Builder withClientOptions(ClientOptions options) {
+            this.clientOptions = options;
+            return this;
+        }
+>>>>>>> YOURS
+/home/taes/taes/projects/ribbon/revisions/rev_879cae7_4bd4aa3/rev_879cae7-4bd4aa3/ribbon/src/main/java/com/netflix/ribbon/proxy/MethodTemplateExecutor.java;<<<<<<< MINE
+=======
+MethodTemplateExecutor(HttpResourceGroup httpResourceGroup, MethodTemplate methodTemplate, EvCacheProviderPool evCacheProviderPool) {
+        this.httpResourceGroup = httpResourceGroup;
+        this.methodTemplate = methodTemplate;
+        this.evCacheProviderPool = evCacheProviderPool;
+        httpRequestTemplateBuilder = createHttpRequestTemplateBuilder();
+    }
+>>>>>>> YOURS
+/home/taes/taes/projects/ribbon/revisions/rev_879cae7_4bd4aa3/rev_879cae7-4bd4aa3/ribbon/src/main/java/com/netflix/ribbon/proxy/MethodTemplateExecutor.java;<<<<<<< MINE
+private HttpRequestTemplate<?> createHttpRequestTemplate() {
+        HttpRequestTemplate<?> httpRequestTemplate = createBaseHttpRequestTemplate(httpResourceGroup);
+        for (AnnotationProcessor processor: proxyAnnotations.getProcessors()) {
+            processor.process(httpRequestTemplate, methodTemplate.getMethod());
+        }
+        return httpRequestTemplate;
+    }
+=======
+>>>>>>> YOURS
+/home/taes/taes/projects/ribbon/revisions/rev_879cae7_4bd4aa3/rev_879cae7-4bd4aa3/ribbon/src/main/java/com/netflix/ribbon/proxy/MethodTemplateExecutor.java;<<<<<<< MINE
+@SuppressWarnings({"rawtypes", "unchecked", "OverlyStrongTypeCast"})
+    private void withCacheProviders(HttpRequestTemplate<?> httpRequestTemplate) {
+        if (methodTemplate.getCacheProviders() != null) {
+            for (MethodTemplate.CacheProviderEntry entry : methodTemplate.getCacheProviders()) {
+                httpRequestTemplate.withCacheProvider(entry.getKey(), (CacheProvider) entry.getCacheProvider());
+            }
+        }
+    }
+=======
+>>>>>>> YOURS
+/home/taes/taes/projects/ribbon/revisions/rev_352cb58_00824ee/rev_352cb58-00824ee/ribbon-transport/src/test/java/com/netflix/client/netty/udp/UdpClientTest.java;<<<<<<< MINE
+@Test
+    public void testUdpClientWithoutTimeout() throws Exception {
+        server.start();
+        
+        BaseLoadBalancer lb = new BaseLoadBalancer();
+        lb.setServersList(Lists.newArrayList(new Server("localhost", server.getServerPort())));
+        RxClient<DatagramPacket, DatagramPacket> client = RibbonTransport.newUdpClient(lb,
+                DefaultClientConfigImpl.getClientConfigWithDefaultValues());
+        
+        String response = client.connect().flatMap(new Func1<ObservableConnection<DatagramPacket, DatagramPacket>,
+                Observable<DatagramPacket>>() {
+            @Override
+            public Observable<DatagramPacket> call(ObservableConnection<DatagramPacket, DatagramPacket> connection) {
+                connection.writeStringAndFlush("Is there anybody out there?");
+                return connection.getInput();
+            }
+        }).take(1)
+                .map(new Func1<DatagramPacket, String>() {
+                    @Override
+                    public String call(DatagramPacket datagramPacket) {
+                        return datagramPacket.content().toString(Charset.defaultCharset());
+                    }
+                })
+                .toBlocking()
+                .first();
+        assertEquals(HelloUdpServerExternalResource.WELCOME_MSG, response);
+    }
+=======
+>>>>>>> YOURS
+/home/taes/taes/projects/ribbon/revisions/rev_352cb58_00824ee/rev_352cb58-00824ee/ribbon-transport/src/test/java/com/netflix/client/netty/udp/UdpClientTest.java;<<<<<<< MINE
+@Test
+    public void testUdpClientTimeout() throws Exception {
+        server.setTimeout(5000);
+        server.start();
+        
+        BaseLoadBalancer lb = new BaseLoadBalancer();
+        Server myServer = new Server("localhost", server.getServerPort());
+        lb.setServersList(Lists.newArrayList(myServer));
+        MyUDPClient client = new MyUDPClient(lb, DefaultClientConfigImpl.getClientConfigWithDefaultValues());
+        try {
+            String response = client.submit("Is there anybody out there?")
+                    .map(new Func1<DatagramPacket, String>() {
+                        @Override
+                        public String call(DatagramPacket datagramPacket) {
+                            return datagramPacket.content().toString(Charset.defaultCharset());
+                        }
+                    })
+                    .toBlocking()
+                    .first();
+            fail("Exception expected");
+        } catch (Exception e) {
+            assertTrue(e.getCause() instanceof TimeoutException);
+            assertEquals(1, client.getLoadBalancerContext().getServerStats(myServer).getSuccessiveConnectionFailureCount());
+        }
+    }
+=======
+>>>>>>> YOURS
+/home/taes/taes/projects/elephant-bird/revisions/rev_9a3bd70_20697f0/rev_9a3bd70-20697f0/src/java/com/twitter/elephantbird/pig/load/SequenceFileLoader.java;<<<<<<< MINE
+=======
+public SequenceFileLoader(String keyArgs, String valueArgs, String otherArgs)
+      throws ParseException, IOException {
+    // parse key, value arguments
+    Options keyValueOptions = getKeyValueOptions();
+    Options otherOptions = getOtherOptions();
+    keyArguments = parseArguments(keyValueOptions, keyArgs);
+    valueArguments = parseArguments(keyValueOptions, valueArgs);
+    otherArguments = parseArguments(otherOptions, otherArgs);
+
+    // construct key, value converters
+    keyConverter = getWritableConverter(keyArguments);
+    valueConverter = getWritableConverter(valueArguments);
+
+    // initialize key, value converters
+    initialize();
+  }
+>>>>>>> YOURS
+/home/taes/taes/projects/elephant-bird/revisions/rev_9a3bd70_20697f0/rev_9a3bd70-20697f0/src/java/com/twitter/elephantbird/pig/load/SequenceFileLoader.java;<<<<<<< MINE
+=======
+@Override
+  public Tuple getNext() throws IOException {
+    try {
+      if (!reader.nextKeyValue())
+        return null;
+      List<Object> tuple = tuple0;
+      if (readKey) {
+        if (readValue) {
+          tuple = tuple2;
+          tuple.set(0, getCurrentKeyObject());
+          tuple.set(1, getCurrentValueObject());
+        } else {
+          tuple = tuple1;
+          tuple.set(0, getCurrentKeyObject());
+        }
+      } else if (readValue) {
+        tuple = tuple1;
+        tuple.set(0, getCurrentValueObject());
+      }
+      return tupleFactory.newTupleNoCopy(tuple);
+    } catch (EOFException e) {
+      if (!otherArguments.hasOption(SKIP_EOF_ERRORS_PARAM)) {
+        throw e;
+      }
+
+      /*
+       * Prefer to keep reading rather than causing the job to fail when it hits a file still being
+       * written.
+       */
+      LOG.warn("EOFException encountered while reading input", e);
+      counterHelper.incrCounter(Counter.EOFException, 1L);
+    } catch (InterruptedException e) {
+      throw new ExecException("Error while reading input", 6018, PigException.REMOTE_ENVIRONMENT, e);
+    }
+
+    return null;
+  }
+>>>>>>> YOURS
+/home/taes/taes/projects/elephant-bird/revisions/rev_2ad1a24_abcabcd/rev_2ad1a24-abcabcd/src/java/com/twitter/elephantbird/pig/util/ThriftToPig.java;<<<<<<< MINE
+=======
+@SuppressWarnings("rawtypes")
+  private static <T extends TBase>Tuple toTuple(TStructDescriptor tDesc, T tObj) {
+    int size = tDesc.getFields().size();
+    Tuple tuple = tupleFactory.newTuple(size);
+    for (int i=0; i<size; i++) {
+      Field field = tDesc.getFieldAt(i);
+      Object value = tDesc.getFieldValue(i, tObj);
+      try {
+        tuple.set(i, toPigObject(field, value, false));
+      } catch (ExecException e) { // not expected
+        throw new RuntimeException(e);
+      }
+    }
+    return tuple;
+  }
+>>>>>>> YOURS
+/home/taes/taes/projects/elephant-bird/revisions/rev_2ad1a24_abcabcd/rev_2ad1a24-abcabcd/src/java/com/twitter/elephantbird/pig/util/ThriftToPig.java;<<<<<<< MINE
+=======
+private static FieldSchema singleFieldToFieldSchema(String fieldName, Field field) throws FrontendException {
+    //TODO we should probably implement better naming, the current system is pretty nonsensical now
+    switch (field.getType()) {
+      case TType.STRUCT:
+        return new FieldSchema(fieldName, toSchema(field.gettStructDescriptor()), DataType.TUPLE);
+      case TType.LIST:
+        return new FieldSchema(fieldName, singleFieldToTupleSchema(fieldName + "_tuple", field.getListElemField()), DataType.BAG);
+      case TType.SET:
+        return new FieldSchema(fieldName, singleFieldToTupleSchema(fieldName + "_tuple", field.getSetElemField()), DataType.BAG);
+      case TType.MAP:
+        if (field.getMapKeyField().getType() != TType.STRING
+            && field.getMapKeyField().getType() != TType.ENUM) {
+          LOG.warn("Using a map with non-string key for field " + field.getName()
+              + ". while converting to PIG Tuple, toString() is used for the key."
+              + " It could result in incorrect maps.");
+        }
+        return new FieldSchema(fieldName, new Schema(singleFieldToFieldSchema(null, field.getMapValueField())), DataType.MAP);
+      default:
+        return new FieldSchema(fieldName, null, getPigDataType(field));
+    }
+  }
+>>>>>>> YOURS
+/home/taes/taes/projects/elephant-bird/revisions/rev_643ff62_8dd1811/rev_643ff62-8dd1811/src/java/com/twitter/elephantbird/mapreduce/output/RCFileThriftOutputFormat.java;<<<<<<< MINE
+ProtobufWriter(TaskAttemptContext job) throws IOException {
+      super(RCFileThriftOutputFormat.this, job, Protobufs.toText(makeColumnarMetadata()));
+    }
+=======
+>>>>>>> YOURS
+/home/taes/taes/projects/elephant-bird/revisions/rev_643ff62_8dd1811/rev_643ff62-8dd1811/src/java/com/twitter/elephantbird/mapreduce/output/RCFileProtobufOutputFormat.java;<<<<<<< MINE
+ProtobufWriter(TaskAttemptContext job) throws IOException {
+      super(RCFileProtobufOutputFormat.this, job, Protobufs.toText(makeColumnarMetadata()));
+    }
+=======
+>>>>>>> YOURS
+/home/taes/taes/projects/elephant-bird/revisions/rev_6d28c12_2c0f0fe/rev_6d28c12-2c0f0fe/rcfile/src/main/java/com/twitter/elephantbird/mapreduce/input/RCFileProtobufInputFormat.java;<<<<<<< MINE
+public Tuple getCurrentTupleValue() throws IOException, InterruptedException {
+
+      BytesRefArrayWritable byteRefs = getCurrentValue();
+      if (byteRefs == null) {
+        return null;
+      }
+
+      Tuple tuple = tf.newTuple(knownRequiredFields.size());
+
+      for (int i=0; i < knownRequiredFields.size(); i++) {
+        BytesRefWritable buf = byteRefs.get(columnsBeingRead.get(i));
+        FieldDescriptor fd = knownRequiredFields.get(i);
+        Object value = null;
+        if (buf.getLength() > 0) {
+          value = Protobufs.readFieldNoTag(
+              CodedInputStream.newInstance(buf.getData(), buf.getStart(), buf.getLength()),
+              knownRequiredFields.get(i),
+              msgBuilder);
+        } else { // use the value from default instance
+          value = msgInstance.getField(fd);
+        }
+        tuple.set(i, protoToPig.fieldToPig(fd, value));
+      }
+
+      if (readUnknownsColumn) {
+        // we can handle this if needed.
+        throw new IOException("getCurrentTupleValue() is not supported when 'readUnknownColumns' is set");
+      }
+
+      return tuple;
+    }
+=======
+>>>>>>> YOURS
+/home/taes/taes/projects/elephant-bird/revisions/rev_923d61a_468dd30/rev_923d61a-468dd30/src/java/com/twitter/elephantbird/thrift/TStructDescriptor.java;<<<<<<< MINE
+private void build(Class<? extends TBase<?, ?>> tClass) {
+    Map<? extends TFieldIdEnum, FieldMetaData> fieldMap = FieldMetaData.getStructMetaDataMap(tClass);
+    Field[] arr = new Field[fieldMap.size()];
+
+    isUnion = TUnion.class.isAssignableFrom(tClass);
+
+    int idx = 0;
+    for (Entry<? extends TFieldIdEnum, FieldMetaData> e : fieldMap.entrySet()) {
+      arr[idx++] = new Field(e.getKey(),
+                             e.getValue(),
+                             e.getKey().getFieldName(),
+                             tClass,
+                             e.getValue().valueMetaData);
+    }
+    // make it immutable since users have access.
+    fields = ImmutableList.copyOf(arr);
+  }
+=======
+>>>>>>> YOURS
+/home/taes/taes/projects/elephant-bird/revisions/rev_af48e3e_1efa52d/rev_af48e3e-1efa52d/core/src/main/java/com/twitter/elephantbird/mapreduce/io/BinaryBlockReader.java;<<<<<<< MINE
+public List<ByteString> parseNextBlock() throws IOException {
+    LOG.debug("BlockReader: none left to read, skipping to sync point");
+    if (!skipToNextSyncPoint()) {
+      LOG.debug("BlockReader: SYNC point eof");
+      // EOF if there are no more sync markers.
+      return null;
+    }
+
+    int blockSize = readInt();
+    if(LOG.isDebugEnabled()) {
+      LOG.debug("BlockReader: found sync point, next block has size " + blockSize);
+    }
+    if (blockSize < 0) {
+      LOG.debug("ProtobufReader: reading size after sync point eof");
+      // EOF if the size cannot be read.
+      return null;
+    }
+
+    byte[] byteArray = new byte[blockSize];
+    IOUtils.readFully(in_, byteArray, 0, blockSize);
+    SerializedBlock block = SerializedBlock.parseFrom(byteArray);
+
+    curBlobs_ = block.getProtoBlobs();
+    numLeftToReadThisBlock_ = curBlobs_.size();
+    LOG.debug("ProtobufReader: number in next block is " + numLeftToReadThisBlock_);
+    return curBlobs_;
+  }
+=======
+>>>>>>> YOURS

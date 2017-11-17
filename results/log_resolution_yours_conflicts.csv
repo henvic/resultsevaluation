@@ -1,0 +1,179 @@
+/home/taes/taes/projects/elephant-bird/revisions/rev_8eed34e_cebd3d0/rev_8eed34e-cebd3d0/src/java/com/twitter/elephantbird/mapreduce/io/ProtobufBlockReader.java;<<<<<<< MINE
+    in_ = in;
+    protoConverter_ = Protobufs.getProtoConverter(typeRef.getRawClass());
+    searcher_ = new StreamSearcher(Protobufs.KNOWN_GOOD_POSITION_MARKER);
+=======
+>>>>>>> YOURS
+/home/taes/taes/projects/elephant-bird/revisions/rev_8eed34e_cebd3d0/rev_8eed34e-cebd3d0/src/java/com/twitter/elephantbird/pig/util/PigCounterHelper.java;<<<<<<< MINE
+    Long currentValue = counterEnumMap_.get(key);
+    counterEnumMap_.put(key, (currentValue == null ? 0 : currentValue) + incr);
+
+=======
+>>>>>>> YOURS
+/home/taes/taes/projects/elephant-bird/revisions/rev_8eed34e_cebd3d0/rev_8eed34e-cebd3d0/src/test/com/twitter/elephantbird/pig/piggybank/TestThriftToPig.java;<<<<<<< MINE
+    assertTrue(true);
+=======
+>>>>>>> YOURS
+/home/taes/taes/projects/elephant-bird/revisions/rev_b0d7a3e_6abbab9/rev_b0d7a3e-6abbab9/examples/src/gen-java/com/twitter/elephantbird/examples/proto/mapreduce/input/LzoPersonProtobufBlockInputFormat.java;<<<<<<< MINE
+    setProtobufWritable(new ProtobufPersonWritable());
+=======
+>>>>>>> YOURS
+/home/taes/taes/projects/elephant-bird/revisions/rev_b0d7a3e_6abbab9/rev_b0d7a3e-6abbab9/examples/src/gen-java/com/twitter/elephantbird/examples/proto/mapreduce/input/LzoAddressBookProtobufB64LineInputFormat.java;<<<<<<< MINE
+    setProtobufWritable(new ProtobufAddressBookWritable());
+=======
+>>>>>>> YOURS
+/home/taes/taes/projects/elephant-bird/revisions/rev_b0d7a3e_6abbab9/rev_b0d7a3e-6abbab9/examples/src/gen-java/com/twitter/elephantbird/examples/proto/mapreduce/input/LzoPersonProtobufB64LineInputFormat.java;<<<<<<< MINE
+    setProtobufWritable(new ProtobufPersonWritable());
+=======
+>>>>>>> YOURS
+/home/taes/taes/projects/elephant-bird/revisions/rev_b0d7a3e_6abbab9/rev_b0d7a3e-6abbab9/examples/src/gen-java/com/twitter/elephantbird/examples/proto/mapreduce/input/LzoAddressBookProtobufBlockInputFormat.java;<<<<<<< MINE
+    setProtobufWritable(new ProtobufAddressBookWritable());
+=======
+>>>>>>> YOURS
+/home/taes/taes/projects/elephant-bird/revisions/rev_b0d7a3e_6abbab9/rev_b0d7a3e-6abbab9/src/java/com/twitter/elephantbird/proto/codegen/LzoProtobufBlockOutputFormatGenerator.java;<<<<<<< MINE
+    sb.append("import %s.mapreduce.io.Protobuf%sWritable;", packageName_, descriptorProto_.getName()).endl();
+=======
+>>>>>>> YOURS
+/home/taes/taes/projects/elephant-bird/revisions/rev_b0d7a3e_6abbab9/rev_b0d7a3e-6abbab9/src/java/com/twitter/elephantbird/proto/codegen/LzoProtobufBlockInputFormatGenerator.java;<<<<<<< MINE
+    sb.append("import %s.mapreduce.io.Protobuf%sWritable;", packageName_, descriptorProto_.getName()).endl();
+=======
+>>>>>>> YOURS
+/home/taes/taes/projects/elephant-bird/revisions/rev_b0d7a3e_6abbab9/rev_b0d7a3e-6abbab9/src/java/com/twitter/elephantbird/proto/codegen/LzoProtobufBlockInputFormatGenerator.java;<<<<<<< MINE
+    sb.append("    setProtobufWritable(new Protobuf%sWritable());", descriptorProto_.getName()).endl();
+=======
+>>>>>>> YOURS
+/home/taes/taes/projects/elephant-bird/revisions/rev_b0d7a3e_6abbab9/rev_b0d7a3e-6abbab9/src/java/com/twitter/elephantbird/proto/codegen/LzoProtobufB64LineOutputFormatGenerator.java;<<<<<<< MINE
+    sb.append("import %s.mapreduce.io.Protobuf%sWritable;", packageName_, descriptorProto_.getName()).endl();
+=======
+>>>>>>> YOURS
+/home/taes/taes/projects/elephant-bird/revisions/rev_b0d7a3e_6abbab9/rev_b0d7a3e-6abbab9/src/java/com/twitter/elephantbird/proto/codegen/LzoProtobufB64LineInputFormatGenerator.java;<<<<<<< MINE
+    sb.append("import %s.mapreduce.io.Protobuf%sWritable;", packageName_, descriptorProto_.getName()).endl();
+=======
+>>>>>>> YOURS
+/home/taes/taes/projects/elephant-bird/revisions/rev_b0d7a3e_6abbab9/rev_b0d7a3e-6abbab9/src/java/com/twitter/elephantbird/proto/codegen/LzoProtobufB64LineInputFormatGenerator.java;<<<<<<< MINE
+    sb.append("    setProtobufWritable(new Protobuf%sWritable());", descriptorProto_.getName()).endl();
+=======
+>>>>>>> YOURS
+/home/taes/taes/projects/elephant-bird/revisions/rev_1416fa5_839a574/rev_1416fa5-839a574/examples/src/gen-java/com/twitter/elephantbird/examples/proto/mapreduce/input/LzoPersonProtobufBlockInputFormat.java;<<<<<<< MINE
+    setProtobufWritable(new ProtobufPersonWritable());
+=======
+>>>>>>> YOURS
+/home/taes/taes/projects/elephant-bird/revisions/rev_1416fa5_839a574/rev_1416fa5-839a574/examples/src/gen-java/com/twitter/elephantbird/examples/proto/mapreduce/input/LzoAddressBookProtobufB64LineInputFormat.java;<<<<<<< MINE
+    setProtobufWritable(new ProtobufAddressBookWritable());
+=======
+>>>>>>> YOURS
+/home/taes/taes/projects/elephant-bird/revisions/rev_1416fa5_839a574/rev_1416fa5-839a574/examples/src/gen-java/com/twitter/elephantbird/examples/proto/mapreduce/input/LzoPersonProtobufB64LineInputFormat.java;<<<<<<< MINE
+    setProtobufWritable(new ProtobufPersonWritable());
+=======
+>>>>>>> YOURS
+/home/taes/taes/projects/elephant-bird/revisions/rev_1416fa5_839a574/rev_1416fa5-839a574/examples/src/gen-java/com/twitter/elephantbird/examples/proto/mapreduce/input/LzoAddressBookProtobufBlockInputFormat.java;<<<<<<< MINE
+    setProtobufWritable(new ProtobufAddressBookWritable());
+=======
+>>>>>>> YOURS
+/home/taes/taes/projects/elephant-bird/revisions/rev_1416fa5_839a574/rev_1416fa5-839a574/src/java/com/twitter/elephantbird/proto/codegen/LzoProtobufBlockOutputFormatGenerator.java;<<<<<<< MINE
+    sb.append("import %s.mapreduce.io.Protobuf%sWritable;", packageName_, descriptorProto_.getName()).endl();
+=======
+>>>>>>> YOURS
+/home/taes/taes/projects/elephant-bird/revisions/rev_1416fa5_839a574/rev_1416fa5-839a574/src/java/com/twitter/elephantbird/proto/codegen/LzoProtobufBlockInputFormatGenerator.java;<<<<<<< MINE
+    sb.append("import %s.mapreduce.io.Protobuf%sWritable;", packageName_, descriptorProto_.getName()).endl();
+=======
+>>>>>>> YOURS
+/home/taes/taes/projects/elephant-bird/revisions/rev_1416fa5_839a574/rev_1416fa5-839a574/src/java/com/twitter/elephantbird/proto/codegen/LzoProtobufBlockInputFormatGenerator.java;<<<<<<< MINE
+    sb.append("    setProtobufWritable(new Protobuf%sWritable());", descriptorProto_.getName()).endl();
+=======
+>>>>>>> YOURS
+/home/taes/taes/projects/elephant-bird/revisions/rev_1416fa5_839a574/rev_1416fa5-839a574/src/java/com/twitter/elephantbird/proto/codegen/LzoProtobufB64LineOutputFormatGenerator.java;<<<<<<< MINE
+    sb.append("import %s.mapreduce.io.Protobuf%sWritable;", packageName_, descriptorProto_.getName()).endl();
+=======
+>>>>>>> YOURS
+/home/taes/taes/projects/elephant-bird/revisions/rev_1416fa5_839a574/rev_1416fa5-839a574/src/java/com/twitter/elephantbird/proto/codegen/LzoProtobufB64LineInputFormatGenerator.java;<<<<<<< MINE
+    sb.append("import %s.mapreduce.io.Protobuf%sWritable;", packageName_, descriptorProto_.getName()).endl();
+=======
+>>>>>>> YOURS
+/home/taes/taes/projects/elephant-bird/revisions/rev_1416fa5_839a574/rev_1416fa5-839a574/src/java/com/twitter/elephantbird/proto/codegen/LzoProtobufB64LineInputFormatGenerator.java;<<<<<<< MINE
+    sb.append("    setProtobufWritable(new Protobuf%sWritable());", descriptorProto_.getName()).endl();
+=======
+>>>>>>> YOURS
+/home/taes/taes/projects/elephant-bird/revisions/rev_b87762a_3125301/rev_b87762a-3125301/src/java/com/twitter/elephantbird/mapreduce/output/LzoThriftB64LineOutputFormat.java;<<<<<<< MINE
+
+  @Override
+=======
+
+>>>>>>> YOURS
+/home/taes/taes/projects/curator/revisions/rev_1ee1673_859a623/rev_1ee1673-859a623/curator-recipes/src/test/java/com/netflix/curator/framework/recipes/queue/TestQueueSharder.java;<<<<<<< MINE
+
+            timing.sleepABit(); // let queue clear
+=======
+>>>>>>> YOURS
+/home/taes/taes/projects/retrofit/revisions/rev_35b7257_838711b/rev_35b7257-838711b/http/src/main/java/retrofit/http/RestAdapter.java;<<<<<<< MINE
+
+      @SuppressWarnings("unchecked")
+=======
+>>>>>>> YOURS
+/home/taes/taes/projects/atlas/revisions/rev_a504c52_dd98861/rev_a504c52-dd98861/atlas-core/src/main/java/android/taobao/atlas/framework/bundlestorage/BundleArchive.java;<<<<<<< MINE
+                }else if(dexPatchVersion<=0){
+                    if(System.currentTimeMillis()-dir.lastModified()>30*1000) {
+                        return true;
+                    }
+=======
+>>>>>>> YOURS
+/home/taes/taes/projects/atlas/revisions/rev_8d5a4e8_cc2b800/rev_8d5a4e8-cc2b800/atlas-gradle-plugin/atlas-plugin/src/main/java/com/taobao/android/builder/manager/AtlasAppTaskManager.java;<<<<<<< MINE
+                try {
+                    hookFastMultiDex(appVariantContext);
+                } catch (Exception e) {
+                    throw new GradleException(e.getMessage(), e);
+                }
+
+=======
+>>>>>>> YOURS
+/home/taes/taes/projects/ribbon/revisions/rev_1c246b4_f841ad0/rev_1c246b4-f841ad0/ribbon-httpclient/src/main/java/com/netflix/http4/NFHttpClientFactory.java;<<<<<<< MINE
+        			if (registerMonitor) {
+        			    Monitors.registerObject("HttpClient_" + name, client);
+        			}
+=======
+>>>>>>> YOURS
+/home/taes/taes/projects/elephant-bird/revisions/rev_ad562ae_130cfc6/rev_ad562ae-130cfc6/src/java/com/twitter/elephantbird/mapreduce/input/LzoInputFormat.java;<<<<<<< MINE
+    // To help split the files at LZO boundaries, walk the list of lzo files and, if they
+    // have an associated index file, save that for later.
+    for (FileStatus result : results) {
+      LzoIndex index = LzoIndex.readIndex(result.getPath().getFileSystem(job.getConfiguration()), result.getPath());
+      indexes_.put(result.getPath(), index);
+    }
+
+=======
+>>>>>>> YOURS
+/home/taes/taes/projects/elephant-bird/revisions/rev_ad562ae_130cfc6/rev_ad562ae-130cfc6/src/java/com/twitter/elephantbird/pig/store/LzoTokenizedStorage.java;<<<<<<< MINE
+  /**
+   * Constructs a Pig storage object that uses the specified character as a field delimiter.
+   *
+   * @param delimiter the single byte character that is used to separate fields.
+   *        Examples are ':', '\t', or '\u0001'.
+   */
+=======
+>>>>>>> YOURS
+/home/taes/taes/projects/elephant-bird/revisions/rev_ad562ae_130cfc6/rev_ad562ae-130cfc6/src/java/com/twitter/elephantbird/pig/load/LzoTokenizedLoader.java;<<<<<<< MINE
+  /**
+   * Constructs a Pig loader that uses specified character as a field delimiter.
+   *
+   * @param delimiter the single byte character that is used to separate fields.
+   *        examples are ':', '\t', or '\u0001'
+   */
+=======
+>>>>>>> YOURS
+/home/taes/taes/projects/ribbon/revisions/rev_7620032_42c3e4c/rev_7620032-42c3e4c/ribbon-httpclient/src/test/java/com/netflix/niws/client/http/RestClientTest.java;<<<<<<< MINE
+        expected.add(new URI("http://www.microsoft.com:80/"));
+        expected.add(new URI("http://www.yahoo.com:80/"));
+=======
+>>>>>>> YOURS
+/home/taes/taes/projects/elephant-bird/revisions/rev_b784885_342f336/rev_b784885-342f336/src/java/com/twitter/elephantbird/pig/util/PigToThrift.java;<<<<<<< MINE
+    @SuppressWarnings("rawtypes")
+=======
+>>>>>>> YOURS
+/home/taes/taes/projects/elephant-bird/revisions/rev_b784885_342f336/rev_b784885-342f336/src/java/com/twitter/elephantbird/pig/load/LzoThriftB64LinePigLoader.java;<<<<<<< MINE
+    thriftToPig_ =  ThriftToPig.newInstance(typeRef_);
+=======
+>>>>>>> YOURS
+/home/taes/taes/projects/archaius/revisions/rev_1ad0c78_5296b30/rev_1ad0c78-5296b30/archaius-core/src/main/java/com/netflix/config/DynamicStringSetProperty.java;<<<<<<< MINE
+ *
+=======
+>>>>>>> YOURS

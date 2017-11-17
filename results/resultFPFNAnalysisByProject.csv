@@ -1,0 +1,10 @@
+project;mergeScenarios;fpOrderingMergeScenarios;fpRenamingMergeScenarios;fnDuplicationMergeScenarios;fnImportMergeScenarios;textualConfUnmerge;textualConfSsmerge;fpOrderingConf;fpRenamingConf;fnDuplicationMissed;fnImportMissed;fpRenamingConfDup;fpConsLines;fpSpacing;fpConsSpac;fpRenamingConfDupMergeScenarios;fpConsLinesMergeScenarios;fpSpacingMergeScenarios;fpConsSpacMergeScenarios;fnNewArtRefOldOneMergeScnarios;fnNewArtRefOldOneConf;fnInitializationBlocks;fnInitializationBlocksMergeScnarios;minfpam;minfpamScenarios;fnAcidental;fnAcidentalScenarios;crosscutingConflicts;crosscutingScenarios;equalConfs
+atlas;85;6;1;1;0;107;15;53;1;1;0;0;5;141;1;0;4;5;1;0;0;0;0;13;10;41;5;28;5;12
+jodd;99;2;0;0;0;42;0;30;0;0;0;0;0;129;0;0;0;4;0;0;0;0;0;0;0;12;5;9;3;0
+zuul;70;0;0;0;0;0;0;0;0;0;0;0;0;0;0;0;0;0;0;0;0;0;0;0;0;0;0;0;0;0
+elephant-bird;375;22;15;1;0;627;94;311;59;3;0;7;4;566;1;1;4;14;1;0;0;1;1;32;15;239;24;137;23;14
+curator;153;1;1;0;0;22;8;4;6;0;0;0;1;4;0;0;1;2;0;0;0;0;0;2;2;15;4;11;3;2
+archaius;180;4;0;0;0;9;0;5;0;0;0;0;0;9;0;0;0;2;0;0;0;0;0;0;0;4;2;3;2;0
+ribbon;227;7;6;1;0;97;35;32;16;7;0;0;1;31;0;0;1;3;0;1;2;0;0;12;4;36;6;25;5;3
+retrofit;581;2;2;0;0;53;13;22;5;0;0;0;3;4;0;0;1;2;0;0;0;0;0;8;2;19;2;11;2;6
+liferay-plugins;14;3;0;0;0;12;0;10;0;0;0;0;0;0;0;0;0;0;0;0;0;0;0;0;0;2;2;2;2;0

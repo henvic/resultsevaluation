@@ -1,0 +1,163 @@
+/home/taes/taes//projects/elephant-bird/revisions/rev_b87762a_3125301/rev_b87762a-3125301;/src/java/com/twitter/elephantbird/pig/load/HBaseLoader;populateValidOptions();;private static void populateValidOptions() { 
+    validOptions_.addOption("loadKey", false, "Load Key");
+    validOptions_.addOption("gt", true, "Records must be greater than this value (binary, double-slash-escaped)");
+    validOptions_.addOption("lt", true, "Records must be less than this value (binary, double-slash-escaped)");   
+    validOptions_.addOption("gte", true, "Records must be greater than or equal to this value");
+    validOptions_.addOption("lte", true, "Records must be less than or equal to this value");
+    validOptions_.addOption("caching", true, "Number of rows scanners should cache");
+    validOptions_.addOption("limit", true, "Per-region limit");
+  };private static void populateValidOptions() {
+    validOptions_.addOption("loadKey", false, "Load Key");
+    validOptions_.addOption("gt", true, "Records must be greater than this value (binary, double-slash-escaped)");
+    validOptions_.addOption("lt", true, "Records must be less than this value (binary, double-slash-escaped)");
+    validOptions_.addOption("gte", true, "Records must be greater than or equal to this value");
+    validOptions_.addOption("lte", true, "Records must be less than or equal to this value");
+    validOptions_.addOption("caching", true, "Number of rows scanners should cache");
+    validOptions_.addOption("limit", true, "Per-region limit");
+  }
+/home/taes/taes//projects/elephant-bird/revisions/rev_b87762a_3125301/rev_b87762a-3125301;/src/java/com/twitter/elephantbird/pig/load/HBaseLoader;ensureTable(String);;private void ensureTable(String tablename) throws IOException {
+    LOG.info("tablename: " + tablename);
+
+    // We're looking for the right scheme here (actually, we don't
+    // care what the scheme is as long as it is one and it's
+    // different from hdfs and file. If the user specified to use
+    // the multiquery feature and did not specify a scheme we will
+    // have transformed it to an absolute path. In that case we'll
+    // take the last component and guess that's what was
+    // meant. We'll print a warning in that case.
+    int index;
+    if(-1 != (index = tablename.indexOf("://"))) {
+      if (tablename.startsWith("hdfs:") 
+          || tablename.startsWith("file:")) {
+        index = tablename.lastIndexOf("/");
+        if (-1 == index) {
+          index = tablename.lastIndexOf("\\");
+        }
+
+        if (-1 == index) {
+          throw new IOException("Got tablename: "+tablename
+              +". Either turn off multiquery (-no_multiquery)"
+              +" or specify load path as \"hbase://<tablename>\".");
+        } else {
+          String in = tablename;
+          tablename = tablename.substring(index+1);
+          LOG.warn("Got tablename: "+in+" Assuming you meant table: "
+              +tablename+". Either turn off multiquery (-no_multiquery) "
+              +"or specify load path as \"hbase://<tablename>\" "
+              +"to avoid this warning.");
+        }
+      } else {
+        tablename = tablename.substring(index+3);
+      }
+    }
+
+    if (table_ == null) {
+      table_ = new HTable(conf_, tablename);
+    }
+  };private void ensureTable(String tablename) throws IOException {
+    LOG.info("tablename: " + tablename);
+
+    // We're looking for the right scheme here (actually, we don't
+    // care what the scheme is as long as it is one and it's
+    // different from hdfs and file. If the user specified to use
+    // the multiquery feature and did not specify a scheme we will
+    // have transformed it to an absolute path. In that case we'll
+    // take the last component and guess that's what was
+    // meant. We'll print a warning in that case.
+    int index;
+    if(-1 != (index = tablename.indexOf("://"))) {
+      if (tablename.startsWith("hdfs:")
+          || tablename.startsWith("file:")) {
+        index = tablename.lastIndexOf("/");
+        if (-1 == index) {
+          index = tablename.lastIndexOf("\\");
+        }
+
+        if (-1 == index) {
+          throw new IOException("Got tablename: "+tablename
+              +". Either turn off multiquery (-no_multiquery)"
+              +" or specify load path as \"hbase://<tablename>\".");
+        } else {
+          String in = tablename;
+          tablename = tablename.substring(index+1);
+          LOG.warn("Got tablename: "+in+" Assuming you meant table: "
+              +tablename+". Either turn off multiquery (-no_multiquery) "
+              +"or specify load path as \"hbase://<tablename>\" "
+              +"to avoid this warning.");
+        }
+      } else {
+        tablename = tablename.substring(index+3);
+      }
+    }
+
+    if (table_ == null) {
+      table_ = new HTable(conf_, tablename);
+    }
+  }
+/home/taes/taes//projects/elephant-bird/revisions/rev_b87762a_3125301/rev_b87762a-3125301;/src/java/com/twitter/elephantbird/pig/load/HBaseLoader;bytesToCharArray(byte[]);;@Override
+  public String bytesToCharArray(byte[] b) throws IOException {
+    return Bytes.toString(b);    
+  };@Override
+  public String bytesToCharArray(byte[] b) throws IOException {
+    return Bytes.toString(b);
+  }
+/home/taes/taes//projects/elephant-bird/revisions/rev_b87762a_3125301/rev_b87762a-3125301;/src/java/com/twitter/elephantbird/pig/load/HBaseLoader;bytesToDouble(byte[]);;@Override
+  public Double bytesToDouble(byte[] b) throws IOException {
+    if (Bytes.SIZEOF_DOUBLE > b.length){ 
+      return Bytes.toDouble(Bytes.padHead(b, Bytes.SIZEOF_DOUBLE - b.length));
+    } else {
+      return Bytes.toDouble(Bytes.head(b, Bytes.SIZEOF_DOUBLE));
+    }
+  };@Override
+  public Double bytesToDouble(byte[] b) throws IOException {
+    if (Bytes.SIZEOF_DOUBLE > b.length){
+      return Bytes.toDouble(Bytes.padHead(b, Bytes.SIZEOF_DOUBLE - b.length));
+    } else {
+      return Bytes.toDouble(Bytes.head(b, Bytes.SIZEOF_DOUBLE));
+    }
+  }
+/home/taes/taes//projects/elephant-bird/revisions/rev_b87762a_3125301/rev_b87762a-3125301;/src/java/com/twitter/elephantbird/pig/load/HBaseLoader;bytesToFloat(byte[]);;@Override
+  public Float bytesToFloat(byte[] b) throws IOException {
+    if (Bytes.SIZEOF_FLOAT > b.length){ 
+      return Bytes.toFloat(Bytes.padHead(b, Bytes.SIZEOF_FLOAT - b.length));
+    } else {
+      return Bytes.toFloat(Bytes.head(b, Bytes.SIZEOF_FLOAT));
+    }
+  };@Override
+  public Float bytesToFloat(byte[] b) throws IOException {
+    if (Bytes.SIZEOF_FLOAT > b.length){
+      return Bytes.toFloat(Bytes.padHead(b, Bytes.SIZEOF_FLOAT - b.length));
+    } else {
+      return Bytes.toFloat(Bytes.head(b, Bytes.SIZEOF_FLOAT));
+    }
+  }
+/home/taes/taes//projects/elephant-bird/revisions/rev_b87762a_3125301/rev_b87762a-3125301;/src/java/com/twitter/elephantbird/pig/load/HBaseLoader;bytesToInteger(byte[]);;@Override
+  public Integer bytesToInteger(byte[] b) throws IOException {
+    if (Bytes.SIZEOF_INT > b.length){ 
+      return Bytes.toInt(Bytes.padHead(b, Bytes.SIZEOF_INT - b.length));
+    } else {
+      return Bytes.toInt(Bytes.head(b, Bytes.SIZEOF_INT));
+    }
+  };@Override
+  public Integer bytesToInteger(byte[] b) throws IOException {
+    if (Bytes.SIZEOF_INT > b.length){
+      return Bytes.toInt(Bytes.padHead(b, Bytes.SIZEOF_INT - b.length));
+    } else {
+      return Bytes.toInt(Bytes.head(b, Bytes.SIZEOF_INT));
+    }
+  }
+/home/taes/taes//projects/elephant-bird/revisions/rev_b87762a_3125301/rev_b87762a-3125301;/src/java/com/twitter/elephantbird/pig/load/HBaseLoader;bytesToLong(byte[]);;@Override
+  public Long bytesToLong(byte[] b) throws IOException {
+    if (Bytes.SIZEOF_LONG > b.length){ 
+      return Bytes.toLong(Bytes.padHead(b, Bytes.SIZEOF_LONG - b.length));
+    } else {
+      return Bytes.toLong(Bytes.head(b, Bytes.SIZEOF_LONG));
+    }
+  };@Override
+  public Long bytesToLong(byte[] b) throws IOException {
+    if (Bytes.SIZEOF_LONG > b.length){
+      return Bytes.toLong(Bytes.padHead(b, Bytes.SIZEOF_LONG - b.length));
+    } else {
+      return Bytes.toLong(Bytes.head(b, Bytes.SIZEOF_LONG));
+    }
+  }

@@ -1,0 +1,16 @@
+revision;file;methodsignature;leftbody;basebody;rightbody
+/home/taes/taes//projects/atlas/revisions/rev_c2e9822_9b24b0d/rev_c2e9822-9b24b0d;/atlas-gradle-plugin/atlas-plugin/src/main/java/com/taobao/android/builder/tasks/app/manifest/PostProcessManifestTask;execute(PostProcessManifestTask);            postProcessManifestsTask.bunldeBaseInfoFile = new File(variantContext.getScope()
+                                                                       .getGlobalScope()
+                                                                       .getProject()
+                                                                       .getProjectDir(),;            postProcessManifestsTask.bunldeBaseInfoFile = new File(variantContext.getScope()
+                                                                           .getGlobalScope()
+                                                                           .getProject()
+                                                                           .getProjectDir(),;            postProcessManifestsTask.bundleBaseInfoFile = new File(variantContext.getScope()
+                                                                           .getGlobalScope()
+                                                                           .getProject()
+                                                                           .getProjectDir(),
+/home/taes/taes//projects/elephant-bird/revisions/rev_27ceb0c_4353485/rev_27ceb0c-4353485;/src/java/com/twitter/elephantbird/mapreduce/io/BinaryBlockWriter;BinaryBlockWriter(OutputStream,Class<M>,BinaryConverter<M>,int);    innerClass_ = protoClass;
+    binaryConverter_ = binaryConverter;;    protobufClass_ = protoClass;
+    protoConverter_ = protoConverter;
+    ;    protobufClass_ = protoClass;
+    protoConverter_ = protoConverter;
